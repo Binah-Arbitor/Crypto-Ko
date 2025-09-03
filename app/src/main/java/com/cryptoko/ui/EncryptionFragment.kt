@@ -151,8 +151,11 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun updateFileDisplay(uri: Uri) {
-        val fileName = getFileName(uri)
-        filePathText.text = fileName ?: "Selected file"
+        val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri)
+        val fileSize = com.cryptoko.utils.FileUtils.getFileSize(requireContext(), uri)
+        val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(fileSize)
+        
+        filePathText.text = "${fileName ?: "Selected file"} ($formattedSize)"
         fileCard.visibility = View.VISIBLE
     }
     
@@ -314,20 +317,10 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun getFilePathFromUri(uri: Uri): String? {
-        // For simplicity, we'll use the content resolver to copy the file to internal storage
-        // In a real app, you'd want to handle this more efficiently
+        // Use improved file utilities for better handling
         return try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val fileName = getFileName(uri) ?: "temp_file"
-            val internalFile = java.io.File(requireContext().cacheDir, fileName)
-            
-            inputStream?.use { input ->
-                internalFile.outputStream().use { output ->
-                    input.copyTo(output)
-                }
-            }
-            
-            internalFile.absolutePath
+            val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri) ?: "temp_file"
+            com.cryptoko.utils.FileUtils.copyUriToInternalStorage(requireContext(), uri, fileName)
         } catch (e: Exception) {
             showError("Failed to access file: ${e.message}")
             null

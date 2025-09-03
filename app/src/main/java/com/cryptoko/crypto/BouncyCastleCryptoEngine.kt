@@ -1,5 +1,6 @@
 package com.cryptoko.crypto
 
+import com.cryptoko.utils.KeyDerivation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.bouncycastle.jce.provider.BouncyCastleProvider
@@ -12,11 +13,10 @@ import javax.crypto.CipherOutputStream
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
-import kotlin.math.min
 
 /**
- * Implementation of CryptoEngine using Bouncy Castle provider
- * Supports all OpenSSL symmetric encryption algorithms
+ * Enhanced implementation of CryptoEngine using Bouncy Castle provider
+ * Features improved key derivation and security measures
  */
 class BouncyCastleCryptoEngine : CryptoEngine {
     
@@ -24,6 +24,7 @@ class BouncyCastleCryptoEngine : CryptoEngine {
         private const val BUFFER_SIZE = 8192
         private const val IV_SIZE = 16
         private const val GCM_TAG_LENGTH = 16
+        private const val SALT_SIZE = 16
         
         init {
             // Add Bouncy Castle provider for additional algorithms
@@ -52,8 +53,12 @@ class BouncyCastleCryptoEngine : CryptoEngine {
             
             progressCallback(CryptoResult.Progress(0, "Initializing encryption..."))
             
-            // Generate key from password
-            val key = generateKey(config.password, config.algorithm)
+            // Generate salt and derive key using PBKDF2
+            val (key, salt) = KeyDerivation.deriveKey(
+                password = config.password,
+                keyLength = config.algorithm.keySize / 8
+            )
+            
             val cipher = createCipher(config.algorithm, config.mode, key, true)
             
             // Generate IV for block ciphers
@@ -71,7 +76,8 @@ class BouncyCastleCryptoEngine : CryptoEngine {
             
             FileInputStream(inputFile).use { fis ->
                 FileOutputStream(outputFile).use { fos ->
-                    // Write IV to the beginning of the file if needed
+                    // Write metadata header: salt + IV (if needed)
+                    fos.write(salt)
                     if (iv != null) {
                         fos.write(iv)
                     }
@@ -91,6 +97,10 @@ class BouncyCastleCryptoEngine : CryptoEngine {
                     }
                 }
             }
+            
+            // Clear sensitive data
+            KeyDerivation.clearByteArray(salt)
+            iv?.let { KeyDerivation.clearByteArray(it) }
             
             progressCallback(CryptoResult.Progress(100, "Encryption completed"))
             CryptoResult.Success("File encrypted successfully to ${outputFile.absolutePath}")
@@ -119,27 +129,36 @@ class BouncyCastleCryptoEngine : CryptoEngine {
             
             progressCallback(CryptoResult.Progress(0, "Initializing decryption..."))
             
-            // Generate key from password
-            val key = generateKey(config.password, config.algorithm)
-            val cipher = createCipher(config.algorithm, config.mode, key, false)
-            
-            progressCallback(CryptoResult.Progress(5, "Starting decryption..."))
-            
             FileInputStream(inputFile).use { fis ->
+                // Read salt from file
+                val salt = ByteArray(SALT_SIZE)
+                fis.read(salt)
+                
+                // Derive key using same salt
+                val (key, _) = KeyDerivation.deriveKey(
+                    password = config.password,
+                    salt = salt,
+                    keyLength = config.algorithm.keySize / 8
+                )
+                
+                val cipher = createCipher(config.algorithm, config.mode, key, false)
+                
+                // Read IV from file if needed
+                val iv = if (needsIV(config.algorithm, config.mode)) {
+                    val ivBytes = ByteArray(config.algorithm.blockSize)
+                    fis.read(ivBytes)
+                    ivBytes
+                } else null
+                
+                if (iv != null) {
+                    initializeCipher(cipher, Cipher.DECRYPT_MODE, key, config.mode, iv)
+                } else {
+                    cipher.init(Cipher.DECRYPT_MODE, key)
+                }
+                
+                progressCallback(CryptoResult.Progress(5, "Starting decryption..."))
+                
                 FileOutputStream(outputFile).use { fos ->
-                    // Read IV from the beginning of the file if needed
-                    val iv = if (needsIV(config.algorithm, config.mode)) {
-                        val ivBytes = ByteArray(config.algorithm.blockSize)
-                        fis.read(ivBytes)
-                        ivBytes
-                    } else null
-                    
-                    if (iv != null) {
-                        initializeCipher(cipher, Cipher.DECRYPT_MODE, key, config.mode, iv)
-                    } else {
-                        cipher.init(Cipher.DECRYPT_MODE, key)
-                    }
-                    
                     CipherInputStream(fis, cipher).use { cis ->
                         val buffer = ByteArray(BUFFER_SIZE)
                         var totalRead = 0L
@@ -154,6 +173,10 @@ class BouncyCastleCryptoEngine : CryptoEngine {
                         }
                     }
                 }
+                
+                // Clear sensitive data
+                KeyDerivation.clearByteArray(salt)
+                iv?.let { KeyDerivation.clearByteArray(it) }
             }
             
             progressCallback(CryptoResult.Progress(100, "Decryption completed"))
@@ -166,24 +189,12 @@ class BouncyCastleCryptoEngine : CryptoEngine {
     
     override fun isSupported(algorithm: CipherAlgorithm, mode: String): Boolean {
         return try {
-            createCipher(algorithm, mode, generateKey("test", algorithm), true)
+            val (testKey, _) = KeyDerivation.deriveKey("test", keyLength = algorithm.keySize / 8)
+            createCipher(algorithm, mode, testKey, true)
             true
         } catch (e: Exception) {
             false
         }
-    }
-    
-    private fun generateKey(password: String, algorithm: CipherAlgorithm): SecretKeySpec {
-        val keyBytes = password.toByteArray(Charsets.UTF_8)
-        val keySize = algorithm.keySize / 8
-        
-        // Simple key derivation - in production, use PBKDF2 or similar
-        val derivedKey = ByteArray(keySize)
-        for (i in derivedKey.indices) {
-            derivedKey[i] = keyBytes[i % keyBytes.size]
-        }
-        
-        return SecretKeySpec(derivedKey, algorithm.algorithmName)
     }
     
     private fun createCipher(

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.cryptoko.ui.AboutFragment
 import com.cryptoko.ui.EncryptionFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -66,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_about -> {
-                    // TODO: Implement about fragment
+                    loadFragment(AboutFragment())
                     true
                 }
                 else -> false
