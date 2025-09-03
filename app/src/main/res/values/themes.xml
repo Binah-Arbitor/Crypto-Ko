@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- GitHub inspired theme -->
+    <style name="Theme.CryptoKo" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/github_blue</item>
+        <item name="colorOnPrimary">@color/github_text_primary</item>
+        <item name="colorPrimaryContainer">@color/github_dark_surface_variant</item>
+        <item name="colorOnPrimaryContainer">@color/github_text_primary</item>
+        
+        <item name="colorSecondary">@color/github_green</item>
+        <item name="colorOnSecondary">@color/github_dark_bg</item>
+        <item name="colorSecondaryContainer">@color/github_dark_surface</item>
+        <item name="colorOnSecondaryContainer">@color/github_text_primary</item>
+        
+        <item name="colorTertiary">@color/github_purple</item>
+        <item name="colorOnTertiary">@color/github_dark_bg</item>
+        
+        <item name="colorError">@color/github_red</item>
+        <item name="colorOnError">@color/github_text_primary</item>
+        
+        <item name="colorSurface">@color/github_dark_surface</item>
+        <item name="colorOnSurface">@color/github_text_primary</item>
+        <item name="colorSurfaceVariant">@color/github_dark_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/github_text_secondary</item>
+        
+        <item name="colorBackground">@color/github_dark_bg</item>
+        <item name="colorOnBackground">@color/github_text_primary</item>
+        
+        <item name="colorOutline">@color/github_border</item>
+        
+        <item name="android:statusBarColor">@color/github_dark_bg</item>
+        <item name="android:navigationBarColor">@color/github_dark_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.Button" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/github_blue</item>
+        <item name="android:textColor">@color/github_text_primary</item>
+        <item name="cornerRadius">6dp</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/github_border</item>
+        <item name="android:textColor">@color/github_text_primary</item>
+        <item name="cornerRadius">6dp</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/github_dark_surface</item>
+        <item name="strokeColor">@color/github_border</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardCornerRadius">6dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/github_border</item>
+        <item name="android:textColorHint">@color/github_text_secondary</item>
+        <item name="hintTextColor">@color/github_text_secondary</item>
+    </style>
+</resources>
