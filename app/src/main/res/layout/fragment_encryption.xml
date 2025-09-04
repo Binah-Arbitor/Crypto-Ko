@@ -134,7 +134,54 @@
                     android:id="@+id/mode_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/spinner_background" />
+
+                <!-- Thread Count Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thread Count (Multithreading)"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <SeekBar
+                        android:id="@+id/thread_count_seekbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:max="15"
+                        android:progress="3"
+                        android:layout_marginEnd="16dp" />
+
+                    <TextView
+                        android:id="@+id/thread_count_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:minWidth="32dp"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/thread_info_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Multithreading available for ECB, CTR, OFB, GCM modes"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="8dp" />
 
             </LinearLayout>
 

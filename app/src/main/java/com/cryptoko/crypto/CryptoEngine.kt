@@ -6,7 +6,14 @@ package com.cryptoko.crypto
 sealed class CryptoResult {
     data class Success(val message: String) : CryptoResult()
     data class Error(val error: String, val exception: Throwable? = null) : CryptoResult()
-    data class Progress(val percentage: Int, val message: String = "") : CryptoResult()
+    data class Progress(
+        val percentage: Int, 
+        val message: String = "",
+        val currentBlock: Int = 0,
+        val totalBlocks: Int = 0,
+        val bytesProcessed: Long = 0,
+        val totalBytes: Long = 0
+    ) : CryptoResult()
 }
 
 /**
@@ -17,7 +24,9 @@ data class CryptoConfig(
     val mode: String,
     val password: String,
     val inputFile: String,
-    val outputFile: String? = null
+    val outputFile: String? = null,
+    val threadCount: Int = 1,
+    val enableMultithreading: Boolean = true
 ) {
     fun validate(): CryptoResult? {
         if (password.isEmpty()) {
@@ -26,7 +35,22 @@ data class CryptoConfig(
         if (!algorithm.supportedModes.contains(mode)) {
             return CryptoResult.Error("Mode $mode is not supported for algorithm ${algorithm.name}")
         }
+        if (threadCount < 1) {
+            return CryptoResult.Error("Thread count must be at least 1")
+        }
         return null
+    }
+    
+    /**
+     * Check if the algorithm/mode combination supports multithreading
+     */
+    fun supportsMultithreading(): Boolean {
+        return enableMultithreading && threadCount > 1 && when (mode) {
+            "ECB", "CTR", "OFB", "GCM" -> true
+            "CBC", "CFB" -> false  // Sequential dependency
+            "NONE" -> algorithm.algorithmName != "RC4" && algorithm.algorithmName != "ChaCha20"  // Stream ciphers are sequential
+            else -> false
+        }
     }
 }
 
