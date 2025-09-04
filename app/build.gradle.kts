@@ -1,6 +1,5 @@
-import java.util.Properties
-import java.util.FileInputStream
-import java.io.File
+import java.util.*
+import java.io.*
 
 plugins {
     id("com.android.application")
