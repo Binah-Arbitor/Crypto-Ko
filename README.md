@@ -10,17 +10,26 @@ A powerful, extensible Android encryption/decryption application built with Kotl
 - **Secure Implementation**: Uses Bouncy Castle cryptographic provider
 - **File-based Operations**: Encrypt/decrypt any file type
 
+### ⚡ High-Performance Multithreading
+- **Intelligent Thread Management**: Up to 2x CPU core count with user adjustment
+- **Algorithm-Aware Processing**: Automatic detection of parallelizable modes
+- **Block-Based Progress Tracking**: Real-time progress with block and byte information
+- **Adaptive Chunking**: Smart file splitting for optimal performance
+- **Thread-Safe Operations**: Secure coordination of parallel encryption/decryption
+
 ### 🎨 GitHub-Inspired UI
 - **Dark Theme**: Authentic GitHub color scheme and styling
 - **Material Design 3**: Modern Android design patterns
 - **Intuitive Interface**: Clean, developer-friendly layout
-- **Progress Indicators**: Real-time operation feedback
+- **Enhanced Progress Indicators**: Real-time operation feedback with multithreading status
+- **Thread Count Control**: Interactive seekbar for performance tuning
 
 ### 🏗️ Extensible Architecture
 - **Modular Design**: Clean separation of concerns
-- **Future-Ready**: Built for multithreading and additional features
+- **Multithreaded Engine**: Built-in support for parallel processing
 - **Interface-Based**: Easy to extend with new crypto engines
 - **Coroutines Support**: Async operations with proper lifecycle management
+- **Configuration System**: Persistent settings for algorithms, modes, and threading
 
 ### 🔒 Security & Safety
 - **Memory Safety**: Secure key handling and disposal
@@ -44,18 +53,25 @@ com.cryptoko/
 
 ## Supported Algorithms & Modes
 
-| Algorithm | Key Size | Supported Modes |
-|-----------|----------|----------------|
-| AES-128   | 128-bit  | CBC, CFB, OFB, ECB, GCM, CTR |
-| AES-192   | 192-bit  | CBC, CFB, OFB, ECB, GCM, CTR |
-| AES-256   | 256-bit  | CBC, CFB, OFB, ECB, GCM, CTR |
-| DES       | 56-bit   | CBC, CFB, OFB, ECB |
-| 3DES      | 168-bit  | CBC, CFB, OFB, ECB |
-| Blowfish  | 128-bit  | CBC, CFB, OFB, ECB |
-| Twofish   | 256-bit  | CBC, CFB, OFB, ECB |
-| RC4       | 128-bit  | Stream |
-| ChaCha20  | 256-bit  | Stream |
-| Camellia  | 128/192/256-bit | CBC, CFB, OFB, ECB |
+| Algorithm | Key Size | Supported Modes | Multithreading Support |
+|-----------|----------|----------------|-----------------------|
+| AES-128   | 128-bit  | CBC, CFB, OFB, ECB, GCM, CTR | ECB, CTR, OFB, GCM |
+| AES-192   | 192-bit  | CBC, CFB, OFB, ECB, GCM, CTR | ECB, CTR, OFB, GCM |
+| AES-256   | 256-bit  | CBC, CFB, OFB, ECB, GCM, CTR | ECB, CTR, OFB, GCM |
+| DES       | 56-bit   | CBC, CFB, OFB, ECB | ECB, OFB |
+| 3DES      | 168-bit  | CBC, CFB, OFB, ECB | ECB, OFB |
+| Blowfish  | 128-bit  | CBC, CFB, OFB, ECB | ECB, OFB |
+| Twofish   | 256-bit  | CBC, CFB, OFB, ECB | ECB, OFB |
+| RC4       | 128-bit  | Stream | Single-threaded only |
+| ChaCha20  | 256-bit  | Stream | Single-threaded only |
+| Camellia  | 128/192/256-bit | CBC, CFB, OFB, ECB | ECB, OFB |
+
+### Multithreading Notes
+- **Parallelizable modes**: ECB, CTR, OFB, GCM can utilize multiple CPU cores
+- **Sequential modes**: CBC, CFB require single-threaded processing due to block dependencies
+- **Stream ciphers**: RC4, ChaCha20 are inherently sequential
+- **Thread count**: User-adjustable from 1 to 2x CPU core count (max 16 threads)
+- **Minimum chunk size**: 64KB per thread for effective parallelization
 
 ## Building the App
 
