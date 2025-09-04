@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.cryptoko.R
 import com.cryptoko.crypto.*
+import com.cryptoko.utils.AppConfig
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,6 +29,9 @@ class EncryptionFragment : Fragment() {
     private lateinit var selectFileButton: MaterialButton
     private lateinit var algorithmSpinner: Spinner
     private lateinit var modeSpinner: Spinner
+    private lateinit var threadCountSeekBar: SeekBar
+    private lateinit var threadCountText: TextView
+    private lateinit var threadInfoText: TextView
     private lateinit var passwordLayout: TextInputLayout
     private lateinit var passwordEdit: TextInputEditText
     private lateinit var confirmPasswordLayout: TextInputLayout
@@ -64,6 +68,7 @@ class EncryptionFragment : Fragment() {
         
         initializeViews(view)
         setupSpinners()
+        setupThreadControls()
         setupClickListeners()
     }
     
@@ -73,6 +78,9 @@ class EncryptionFragment : Fragment() {
         selectFileButton = view.findViewById(R.id.select_file_button)
         algorithmSpinner = view.findViewById(R.id.algorithm_spinner)
         modeSpinner = view.findViewById(R.id.mode_spinner)
+        threadCountSeekBar = view.findViewById(R.id.thread_count_seekbar)
+        threadCountText = view.findViewById(R.id.thread_count_text)
+        threadInfoText = view.findViewById(R.id.thread_info_text)
         passwordLayout = view.findViewById(R.id.password_layout)
         passwordEdit = view.findViewById(R.id.password_edit)
         confirmPasswordLayout = view.findViewById(R.id.confirm_password_layout)
@@ -126,6 +134,55 @@ class EncryptionFragment : Fragment() {
                 modeSpinner.setSelection(cbcIndex)
             }
         }
+    }
+    
+    private fun setupThreadControls() {
+        // Initialize with default thread count
+        val maxThreads = AppConfig.getMaxThreadCount()
+        val defaultThreads = AppConfig.getDefaultThreadCount()
+        
+        threadCountSeekBar.max = maxThreads - 1
+        threadCountSeekBar.progress = defaultThreads - 1
+        threadCountText.text = defaultThreads.toString()
+        
+        threadCountSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                val threadCount = progress + 1
+                threadCountText.text = threadCount.toString()
+                updateThreadInfo()
+            }
+            
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        
+        // Update info text when mode changes
+        modeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                updateThreadInfo()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        
+        updateThreadInfo()
+    }
+    
+    private fun updateThreadInfo() {
+        val mode = modeSpinner.selectedItem as? String ?: ""
+        val threadCount = threadCountSeekBar.progress + 1
+        
+        val supportsMultithreading = when (mode) {
+            "ECB", "CTR", "OFB", "GCM" -> true
+            else -> false
+        }
+        
+        val infoText = if (supportsMultithreading) {
+            "✅ Multithreading available for $mode mode ($threadCount threads)"
+        } else {
+            "⚠️ $mode mode uses single-threaded processing"
+        }
+        
+        threadInfoText.text = infoText
     }
     
     private fun setupClickListeners() {
@@ -206,7 +263,9 @@ class EncryptionFragment : Fragment() {
             mode = mode,
             password = password,
             inputFile = inputPath,
-            outputFile = outputPath
+            outputFile = outputPath,
+            threadCount = threadCountSeekBar.progress + 1,
+            enableMultithreading = true
         )
         
         startCryptoOperation(config, true)
@@ -232,7 +291,9 @@ class EncryptionFragment : Fragment() {
             mode = mode,
             password = password,
             inputFile = inputPath,
-            outputFile = outputPath
+            outputFile = outputPath,
+            threadCount = threadCountSeekBar.progress + 1,
+            enableMultithreading = true
         )
         
         startCryptoOperation(config, false)
@@ -265,7 +326,22 @@ class EncryptionFragment : Fragment() {
     
     private fun updateProgress(progress: CryptoResult.Progress) {
         progressIndicator.progress = progress.percentage
-        progressText.text = progress.message
+        
+        val messageBuilder = StringBuilder(progress.message)
+        
+        // Add block information if available
+        if (progress.totalBlocks > 0) {
+            messageBuilder.append("\nBlock ${progress.currentBlock}/${progress.totalBlocks}")
+        }
+        
+        // Add byte information if available
+        if (progress.totalBytes > 0) {
+            val mbProcessed = progress.bytesProcessed / (1024 * 1024)
+            val mbTotal = progress.totalBytes / (1024 * 1024)
+            messageBuilder.append("\n${mbProcessed}MB / ${mbTotal}MB")
+        }
+        
+        progressText.text = messageBuilder.toString()
     }
     
     private fun setOperationInProgress(inProgress: Boolean) {
