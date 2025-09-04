@@ -47,7 +47,7 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
       with:
-        api-level: 33
+        api-level: 34
         build-tools: 34.0.0
         cmake: 3.22.1
         ndk: 25.2.9519653
@@ -133,7 +133,7 @@ jobs:
         echo "### Build Configuration:" >> $GITHUB_STEP_SUMMARY
         echo "- **Gradle Version:** $(./gradlew --version | grep Gradle)" >> $GITHUB_STEP_SUMMARY
         echo "- **Java Version:** $(java --version | head -1)" >> $GITHUB_STEP_SUMMARY
-        echo "- **Android SDK:** API 33" >> $GITHUB_STEP_SUMMARY
+        echo "- **Android SDK:** API 34" >> $GITHUB_STEP_SUMMARY
         echo "- **Build Type:** ${{ github.event.inputs.build_type || 'debug' }}" >> $GITHUB_STEP_SUMMARY
         echo "### Build Status:" >> $GITHUB_STEP_SUMMARY
         echo "- **Workflow:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY

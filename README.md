@@ -77,7 +77,7 @@ com.cryptoko/
 
 ### Prerequisites
 - Android Studio Arctic Fox or later
-- Android SDK API 33
+- Android SDK API 34
 - Minimum SDK API 24 (Android 7.0)
 - Kotlin 1.9.10+
 

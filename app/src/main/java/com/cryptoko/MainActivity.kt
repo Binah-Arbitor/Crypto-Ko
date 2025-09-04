@@ -89,6 +89,9 @@ class MainActivity : AppCompatActivity() {
                     data = Uri.parse("package:$packageName")
                 }
                 manageStorageLauncher.launch(intent)
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // Android 13+ - also check for granular media permissions
+                checkMediaPermissions()
             }
         } else {
             // Android 10 and below - request READ/WRITE_EXTERNAL_STORAGE
@@ -107,10 +110,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
+    private fun checkMediaPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val mediaPermissions = arrayOf(
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_AUDIO
+            )
+            
+            val notGranted = mediaPermissions.filter {
+                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+            }
+            
+            if (notGranted.isNotEmpty()) {
+                storagePermissionLauncher.launch(notGranted.toTypedArray())
+            }
+        }
+    }
+    
     private fun showPermissionDialog() {
+        val message = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            "This app needs storage and media permissions to encrypt and decrypt files. Please grant all required permissions in app settings."
+        } else {
+            "This app needs storage permission to encrypt and decrypt files. Please grant the permission in app settings."
+        }
+        
         MaterialAlertDialogBuilder(this)
-            .setTitle("Storage Permission Required")
-            .setMessage("This app needs storage permission to encrypt and decrypt files. Please grant the permission in app settings.")
+            .setTitle("Permissions Required")
+            .setMessage(message)
             .setPositiveButton("Settings") { _, _ ->
                 val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.parse("package:$packageName")
