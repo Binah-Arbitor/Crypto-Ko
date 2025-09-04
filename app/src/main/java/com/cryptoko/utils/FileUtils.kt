@@ -111,7 +111,7 @@ object FileUtils {
         val file = File(originalPath)
         val nameWithoutExt = file.nameWithoutExtension
         val ext = file.extension
-        val algorithm_short = algorithm.replace("-", "").toLowerCase()
+        val algorithm_short = algorithm.replace("-", "").lowercase()
         
         return if (ext.isNotEmpty()) {
             "${file.parent}/${nameWithoutExt}_${algorithm_short}.${ext}.enc"
