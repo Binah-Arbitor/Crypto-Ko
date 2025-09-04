@@ -1,6 +1,6 @@
-name: Build Release APK with Signing (Enhanced Caching)
+name: Build Release APK (Enhanced Caching)
 
-# This workflow builds signed release APKs
+# This workflow builds unsigned release APKs
 on:
   push:
     tags:
@@ -18,7 +18,7 @@ env:
 
 jobs:
   release:
-    name: Build Signed Release APK
+    name: Build Release APK
     runs-on: ubuntu-latest
     timeout-minutes: 45
     
@@ -79,31 +79,10 @@ jobs:
     - name: Validate Gradle wrapper
       uses: gradle/wrapper-validation-action@v2
     
-    # Create keystore from secrets (if available)
-    - name: Setup Keystore
-      if: ${{ secrets.KEYSTORE_BASE64 != '' }}
-      env:
-        KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
-        KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-        KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-        KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-      run: |
-        echo "$KEYSTORE_BASE64" | base64 --decode > app/keystore.jks
-        echo "storeFile=keystore.jks" > keystore.properties
-        echo "storePassword=$KEYSTORE_PASSWORD" >> keystore.properties
-        echo "keyAlias=$KEY_ALIAS" >> keystore.properties
-        echo "keyPassword=$KEY_PASSWORD" >> keystore.properties
-    
     - name: Build Release APK
       run: ./gradlew assembleRelease --stacktrace --no-daemon
       env:
         GRADLE_OPTS: -Dorg.gradle.daemon=false -Xmx2g -Dorg.gradle.jvmargs=-Xmx2048m
-    
-    - name: Sign APK (if keystore available)
-      if: ${{ secrets.KEYSTORE_BASE64 != '' }}
-      run: |
-        echo "APK signed during build process"
-        find app/build/outputs/apk/release -name "*.apk" -exec ls -la {} \;
     
     - name: Rename APK with version
       run: |
@@ -120,7 +99,7 @@ jobs:
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: crypto-ko-release-signed-${{ github.run_number }}
+        name: crypto-ko-release-unsigned-${{ github.run_number }}
         path: app/build/outputs/apk/release/*.apk
         retention-days: 90
     
@@ -135,7 +114,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Cleanup Keystore
-      if: always()
-      run: |
-        rm -f app/keystore.jks keystore.properties || true
