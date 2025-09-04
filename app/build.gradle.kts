@@ -1,6 +1,3 @@
-import java.util.*
-import java.io.*
-
 plugins {
     id("com.android.application")
     id("kotlin-android")
