@@ -1,31 +1,28 @@
 # GitHub Actions Workflows for Crypto-Ko
 
-This directory contains GitHub Actions workflows for building, testing, and releasing the Crypto-Ko Android application.
+This directory contains optimized GitHub Actions workflows for building, testing, and releasing the Crypto-Ko Android application with enhanced caching and manual APK builds.
 
 ## Workflows
 
-### 1. `build-apk.yml` - Main APK Build Workflow
-**Purpose**: Builds debug and/or release APKs for the application.
+### 1. `build-apk.yml` - Manual APK Build Workflow
+**Purpose**: Builds debug and/or release APKs for the application (manual execution only for speed optimization).
 
 **Triggers**:
-- Push to `main` or `develop` branches
-- Pull requests to `main`
-- Manual dispatch with build type selection
+- Manual dispatch only (workflow_dispatch) with build type selection
 
 **Features**:
+- Manual-only execution for optimized build speed
+- Enhanced caching for Gradle dependencies and Android SDK
 - Uses GitHub Actions v4
-- Supports JDK 17 and Android SDK API 33
-- Gradle caching for faster builds
+- Supports JDK 17 and Android SDK API 34
+- Advanced Gradle and Android build caching
 - Configurable build type (debug, release, both)
 - Artifact upload with retention
 - Comprehensive build reporting
 
 **Usage**:
 ```bash
-# Automatic trigger on push/PR
-git push origin main
-
-# Manual trigger via GitHub UI:
+# Manual trigger via GitHub UI only:
 # Go to Actions tab → Build Android APK → Run workflow
 # Select build type: debug, release, or both
 ```
@@ -38,10 +35,12 @@ git push origin main
 - Manual dispatch
 
 **Features**:
+- Enhanced caching for faster builds (Gradle + Android SDK)
 - Automatic keystore setup from secrets
 - APK signing for release builds
 - GitHub Release creation with APK attachment
 - Extended artifact retention (90 days)
+- Optimized build performance
 
 **Setup Required**:
 Add these secrets in your GitHub repository settings:
@@ -76,16 +75,55 @@ git push origin v1.0.0
 
 ### System Requirements
 - **JDK**: 17 (Temurin distribution)
-- **Android SDK**: API 33
+- **Android SDK**: API 34
 - **Build Tools**: 34.0.0
 - **Gradle**: 8.3 (via wrapper)
 
 ### Build Configuration
 The workflows are configured to work with:
-- Target SDK: 33
+- Target SDK: 34
 - Minimum SDK: 24
 - Kotlin: 1.9.10
 - Android Gradle Plugin: 8.1.4
+
+## Caching Strategy
+
+The workflows now implement an enhanced caching strategy to optimize build speeds:
+
+### Gradle Caching
+- Gradle caches (`~/.gradle/caches`)
+- Gradle wrapper (`~/.gradle/wrapper`) 
+- Gradle daemon (`~/.gradle/daemon`)
+- Build cache (`~/.android/build-cache`)
+- Project-specific Gradle files
+
+### Android SDK Caching
+- Android SDK components (`$ANDROID_HOME`)
+- AVD configurations (`~/.android/avd/*`)
+- Build tools and platform tools
+
+### Cache Keys
+- **Debug/Release builds**: Uses enhanced keys based on Gradle files and properties
+- **Fallback strategy**: Multiple restore-keys for maximum cache hit rate
+- **SDK versioning**: Separate cache keys for different SDK versions
+
+## Manual Execution Strategy
+
+### Why Manual-Only APK Builds?
+
+The APK build workflows (`build-apk.yml` and `release.yml`) are configured for **manual execution only** to:
+
+1. **Optimize Build Speed**: Enhanced caching works best with manual triggers
+2. **Resource Efficiency**: Avoid unnecessary builds on every commit
+3. **Cost Control**: Reduce GitHub Actions minute usage
+4. **Quality Control**: Deliberate APK generation process
+
+### Automatic vs Manual Workflows
+
+- **Automatic (CI)**: `test.yml` - Runs tests and quality checks on push/PR
+- **Manual (APK Builds)**: `build-apk.yml` and `release.yml` - Manual APK generation only
+
+This separation ensures fast feedback for code quality while keeping APK builds optimized and intentional.
 
 ## Keystore Setup (for Release Builds)
 

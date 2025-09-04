@@ -1,11 +1,7 @@
-name: Build Android APK
+name: Build Android APK (Manual Only - Optimized)
 
-# Workflow triggers
+# Manual-only workflow triggers (optimized for speed with enhanced caching)
 on:
-  push:
-    branches: [ "main", "develop" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
     inputs:
       build_type:
@@ -56,17 +52,32 @@ jobs:
     - name: Accept Android SDK licenses
       run: yes | sdkmanager --licenses || true
     
-    # Cache Gradle dependencies
+    # Enhanced cache for Gradle dependencies and Android SDK components
     - name: Cache Gradle packages
       uses: actions/cache@v4
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
+          ~/.gradle/daemon
           ${{ github.workspace }}/.gradle
-        key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          ~/.android/build-cache
+        key: gradle-enhanced-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/gradle.properties') }}
         restore-keys: |
+          gradle-enhanced-${{ runner.os }}-
           gradle-${{ runner.os }}-
+    
+    # Cache Android SDK components for faster setup
+    - name: Cache Android SDK
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ env.ANDROID_HOME }}
+          ~/.android/avd/*
+        key: android-sdk-${{ runner.os }}-api34-build34.0.0
+        restore-keys: |
+          android-sdk-${{ runner.os }}-api34-
+          android-sdk-${{ runner.os }}-
     
     # Make gradlew executable
     - name: Make gradlew executable
