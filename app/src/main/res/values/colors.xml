@@ -27,6 +27,17 @@
     <color name="discord_yellow">#FAA61A</color>
     <color name="discord_red">#F04747</color>
     
+    <!-- Korean-inspired modern colors for app icon -->
+    <color name="korean_blue">#3366FF</color>
+    <color name="korean_blue_dark">#1F4EF5</color>
+    <color name="korean_blue_light">#6699FF</color>
+    <color name="korean_bg_primary">#F8F9FA</color>
+    <color name="korean_bg_secondary">#E9ECEF</color>
+    <color name="korean_accent">#FF6B35</color>
+    <color name="korean_success">#28A745</color>
+    <color name="korean_text">#212529</color>
+    <color name="korean_border">#DEE2E6</color>
+    
     <!-- Material Design fallbacks -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
