@@ -51,26 +51,27 @@ data class CipherAlgorithm(
         }
 
         /**
-         * Performance ranking of algorithms (higher number = better performance)
-         * Based on general cryptographic performance characteristics
+         * Security ranking of algorithms (higher number = better security)
+         * Based on cryptographic security strength and current standards
          */
-        private val ALGORITHM_PERFORMANCE_RANKING = mapOf(
-            "AES" to 10,        // Hardware acceleration available, widely optimized
-            "ChaCha20" to 9,    // Very fast stream cipher, designed for software performance
-            "Camellia" to 8,    // Similar to AES but generally slightly slower
-            "Blowfish" to 7,    // Fast for smaller block sizes but variable key setup time
-            "Twofish" to 6,     // Successor to Blowfish but more complex
-            "DESede" to 4,      // Triple DES, slower due to multiple rounds
-            "DES" to 2          // Oldest and slowest, deprecated
+        private val ALGORITHM_SECURITY_RANKING = mapOf(
+            "AES" to 10,        // Modern standard, excellent security with various key sizes
+            "ChaCha20" to 9,    // Modern stream cipher with excellent security properties
+            "Camellia" to 8,    // Similar security level to AES, approved by NESSIE
+            "Twofish" to 7,     // AES finalist, strong security design
+            "Blowfish" to 6,    // Older but still reasonably secure for most applications
+            "DESede" to 4,      // Triple DES, legacy but significantly better than DES
+            "RC4" to 3,         // Deprecated due to known vulnerabilities
+            "DES" to 2          // Broken encryption, should not be used
         )
 
         /**
          * Get unique base algorithm names (AES, DES, etc.) for separate selection
-         * Sorted by performance (best to worst)
+         * Sorted by security strength (best to worst)
          */
         fun getBaseAlgorithmNames(): List<String> {
             return ALL_ALGORITHMS.map { it.algorithmName }.distinct()
-                .sortedByDescending { ALGORITHM_PERFORMANCE_RANKING[it] ?: 0 }
+                .sortedByDescending { ALGORITHM_SECURITY_RANKING[it] ?: 0 }
         }
 
         /**
