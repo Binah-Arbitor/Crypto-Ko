@@ -4,93 +4,109 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
   
-  <!-- Central shield with modern design -->
+  <!-- Centered shield with improved balance -->
   <group android:translateX="54" android:translateY="54">
     
-    <!-- Outer glow/shadow effect -->
+    <!-- Outer glow/shadow effect - perfectly centered -->
     <path
         android:fillColor="@color/github_blue"
-        android:alpha="0.3"
-        android:pathData="M0,-32 L18,-22 L26,-4 L18,14 L0,24 L-18,14 L-26,-4 L-18,-22 Z"/>
+        android:alpha="0.2"
+        android:pathData="M0,-34 L20,-22 L28,-4 L20,14 L0,26 L-20,14 L-28,-4 L-20,-22 Z"/>
     
-    <!-- Main shield shape -->
+    <!-- Main shield shape - symmetric -->
     <path
         android:fillColor="@color/github_blue"
-        android:pathData="M0,-28 L16,-20 L22,-4 L16,12 L0,20 L-16,12 L-22,-4 L-16,-20 Z"/>
+        android:pathData="M0,-30 L18,-20 L24,-4 L18,12 L0,22 L-18,12 L-24,-4 L-18,-20 Z"/>
     
     <!-- Inner shield highlight -->
     <path
         android:fillColor="@color/github_blue_light"
-        android:pathData="M0,-24 L14,-17 L18,-3 L14,10 L0,16 L-14,10 L-18,-3 L-14,-17 Z"/>
+        android:pathData="M0,-26 L16,-17 L20,-3 L16,10 L0,18 L-16,10 L-20,-3 L-16,-17 Z"/>
     
-    <!-- Central lock symbol -->
-    <group android:translateX="0" android:translateY="0">
+    <!-- Central lock symbol - perfectly centered -->
+    <group android:translateX="0" android:translateY="1">
       <!-- Lock body -->
       <path
           android:fillColor="@color/github_text_primary"
-          android:pathData="M-8,0 L8,0 A3,3 0 0,1 11,3 L11,12 A3,3 0 0,1 8,15 L-8,15 A3,3 0 0,1 -11,12 L-11,3 A3,3 0 0,1 -8,0 Z"/>
+          android:pathData="M-9,0 L9,0 A3,3 0 0,1 12,3 L12,13 A3,3 0 0,1 9,16 L-9,16 A3,3 0 0,1 -12,13 L-12,3 A3,3 0 0,1 -9,0 Z"/>
       
-      <!-- Lock shackle -->
+      <!-- Lock shackle - symmetric -->
       <path
-          android:fillColor="@color/github_text_primary"
           android:strokeWidth="3"
           android:strokeColor="@color/github_text_primary"
+          android:fillColor="#00000000"
           android:strokeLineCap="round"
-          android:pathData="M-5,-8 A5,5 0 0,1 5,-8 L5,0"/>
+          android:pathData="M-6,-8 A6,6 0 0,1 6,-8 L6,0"/>
       
-      <!-- Inner shackle -->
+      <!-- Inner shackle for depth -->
       <path
-          android:fillColor="@color/github_blue"
           android:strokeWidth="2"
           android:strokeColor="@color/github_blue"
+          android:fillColor="#00000000"
           android:strokeLineCap="round"
-          android:pathData="M-3,-6 A3,3 0 0,1 3,-6 L3,0"/>
+          android:pathData="M-4,-6 A4,4 0 0,1 4,-6 L4,0"/>
       
-      <!-- Keyhole -->
+      <!-- Keyhole - centered -->
       <path
           android:fillColor="@color/github_blue"
-          android:pathData="M0,4 A3,3 0 0,1 3,7 A3,3 0 0,1 0,10 A3,3 0 0,1 -3,7 A3,3 0 0,1 0,4 Z"/>
+          android:pathData="M0,3 A3,3 0 0,1 3,6 A3,3 0 0,1 0,9 A3,3 0 0,1 -3,6 A3,3 0 0,1 0,3 Z"/>
       
       <path
           android:fillColor="@color/github_blue"
-          android:pathData="M-1.5,7 L1.5,7 L1,12 L-1,12 Z"/>
+          android:pathData="M-1,6 L1,6 L1,11 L-1,11 Z"/>
     </group>
     
-    <!-- Decorative corner elements -->
+    <!-- Symmetrical decorative elements -->
     <!-- Top accent -->
     <path
         android:fillColor="@color/github_green"
-        android:pathData="M0,-32 A2,2 0 0,1 2,-30 A2,2 0 0,1 0,-28 A2,2 0 0,1 -2,-30 A2,2 0 0,1 0,-32 Z"/>
+        android:pathData="M0,-34.5 A2.5,2.5 0 0,1 2.5,-32 A2.5,2.5 0 0,1 0,-29.5 A2.5,2.5 0 0,1 -2.5,-32 A2.5,2.5 0 0,1 0,-34.5 Z"/>
     
-    <!-- Side accents -->
+    <!-- Left and right side accents - perfectly mirrored -->
     <path
         android:fillColor="@color/github_purple"
-        android:pathData="M-24,-2 A2,2 0 0,1 -22,0 A2,2 0 0,1 -24,2 A2,2 0 0,1 -26,0 A2,2 0 0,1 -24,-2 Z"/>
+        android:pathData="M-28,-4 A2,2 0 0,1 -26,-2 A2,2 0 0,1 -28,0 A2,2 0 0,1 -30,-2 A2,2 0 0,1 -28,-4 Z"/>
     
     <path
         android:fillColor="@color/github_purple"
-        android:pathData="M24,-2 A2,2 0 0,1 26,0 A2,2 0 0,1 24,2 A2,2 0 0,1 22,0 A2,2 0 0,1 24,-2 Z"/>
+        android:pathData="M28,-4 A2,2 0 0,1 30,-2 A2,2 0 0,1 28,0 A2,2 0 0,1 26,-2 A2,2 0 0,1 28,-4 Z"/>
     
     <!-- Bottom accent -->
     <path
         android:fillColor="@color/github_orange"
-        android:pathData="M0,20 A2,2 0 0,1 2,22 A2,2 0 0,1 0,24 A2,2 0 0,1 -2,22 A2,2 0 0,1 0,20 Z"/>
+        android:pathData="M0,22 A2,2 0 0,1 2,24 A2,2 0 0,1 0,26 A2,2 0 0,1 -2,24 A2,2 0 0,1 0,22 Z"/>
     
-    <!-- Data/encryption dots pattern -->
-    <group android:alpha="0.6">
-      <!-- Left side binary pattern -->
-      <path android:fillColor="@color/github_green" android:pathData="M-30,-13 A1,1 0 0,1 -29,-12 A1,1 0 0,1 -30,-11 A1,1 0 0,1 -31,-12 A1,1 0 0,1 -30,-13 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M-32,-9 A1,1 0 0,1 -31,-8 A1,1 0 0,1 -32,-7 A1,1 0 0,1 -33,-8 A1,1 0 0,1 -32,-9 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M-30,-5 A1,1 0 0,1 -29,-4 A1,1 0 0,1 -30,-3 A1,1 0 0,1 -31,-4 A1,1 0 0,1 -30,-5 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M-32,-1 A1,1 0 0,1 -31,0 A1,1 0 0,1 -32,1 A1,1 0 0,1 -33,0 A1,1 0 0,1 -32,-1 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M-30,3 A1,1 0 0,1 -29,4 A1,1 0 0,1 -30,5 A1,1 0 0,1 -31,4 A1,1 0 0,1 -30,3 Z"/>
+    <!-- Symmetrical data pattern - balanced on both sides -->
+    <group android:alpha="0.4">
+      <!-- Left side pattern -->
+      <path android:fillColor="@color/github_green" android:pathData="M-32,-14 A1,1 0 0,1 -31,-13 A1,1 0 0,1 -32,-12 A1,1 0 0,1 -33,-13 A1,1 0 0,1 -32,-14 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M-34,-10 A1,1 0 0,1 -33,-9 A1,1 0 0,1 -34,-8 A1,1 0 0,1 -35,-9 A1,1 0 0,1 -34,-10 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M-32,-6 A1,1 0 0,1 -31,-5 A1,1 0 0,1 -32,-4 A1,1 0 0,1 -33,-5 A1,1 0 0,1 -32,-6 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M-34,-2 A1,1 0 0,1 -33,-1 A1,1 0 0,1 -34,0 A1,1 0 0,1 -35,-1 A1,1 0 0,1 -34,-2 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M-32,2 A1,1 0 0,1 -31,3 A1,1 0 0,1 -32,4 A1,1 0 0,1 -33,3 A1,1 0 0,1 -32,2 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M-34,6 A1,1 0 0,1 -33,7 A1,1 0 0,1 -34,8 A1,1 0 0,1 -35,7 A1,1 0 0,1 -34,6 Z"/>
       
-      <!-- Right side binary pattern -->
-      <path android:fillColor="@color/github_green" android:pathData="M30,-13 A1,1 0 0,1 31,-12 A1,1 0 0,1 30,-11 A1,1 0 0,1 29,-12 A1,1 0 0,1 30,-13 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M32,-9 A1,1 0 0,1 33,-8 A1,1 0 0,1 32,-7 A1,1 0 0,1 31,-8 A1,1 0 0,1 32,-9 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M30,-5 A1,1 0 0,1 31,-4 A1,1 0 0,1 30,-3 A1,1 0 0,1 29,-4 A1,1 0 0,1 30,-5 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M32,-1 A1,1 0 0,1 33,0 A1,1 0 0,1 32,1 A1,1 0 0,1 31,0 A1,1 0 0,1 32,-1 Z"/>
-      <path android:fillColor="@color/github_green" android:pathData="M30,3 A1,1 0 0,1 31,4 A1,1 0 0,1 30,5 A1,1 0 0,1 29,4 A1,1 0 0,1 30,3 Z"/>
+      <!-- Right side pattern - perfectly mirrored -->
+      <path android:fillColor="@color/github_green" android:pathData="M32,-14 A1,1 0 0,1 33,-13 A1,1 0 0,1 32,-12 A1,1 0 0,1 31,-13 A1,1 0 0,1 32,-14 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M34,-10 A1,1 0 0,1 35,-9 A1,1 0 0,1 34,-8 A1,1 0 0,1 33,-9 A1,1 0 0,1 34,-10 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M32,-6 A1,1 0 0,1 33,-5 A1,1 0 0,1 32,-4 A1,1 0 0,1 31,-5 A1,1 0 0,1 32,-6 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M34,-2 A1,1 0 0,1 35,-1 A1,1 0 0,1 34,0 A1,1 0 0,1 33,-1 A1,1 0 0,1 34,-2 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M32,2 A1,1 0 0,1 33,3 A1,1 0 0,1 32,4 A1,1 0 0,1 31,3 A1,1 0 0,1 32,2 Z"/>
+      <path android:fillColor="@color/github_green" android:pathData="M34,6 A1,1 0 0,1 35,7 A1,1 0 0,1 34,8 A1,1 0 0,1 33,7 A1,1 0 0,1 34,6 Z"/>
+    </group>
+    
+    <!-- Subtle connecting lines for tech feel -->
+    <group android:alpha="0.3">
+      <path
+          android:strokeColor="@color/github_blue"
+          android:fillColor="#00000000"
+          android:strokeWidth="0.5"
+          android:pathData="M-20,-20 L-26,-4 L-20,12"/>
+      <path
+          android:strokeColor="@color/github_blue"
+          android:fillColor="#00000000"
+          android:strokeWidth="0.5"
+          android:pathData="M20,-20 L26,-4 L20,12"/>
     </group>
         
   </group>
