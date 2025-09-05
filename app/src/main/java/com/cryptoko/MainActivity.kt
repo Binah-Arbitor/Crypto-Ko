@@ -1,8 +1,10 @@
 package com.cryptoko
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,8 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.cryptoko.ui.AboutFragment
 import com.cryptoko.ui.EncryptionFragment
+import com.cryptoko.ui.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     
@@ -42,6 +46,9 @@ class MainActivity : AppCompatActivity() {
     }
     
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply saved language before calling super.onCreate()
+        applySavedLanguage()
+        
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         
@@ -63,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_settings -> {
-                    // TODO: Implement settings fragment
+                    loadFragment(SettingsFragment())
                     true
                 }
                 R.id.nav_about -> {
@@ -79,6 +86,19 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
             .commit()
+    }
+    
+    private fun applySavedLanguage() {
+        val prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val languageCode = prefs.getString("language", "en") ?: "en"
+        
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+        
+        val configuration = Configuration(resources.configuration)
+        configuration.setLocale(locale)
+        
+        resources.updateConfiguration(configuration, resources.displayMetrics)
     }
     
     private fun checkAndRequestPermissions() {

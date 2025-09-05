@@ -6,6 +6,8 @@
     <string name="select_file">Select File</string>
     <string name="algorithm">Algorithm</string>
     <string name="mode">Mode</string>
+    <string name="key_size">Key Size</string>
+    <string name="padding">Padding</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="start_encryption">Start Encryption</string>
@@ -25,4 +27,5 @@
     <string name="about">About</string>
     <string name="github_style_crypto">GitHub Style Crypto</string>
     <string name="secure_fast_extensible">Secure • Fast • Extensible</string>
+    <string name="language">Language</string>
 </resources>

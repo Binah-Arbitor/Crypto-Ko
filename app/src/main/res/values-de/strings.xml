@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crypto-Ko</string>
+    <string name="encrypt_file">Datei verschlüsseln</string>
+    <string name="decrypt_file">Datei entschlüsseln</string>
+    <string name="select_file">Datei auswählen</string>
+    <string name="algorithm">Algorithmus</string>
+    <string name="mode">Modus</string>
+    <string name="key_size">Schlüsselgröße</string>
+    <string name="padding">Auffüllung</string>
+    <string name="password">Passwort</string>
+    <string name="confirm_password">Passwort bestätigen</string>
+    <string name="start_encryption">Verschlüsselung starten</string>
+    <string name="start_decryption">Entschlüsselung starten</string>
+    <string name="encryption_successful">Verschlüsselung erfolgreich abgeschlossen</string>
+    <string name="decryption_successful">Entschlüsselung erfolgreich abgeschlossen</string>
+    <string name="encryption_failed">Verschlüsselung fehlgeschlagen</string>
+    <string name="decryption_failed">Entschlüsselung fehlgeschlagen</string>
+    <string name="password_mismatch">Passwörter stimmen nicht überein</string>
+    <string name="file_not_selected">Bitte wählen Sie eine Datei</string>
+    <string name="password_empty">Passwort darf nicht leer sein</string>
+    <string name="progress">Fortschritt</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="processing">Verarbeitung...</string>
+    <string name="file_operations">Dateioperationen</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">Über</string>
+    <string name="github_style_crypto">GitHub-Stil Verschlüsselung</string>
+    <string name="secure_fast_extensible">Sicher • Schnell • Erweiterbar</string>
+    <string name="language">Sprache</string>
+</resources>

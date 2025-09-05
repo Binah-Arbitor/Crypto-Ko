@@ -10,6 +10,7 @@ import android.content.SharedPreferences
 data class AppConfig(
     val defaultAlgorithm: String = "AES-256",
     val defaultMode: String = "CBC",
+    val defaultPadding: String = "PKCS7Padding",
     val pbkdf2Iterations: Int = 100000,
     val bufferSize: Int = 8192,
     val enableSecureDelete: Boolean = true,
@@ -23,6 +24,7 @@ data class AppConfig(
         private const val PREFS_NAME = "crypto_ko_settings"
         private const val KEY_DEFAULT_ALGORITHM = "default_algorithm"
         private const val KEY_DEFAULT_MODE = "default_mode"
+        private const val KEY_DEFAULT_PADDING = "default_padding"
         private const val KEY_PBKDF2_ITERATIONS = "pbkdf2_iterations"
         private const val KEY_BUFFER_SIZE = "buffer_size"
         private const val KEY_SECURE_DELETE = "secure_delete"
@@ -53,6 +55,7 @@ data class AppConfig(
             return AppConfig(
                 defaultAlgorithm = prefs.getString(KEY_DEFAULT_ALGORITHM, "AES-256") ?: "AES-256",
                 defaultMode = prefs.getString(KEY_DEFAULT_MODE, "CBC") ?: "CBC",
+                defaultPadding = prefs.getString(KEY_DEFAULT_PADDING, "PKCS7Padding") ?: "PKCS7Padding",
                 pbkdf2Iterations = prefs.getInt(KEY_PBKDF2_ITERATIONS, 100000),
                 bufferSize = prefs.getInt(KEY_BUFFER_SIZE, 8192),
                 enableSecureDelete = prefs.getBoolean(KEY_SECURE_DELETE, true),
@@ -69,6 +72,7 @@ data class AppConfig(
             prefs.edit().apply {
                 putString(KEY_DEFAULT_ALGORITHM, config.defaultAlgorithm)
                 putString(KEY_DEFAULT_MODE, config.defaultMode)
+                putString(KEY_DEFAULT_PADDING, config.defaultPadding)
                 putInt(KEY_PBKDF2_ITERATIONS, config.pbkdf2Iterations)
                 putInt(KEY_BUFFER_SIZE, config.bufferSize)
                 putBoolean(KEY_SECURE_DELETE, config.enableSecureDelete)

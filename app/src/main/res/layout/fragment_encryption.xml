@@ -137,6 +137,38 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/spinner_background" />
 
+                <!-- Key Size Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/key_size"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <Spinner
+                    android:id="@+id/key_size_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/spinner_background" />
+
+                <!-- Padding Selection -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/padding"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp" />
+
+                <Spinner
+                    android:id="@+id/padding_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/spinner_background" />
+
                 <!-- Thread Count Selection -->
                 <TextView
                     android:layout_width="wrap_content"
@@ -227,22 +259,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/confirm_password_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/confirm_password"
-                    app:endIconMode="password_toggle"
-                    style="@style/Widget.CryptoKo.TextInputLayout">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/confirm_password_edit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:textColor="?attr/colorOnSurface" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crypto-Ko</string>
+    <string name="encrypt_file">Зашифровать файл</string>
+    <string name="decrypt_file">Расшифровать файл</string>
+    <string name="select_file">Выбрать файл</string>
+    <string name="algorithm">Алгоритм</string>
+    <string name="mode">Режим</string>
+    <string name="key_size">Размер ключа</string>
+    <string name="padding">Заполнение</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердить пароль</string>
+    <string name="start_encryption">Начать шифрование</string>
+    <string name="start_decryption">Начать расшифровку</string>
+    <string name="encryption_successful">Шифрование успешно завершено</string>
+    <string name="decryption_successful">Расшифровка успешно завершена</string>
+    <string name="encryption_failed">Шифрование не удалось</string>
+    <string name="decryption_failed">Расшифровка не удалась</string>
+    <string name="password_mismatch">Пароли не совпадают</string>
+    <string name="file_not_selected">Пожалуйста, выберите файл</string>
+    <string name="password_empty">Пароль не может быть пустым</string>
+    <string name="progress">Прогресс</string>
+    <string name="cancel">Отмена</string>
+    <string name="processing">Обработка...</string>
+    <string name="file_operations">Файловые операции</string>
+    <string name="settings">Настройки</string>
+    <string name="about">О программе</string>
+    <string name="github_style_crypto">Криптография в стиле GitHub</string>
+    <string name="secure_fast_extensible">Безопасно • Быстро • Расширяемо</string>
+    <string name="language">Язык</string>
+</resources>
