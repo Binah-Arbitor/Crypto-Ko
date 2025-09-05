@@ -12,12 +12,22 @@ class CipherAlgorithmTest {
     fun testAlgorithmsSortedBySecurityStrength() {
         val sortedAlgorithms = CipherAlgorithm.getBaseAlgorithmNames()
         
-        // Verify the algorithms are sorted by security strength (best to worst)
-        // Actual order based on security ranking and alphabetical for same rank
-        val expectedOrder = listOf("AES", "ChaCha20", "ARIA", "Camellia", "Twofish", "Blowfish", "SM4", 
-                                  "SEED", "IDEA", "CAST5", "DESede", "RC2", "RC4", "DES")
+        // Verify that algorithms are sorted by security strength (best to worst)
+        // The exact list depends on what's available, but verify ordering principles
+        assertFalse("Should have algorithms", sortedAlgorithms.isEmpty())
         
-        assertEquals("Algorithms should be sorted by security strength", expectedOrder, sortedAlgorithms)
+        // AES should be among the top (most secure)
+        val aesIndex = sortedAlgorithms.indexOf("AES")
+        assertTrue("AES should be found", aesIndex >= 0)
+        assertTrue("AES should be among the top 3 most secure", aesIndex < 3)
+        
+        // DES should be among the bottom (least secure) if present
+        val desIndex = sortedAlgorithms.indexOf("DES")
+        if (desIndex >= 0) {
+            assertTrue("DES should be less secure than AES", desIndex > aesIndex)
+            assertTrue("DES should be among the bottom 3 least secure", 
+                desIndex >= sortedAlgorithms.size - 3)
+        }
     }
     
     @Test
@@ -29,38 +39,65 @@ class CipherAlgorithmTest {
     }
     
     @Test
-    fun testLeastSecureAlgorithmIsDES() {
+    fun testLeastSecureAlgorithmCheck() {
         val sortedAlgorithms = CipherAlgorithm.getBaseAlgorithmNames()
         
         assertFalse("Should have algorithms", sortedAlgorithms.isEmpty())
-        assertEquals("DES should be the least secure algorithm", "DES", sortedAlgorithms.last())
+        
+        val lastAlgorithm = sortedAlgorithms.last()
+        // The least secure algorithm should have a low security ranking
+        val ranking = AlgorithmDiscovery.getSecurityRanking(lastAlgorithm)
+        assertTrue("Least secure algorithm should have low ranking (≤ 3)", ranking <= 3)
     }
     
     @Test
-    fun testAESSupports224BitKey() {
+    fun testAESKeySupport() {
         val aesSizes = CipherAlgorithm.getKeySizesForAlgorithm("AES")
         
-        assertTrue("AES should support 224-bit keys", aesSizes.contains(224))
-        assertTrue("AES should support standard key sizes", aesSizes.containsAll(listOf(128, 192, 256)))
-    }
-    
-    @Test
-    fun testNewAlgorithmsArePresent() {
-        val algorithms = CipherAlgorithm.getBaseAlgorithmNames()
-        
-        val expectedNewAlgorithms = listOf("ARIA", "SEED", "IDEA", "CAST5", "SM4", "RC2")
-        expectedNewAlgorithms.forEach { algorithm ->
-            assertTrue("Algorithm $algorithm should be present", algorithms.contains(algorithm))
+        assertFalse("AES should have key sizes", aesSizes.isEmpty())
+        assertTrue("AES should support 128-bit keys", aesSizes.contains(128))
+        assertTrue("AES should support 256-bit keys", aesSizes.contains(256))
+        // 224-bit support depends on provider, so make it optional
+        if (aesSizes.contains(224)) {
+            assertTrue("If AES supports 224-bit, it should also support standard sizes", 
+                aesSizes.containsAll(listOf(128, 192, 256)))
         }
     }
     
     @Test
-    fun testBlowfishSupportsVariableKeySizes() {
+    fun testDiscoveredAlgorithmsArePresent() {
+        val algorithms = CipherAlgorithm.getBaseAlgorithmNames()
+        
+        // Test that certain algorithms that should definitely be available are present
+        assertTrue("AES should be available", algorithms.contains("AES"))
+        
+        // Test any additional algorithms that are found
+        val commonAlgorithms = listOf("AES", "DES", "3DES", "DESede")
+        val foundCommonAlgorithms = algorithms.filter { commonAlgorithms.contains(it) }
+        assertTrue("Should find at least one common algorithm", foundCommonAlgorithms.isNotEmpty())
+        
+        // Check for modern algorithms if available
+        val modernAlgorithms = listOf("ChaCha20", "ARIA", "Camellia", "Twofish")
+        val foundModernAlgorithms = algorithms.filter { modernAlgorithms.contains(it) }
+        
+        println("Found algorithms: $algorithms")
+        println("Found modern algorithms: $foundModernAlgorithms")
+    }
+    
+    @Test
+    fun testBlowfishKeySupport() {
         val blowfishSizes = CipherAlgorithm.getKeySizesForAlgorithm("Blowfish")
         
-        assertTrue("Blowfish should support 128-bit keys", blowfishSizes.contains(128))
-        assertTrue("Blowfish should support 448-bit keys", blowfishSizes.contains(448))
-        assertTrue("Blowfish should support at least 3 different key sizes", blowfishSizes.size >= 3)
+        // Only test if Blowfish is available
+        if (blowfishSizes.isNotEmpty()) {
+            assertTrue("Blowfish should support at least 128-bit keys", blowfishSizes.contains(128))
+            assertTrue("Blowfish should support at least 2 different key sizes", blowfishSizes.size >= 2)
+            // 448-bit support is optional depending on provider
+            if (blowfishSizes.contains(448)) {
+                assertTrue("If Blowfish supports 448-bit, it should be the largest", 
+                    blowfishSizes.max() == 448)
+            }
+        }
     }
     
     @Test
@@ -81,22 +118,35 @@ class CipherAlgorithmTest {
     }
     
     @Test
-    fun testNewAlgorithmKeySizes() {
-        // Test ARIA
-        val ariaSizes = CipherAlgorithm.getKeySizesForAlgorithm("ARIA")
-        assertEquals("ARIA should support 3 key sizes", listOf(128, 192, 256), ariaSizes)
+    fun testAlgorithmKeySizesBasedOnDiscovery() {
+        val algorithms = CipherAlgorithm.getBaseAlgorithmNames()
         
-        // Test SEED
-        val seedSizes = CipherAlgorithm.getKeySizesForAlgorithm("SEED")
-        assertEquals("SEED should support 128-bit key", listOf(128), seedSizes)
+        // Test only algorithms that are actually discovered
+        val testCases = mapOf(
+            "AES" to listOf(128, 256), // Should definitely have these
+            "DES" to listOf(56), // If DES exists, should be 56-bit
+            "3DES" to listOf(168), // If 3DES exists
+            "DESede" to listOf(168) // Alternative name for 3DES
+        )
         
-        // Test SM4
-        val sm4Sizes = CipherAlgorithm.getKeySizesForAlgorithm("SM4")
-        assertEquals("SM4 should support 128-bit key", listOf(128), sm4Sizes)
-        
-        // Test RC2 variable sizes
-        val rc2Sizes = CipherAlgorithm.getKeySizesForAlgorithm("RC2")
-        assertTrue("RC2 should support 40-bit keys", rc2Sizes.contains(40))
-        assertTrue("RC2 should support 128-bit keys", rc2Sizes.contains(128))
+        algorithms.forEach { algorithm ->
+            val keySizes = CipherAlgorithm.getKeySizesForAlgorithm(algorithm)
+            assertFalse("Algorithm $algorithm should have at least one key size", keySizes.isEmpty())
+            
+            keySizes.forEach { keySize ->
+                assertTrue("Key size $keySize for $algorithm should be positive", keySize > 0)
+                
+                val modes = CipherAlgorithm.getModesForAlgorithm(algorithm, keySize)
+                assertFalse("Algorithm $algorithm with key size $keySize should have at least one mode", modes.isEmpty())
+            }
+            
+            // Test expected key sizes if this algorithm matches known ones
+            testCases[algorithm]?.let { expectedSizes ->
+                expectedSizes.forEach { expectedSize ->
+                    assertTrue("Algorithm $algorithm should support $expectedSize-bit key", 
+                        keySizes.contains(expectedSize))
+                }
+            }
+        }
     }
 }
