@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crypto-Ko</string>
+    <string name="encrypt_file">Зашифровать файл</string>
+    <string name="decrypt_file">Расшифровать файл</string>
+    <string name="select_file">Выбрать файл</string>
+    <string name="algorithm">Алгоритм</string>
+    <string name="mode">Режим</string>
+    <string name="key_size">Размер ключа</string>
+    <string name="padding">Заполнение</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердить пароль</string>
+    <string name="start_encryption">Начать шифрование</string>
+    <string name="start_decryption">Начать расшифровку</string>
+    <string name="encryption_successful">Шифрование успешно завершено</string>
+    <string name="decryption_successful">Расшифровка успешно завершена</string>
+    <string name="encryption_failed">Шифрование не удалось</string>
+    <string name="decryption_failed">Расшифровка не удалась</string>
+    <string name="password_mismatch">Пароли не совпадают</string>
+    <string name="file_not_selected">Пожалуйста, выберите файл</string>
+    <string name="password_empty">Пароль не может быть пустым</string>
+    <string name="progress">Прогресс</string>
+    <string name="cancel">Отмена</string>
+    <string name="processing">Обработка...</string>
+    <string name="file_operations">Файловые операции</string>
+    <string name="settings">Настройки</string>
+    <string name="about">О программе</string>
+    <string name="github_style_crypto">Криптография в стиле GitHub</string>
+    <string name="secure_fast_extensible">Безопасно • Быстро • Расширяемо</string>
+    <string name="language">Язык</string>
+    <string name="key_size_help">Большие размеры ключей обеспечивают лучшую безопасность, но меньшую производительность</string>
+    <string name="padding_help">PKCS7Padding рекомендуется для большинства случаев использования</string>
+    <string name="language_help">Выберите предпочитаемый язык для интерфейса</string>
+    <string name="default_settings_help">Эти настройки будут применяться по умолчанию при шифровании файлов</string>
+    <string name="performance_help">Использовать несколько ядер ЦП для более быстрого шифрования/расшифровки, если поддерживается</string>
+    <string name="buffer_help">Большие размеры буфера могут улучшить производительность для больших файлов</string>
+    <string name="performance_settings">Настройки производительности</string>
+    <string name="default_encryption_settings">Настройки шифрования по умолчанию</string>
+    <string name="buffer_size">Размер буфера (КБ)</string>
+    <string name="enable_multithreading">Включить многопоточность</string>
+</resources>

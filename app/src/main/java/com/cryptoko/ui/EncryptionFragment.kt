@@ -29,13 +29,13 @@ class EncryptionFragment : Fragment() {
     private lateinit var selectFileButton: MaterialButton
     private lateinit var algorithmSpinner: Spinner
     private lateinit var modeSpinner: Spinner
+    private lateinit var keySizeSpinner: Spinner
+    private lateinit var paddingSpinner: Spinner
     private lateinit var threadCountSeekBar: SeekBar
     private lateinit var threadCountText: TextView
     private lateinit var threadInfoText: TextView
     private lateinit var passwordLayout: TextInputLayout
     private lateinit var passwordEdit: TextInputEditText
-    private lateinit var confirmPasswordLayout: TextInputLayout
-    private lateinit var confirmPasswordEdit: TextInputEditText
     private lateinit var encryptButton: MaterialButton
     private lateinit var decryptButton: MaterialButton
     private lateinit var progressIndicator: LinearProgressIndicator
@@ -78,13 +78,13 @@ class EncryptionFragment : Fragment() {
         selectFileButton = view.findViewById(R.id.select_file_button)
         algorithmSpinner = view.findViewById(R.id.algorithm_spinner)
         modeSpinner = view.findViewById(R.id.mode_spinner)
+        keySizeSpinner = view.findViewById(R.id.key_size_spinner)
+        paddingSpinner = view.findViewById(R.id.padding_spinner)
         threadCountSeekBar = view.findViewById(R.id.thread_count_seekbar)
         threadCountText = view.findViewById(R.id.thread_count_text)
         threadInfoText = view.findViewById(R.id.thread_info_text)
         passwordLayout = view.findViewById(R.id.password_layout)
         passwordEdit = view.findViewById(R.id.password_edit)
-        confirmPasswordLayout = view.findViewById(R.id.confirm_password_layout)
-        confirmPasswordEdit = view.findViewById(R.id.confirm_password_edit)
         encryptButton = view.findViewById(R.id.encrypt_button)
         decryptButton = view.findViewById(R.id.decrypt_button)
         progressIndicator = view.findViewById(R.id.progress_indicator)
@@ -104,6 +104,7 @@ class EncryptionFragment : Fragment() {
         algorithmSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 updateModeSpinner()
+                updateKeySizeSpinner()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -113,6 +114,65 @@ class EncryptionFragment : Fragment() {
         if (aes256Index >= 0) {
             algorithmSpinner.setSelection(aes256Index)
         }
+        
+        // Setup padding spinner
+        setupPaddingSpinner()
+    }
+    
+    private fun updateKeySizeSpinner() {
+        val algorithmName = algorithmSpinner.selectedItem as String
+        val algorithm = CipherAlgorithm.getAlgorithmByName(algorithmName)
+        
+        val keySizes = when(algorithm?.algorithmName) {
+            "AES" -> listOf("128-bit", "192-bit", "256-bit")
+            "Camellia" -> listOf("128-bit", "192-bit", "256-bit")
+            "DES" -> listOf("56-bit")
+            "DESede" -> listOf("168-bit")
+            "Blowfish" -> listOf("128-bit", "192-bit", "256-bit", "448-bit")
+            "Twofish" -> listOf("128-bit", "192-bit", "256-bit")
+            "RC4" -> listOf("40-bit", "128-bit", "256-bit")
+            "ChaCha20" -> listOf("256-bit")
+            else -> listOf("Default")
+        }
+        
+        val keySizeAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            keySizes
+        )
+        keySizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        keySizeSpinner.adapter = keySizeAdapter
+        
+        // Select the default key size for the algorithm
+        val defaultIndex = when(algorithm?.keySize) {
+            128 -> keySizes.indexOf("128-bit")
+            192 -> keySizes.indexOf("192-bit")
+            256 -> keySizes.indexOf("256-bit")
+            else -> 0
+        }
+        if (defaultIndex >= 0) {
+            keySizeSpinner.setSelection(defaultIndex)
+        }
+    }
+    
+    private fun setupPaddingSpinner() {
+        val paddingModes = listOf(
+            "PKCS7Padding",
+            "PKCS5Padding", 
+            "ISO10126Padding",
+            "NoPadding"
+        )
+        
+        val paddingAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            paddingModes
+        )
+        paddingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        paddingSpinner.adapter = paddingAdapter
+        
+        // Select PKCS7Padding as default
+        paddingSpinner.setSelection(0)
     }
     
     private fun updateModeSpinner() {
@@ -230,14 +290,9 @@ class EncryptionFragment : Fragment() {
         }
         
         val password = passwordEdit.text.toString()
-        val confirmPassword = confirmPasswordEdit.text.toString()
         
         if (password.isEmpty()) {
             return getString(R.string.password_empty)
-        }
-        
-        if (password != confirmPassword) {
-            return getString(R.string.password_mismatch)
         }
         
         return null
@@ -350,8 +405,9 @@ class EncryptionFragment : Fragment() {
         selectFileButton.isEnabled = !inProgress
         algorithmSpinner.isEnabled = !inProgress
         modeSpinner.isEnabled = !inProgress
+        keySizeSpinner.isEnabled = !inProgress
+        paddingSpinner.isEnabled = !inProgress
         passwordEdit.isEnabled = !inProgress
-        confirmPasswordEdit.isEnabled = !inProgress
         
         progressIndicator.visibility = if (inProgress) View.VISIBLE else View.GONE
         progressText.visibility = if (inProgress) View.VISIBLE else View.GONE
