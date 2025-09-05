@@ -62,4 +62,41 @@ class CipherAlgorithmTest {
         assertTrue("Blowfish should support 448-bit keys", blowfishSizes.contains(448))
         assertTrue("Blowfish should support at least 3 different key sizes", blowfishSizes.size >= 3)
     }
+    
+    @Test
+    fun testAllAlgorithmsHaveValidKeySizes() {
+        val algorithms = CipherAlgorithm.getBaseAlgorithmNames()
+        
+        algorithms.forEach { algorithm ->
+            val keySizes = CipherAlgorithm.getKeySizesForAlgorithm(algorithm)
+            assertFalse("Algorithm $algorithm should have at least one key size", keySizes.isEmpty())
+            
+            keySizes.forEach { keySize ->
+                assertTrue("Key size $keySize for $algorithm should be positive", keySize > 0)
+                
+                val modes = CipherAlgorithm.getModesForAlgorithm(algorithm, keySize)
+                assertFalse("Algorithm $algorithm with key size $keySize should have at least one mode", modes.isEmpty())
+            }
+        }
+    }
+    
+    @Test
+    fun testNewAlgorithmKeySizes() {
+        // Test ARIA
+        val ariaSizes = CipherAlgorithm.getKeySizesForAlgorithm("ARIA")
+        assertEquals("ARIA should support 3 key sizes", listOf(128, 192, 256), ariaSizes)
+        
+        // Test SEED
+        val seedSizes = CipherAlgorithm.getKeySizesForAlgorithm("SEED")
+        assertEquals("SEED should support 128-bit key", listOf(128), seedSizes)
+        
+        // Test SM4
+        val sm4Sizes = CipherAlgorithm.getKeySizesForAlgorithm("SM4")
+        assertEquals("SM4 should support 128-bit key", listOf(128), sm4Sizes)
+        
+        // Test RC2 variable sizes
+        val rc2Sizes = CipherAlgorithm.getKeySizesForAlgorithm("RC2")
+        assertTrue("RC2 should support 40-bit keys", rc2Sizes.contains(40))
+        assertTrue("RC2 should support 128-bit keys", rc2Sizes.contains(128))
+    }
 }
