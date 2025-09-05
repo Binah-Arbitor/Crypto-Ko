@@ -92,27 +92,26 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun setupSpinners() {
-        // Algorithm spinner
+        // Algorithm spinner - now shows base algorithms only (AES, DES, etc.)
         val algorithmAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            CipherAlgorithm.getAlgorithmNames()
+            CipherAlgorithm.getBaseAlgorithmNames()
         )
         algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         algorithmSpinner.adapter = algorithmAdapter
         
         algorithmSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                updateModeSpinner()
                 updateKeySizeSpinner()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         
-        // Set default to AES-256
-        val aes256Index = CipherAlgorithm.getAlgorithmNames().indexOf("AES-256")
-        if (aes256Index >= 0) {
-            algorithmSpinner.setSelection(aes256Index)
+        // Set default to AES
+        val aesIndex = CipherAlgorithm.getBaseAlgorithmNames().indexOf("AES")
+        if (aesIndex >= 0) {
+            algorithmSpinner.setSelection(aesIndex)
         }
         
         // Setup padding spinner
@@ -121,38 +120,38 @@ class EncryptionFragment : Fragment() {
     
     private fun updateKeySizeSpinner() {
         val algorithmName = algorithmSpinner.selectedItem as String
-        val algorithm = CipherAlgorithm.getAlgorithmByName(algorithmName)
+        val keySizes = CipherAlgorithm.getKeySizesForAlgorithm(algorithmName)
         
-        val keySizes = when(algorithm?.algorithmName) {
-            "AES" -> listOf("128-bit", "192-bit", "256-bit")
-            "Camellia" -> listOf("128-bit", "192-bit", "256-bit")
-            "DES" -> listOf("56-bit")
-            "DESede" -> listOf("168-bit")
-            "Blowfish" -> listOf("128-bit", "192-bit", "256-bit", "448-bit")
-            "Twofish" -> listOf("128-bit", "192-bit", "256-bit")
-            "RC4" -> listOf("40-bit", "128-bit", "256-bit")
-            "ChaCha20" -> listOf("256-bit")
-            else -> listOf("Default")
-        }
+        // Convert to display format
+        val keySizeDisplays = keySizes.map { "${it}-bit" }
         
         val keySizeAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            keySizes
+            keySizeDisplays
         )
         keySizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         keySizeSpinner.adapter = keySizeAdapter
         
-        // Select the default key size for the algorithm
-        val defaultIndex = when(algorithm?.keySize) {
-            128 -> keySizes.indexOf("128-bit")
-            192 -> keySizes.indexOf("192-bit")
-            256 -> keySizes.indexOf("256-bit")
+        // Set default key size (prefer 256-bit, then largest available)
+        val preferredIndex = when {
+            keySizes.contains(256) -> keySizeDisplays.indexOf("256-bit")
+            keySizes.isNotEmpty() -> keySizeDisplays.size - 1 // largest
             else -> 0
         }
-        if (defaultIndex >= 0) {
-            keySizeSpinner.setSelection(defaultIndex)
+        if (preferredIndex >= 0) {
+            keySizeSpinner.setSelection(preferredIndex)
         }
+        
+        keySizeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                updateModeSpinner()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+        
+        // Trigger mode update
+        updateModeSpinner()
     }
     
     private fun setupPaddingSpinner() {
@@ -176,23 +175,30 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun updateModeSpinner() {
-        val selectedAlgorithmName = algorithmSpinner.selectedItem as String
-        val algorithm = CipherAlgorithm.getAlgorithmByName(selectedAlgorithmName)
+        val algorithmName = algorithmSpinner.selectedItem as? String ?: return
+        val keySizeDisplay = keySizeSpinner.selectedItem as? String ?: return
         
-        algorithm?.let {
-            val modeAdapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                it.supportedModes
-            )
-            modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            modeSpinner.adapter = modeAdapter
-            
-            // Set default to CBC if available
-            val cbcIndex = it.supportedModes.indexOf("CBC")
-            if (cbcIndex >= 0) {
-                modeSpinner.setSelection(cbcIndex)
-            }
+        // Extract numeric key size from display string (e.g., "256-bit" -> 256)
+        val keySize = keySizeDisplay.removeSuffix("-bit").toIntOrNull() ?: return
+        
+        val modes = CipherAlgorithm.getModesForAlgorithm(algorithmName, keySize)
+        
+        val modeAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            modes
+        )
+        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        modeSpinner.adapter = modeAdapter
+        
+        // Set default to CBC if available, otherwise first mode
+        val defaultIndex = when {
+            modes.contains("CBC") -> modes.indexOf("CBC")
+            modes.isNotEmpty() -> 0
+            else -> -1
+        }
+        if (defaultIndex >= 0) {
+            modeSpinner.setSelection(defaultIndex)
         }
     }
     
@@ -305,10 +311,19 @@ class EncryptionFragment : Fragment() {
             return
         }
         
+        // Get separate components
         val algorithmName = algorithmSpinner.selectedItem as String
-        val algorithm = CipherAlgorithm.getAlgorithmByName(algorithmName) ?: return
+        val keySizeDisplay = keySizeSpinner.selectedItem as String
+        val keySize = keySizeDisplay.removeSuffix("-bit").toIntOrNull() ?: return
         val mode = modeSpinner.selectedItem as String
         val password = passwordEdit.text.toString()
+        
+        // Create algorithm from components
+        val algorithm = CipherAlgorithm.createFromComponents(algorithmName, keySize)
+        if (algorithm == null) {
+            showError("Invalid algorithm configuration: $algorithmName with $keySize-bit key")
+            return
+        }
         
         val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
         val outputPath = "$inputPath.enc"
@@ -333,10 +348,19 @@ class EncryptionFragment : Fragment() {
             return
         }
         
+        // Get separate components
         val algorithmName = algorithmSpinner.selectedItem as String
-        val algorithm = CipherAlgorithm.getAlgorithmByName(algorithmName) ?: return
+        val keySizeDisplay = keySizeSpinner.selectedItem as String
+        val keySize = keySizeDisplay.removeSuffix("-bit").toIntOrNull() ?: return
         val mode = modeSpinner.selectedItem as String
         val password = passwordEdit.text.toString()
+        
+        // Create algorithm from components
+        val algorithm = CipherAlgorithm.createFromComponents(algorithmName, keySize)
+        if (algorithm == null) {
+            showError("Invalid algorithm configuration: $algorithmName with $keySize-bit key")
+            return
+        }
         
         val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
         val outputPath = inputPath.removeSuffix(".enc")
