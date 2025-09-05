@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import 
-
-=======
 import java.util.Properties
 import java.io.FileInputStream
 
->>>>>>> 5116d143120dd78a459f94cafbec2e0eb35fc2ce
 plugins {
     id("com.android.application")
     id("kotlin-android")
