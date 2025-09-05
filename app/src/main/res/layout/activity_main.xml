@@ -69,7 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/secure_fast_extensible"
-                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -105,7 +105,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="?attr/colorOutlineVariant" />
+            android:background="?attr/colorOutline" />
 
         <!-- Modern Bottom Navigation Bar -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -116,9 +116,9 @@
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             app:itemIconSize="24dp"
-            app:itemIconTint="?attr/colorOnSurfaceVariant"
-            app:itemTextColor="?attr/colorOnSurfaceVariant"
-            app:itemRippleColor="?attr/colorOnSurfaceVariant"
+            app:itemIconTint="?attr/colorOnSurface"
+            app:itemTextColor="?attr/colorOnSurface"
+            app:itemRippleColor="?attr/colorOnSurface"
             app:labelVisibilityMode="auto"
             app:menu="@menu/bottom_navigation" />
 
