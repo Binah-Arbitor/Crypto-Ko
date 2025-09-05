@@ -1,7 +1,7 @@
 package com.cryptoko.examples
 
 import com.cryptoko.crypto.CipherAlgorithm
-import com.cryptoko.crypto.AlgorithmDiscovery
+import com.cryptoko.crypto.AlgorithmCatalog
 
 /**
  * Example demonstrating the dynamic algorithm discovery capabilities
@@ -28,7 +28,7 @@ object AlgorithmDiscoveryExample {
         // Show security rankings
         println("=== Security Rankings ===")
         algorithmFamilies.forEach { algorithm ->
-            val ranking = AlgorithmDiscovery.getSecurityRanking(algorithm)
+            val ranking = AlgorithmCatalog.getSecurityRanking(algorithm)
             val level = when {
                 ranking >= 8 -> "Excellent"
                 ranking >= 6 -> "Good"  
@@ -48,7 +48,7 @@ object AlgorithmDiscoveryExample {
         
         // Get high-security algorithms
         val highSecurityAlgorithms = CipherAlgorithm.getBaseAlgorithmNames()
-            .filter { AlgorithmDiscovery.getSecurityRanking(it) >= 8 }
+            .filter { AlgorithmCatalog.getSecurityRanking(it) >= 8 }
         
         println("🔒 High Security Algorithms (8+/10):")
         highSecurityAlgorithms.forEach { algorithm ->
@@ -60,12 +60,12 @@ object AlgorithmDiscoveryExample {
         
         // Show algorithms to avoid
         val weakAlgorithms = CipherAlgorithm.getBaseAlgorithmNames()
-            .filter { AlgorithmDiscovery.getSecurityRanking(it) <= 3 }
+            .filter { AlgorithmCatalog.getSecurityRanking(it) <= 3 }
         
         if (weakAlgorithms.isNotEmpty()) {
             println("\n⚠️ Weak Algorithms (≤3/10) - Avoid for new applications:")
             weakAlgorithms.forEach { algorithm ->
-                val ranking = AlgorithmDiscovery.getSecurityRanking(algorithm)
+                val ranking = AlgorithmCatalog.getSecurityRanking(algorithm)
                 println("  • $algorithm ($ranking/10)")
             }
         }
@@ -120,7 +120,7 @@ object AlgorithmDiscoveryExample {
         testCases.forEach { (algorithm, keySize) ->
             val available = CipherAlgorithm.isAlgorithmAvailable(algorithm, keySize)
             val status = if (available) "✅ Available" else "❌ Not Available"
-            val ranking = AlgorithmDiscovery.getSecurityRanking(algorithm)
+            val ranking = AlgorithmCatalog.getSecurityRanking(algorithm)
             println("$algorithm-$keySize: $status (Security: $ranking/10)")
         }
         println()
@@ -163,6 +163,6 @@ object AlgorithmDiscoveryExample {
         println("For best performance: AES-128-CTR with multithreading")
         println("For legacy compatibility: AES-128-CBC")
         println("Always check algorithm availability with isAlgorithmAvailable()")
-        println("\nUse the Crypto-Ko app's Algorithm Information card for real-time discovery!")
+        println("Use the Crypto-Ko app's Algorithm Information card for real-time information!")
     }
 }
