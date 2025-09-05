@@ -46,7 +46,7 @@ class CipherAlgorithmTest {
         
         val lastAlgorithm = sortedAlgorithms.last()
         // The least secure algorithm should have a low security ranking
-        val ranking = AlgorithmDiscovery.getSecurityRanking(lastAlgorithm)
+        val ranking = AlgorithmCatalog.getSecurityRanking(lastAlgorithm)
         assertTrue("Least secure algorithm should have low ranking (≤ 3)", ranking <= 3)
     }
     

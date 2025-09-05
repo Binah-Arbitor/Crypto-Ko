@@ -12,12 +12,12 @@ data class CipherAlgorithm(
 ) {
     companion object {
         /**
-         * Dynamically discovered OpenSSL/Bouncy Castle symmetric encryption algorithms
-         * This replaces the static list with runtime algorithm discovery
+         * All supported symmetric encryption algorithms from the hardcoded catalog
+         * This replaces the complex dynamic discovery with a reliable, modular approach
          */
         @JvmStatic
         val ALL_ALGORITHMS: List<CipherAlgorithm>
-            get() = AlgorithmDiscovery.discoverAlgorithms()
+            get() = AlgorithmCatalog.getAllAlgorithms()
         
         fun getAlgorithmByName(name: String): CipherAlgorithm? {
             return ALL_ALGORITHMS.find { it.name == name }
@@ -27,15 +27,13 @@ data class CipherAlgorithm(
             return ALL_ALGORITHMS.map { it.name }
         }
 
-
-
         /**
          * Get unique base algorithm names (AES, DES, etc.) for separate selection
          * Sorted by security strength (best to worst)
          */
         fun getBaseAlgorithmNames(): List<String> {
             return ALL_ALGORITHMS.map { it.algorithmName }.distinct()
-                .sortedByDescending { AlgorithmDiscovery.getSecurityRanking(it) }
+                .sortedByDescending { AlgorithmCatalog.getSecurityRanking(it) }
         }
 
         /**
@@ -70,21 +68,21 @@ data class CipherAlgorithm(
          * Get all available cipher providers in the current environment
          */
         fun getAvailableCipherProviders(): List<String> {
-            return AlgorithmDiscovery.getAvailableCipherProviders()
+            return AlgorithmCatalog.getAvailableCipherProviders()
         }
 
         /**
          * Check if a specific algorithm configuration is available
          */
         fun isAlgorithmAvailable(algorithmName: String, keySize: Int): Boolean {
-            return AlgorithmDiscovery.isAlgorithmAvailable(algorithmName, keySize)
+            return AlgorithmCatalog.isAlgorithmAvailable(algorithmName, keySize)
         }
 
         /**
-         * Refresh the algorithm discovery cache (useful for testing or dynamic updates)
+         * Refresh the algorithm list (no-op for hardcoded catalog, kept for compatibility)
          */
         fun refreshAlgorithms() {
-            AlgorithmDiscovery.refreshAlgorithms()
+            // No-op for hardcoded catalog, but kept for UI compatibility
         }
 
         /**

@@ -5,20 +5,19 @@ import org.junit.Assert.*
 import org.junit.Before
 
 /**
- * Test class for AlgorithmDiscovery functionality
+ * Test class for AlgorithmCatalog functionality
  */
 class AlgorithmDiscoveryTest {
 
     @Before
     fun setUp() {
-        // Ensure fresh discovery for each test
-        AlgorithmDiscovery.refreshAlgorithms()
+        // No setup needed for hardcoded catalog
     }
 
     @Test
-    fun testEnhancedAlgorithmDiscovery() {
-        val algorithms = AlgorithmDiscovery.discoverAlgorithms()
-        assertFalse("Should discover at least some algorithms", algorithms.isEmpty())
+    fun testHardcodedAlgorithmCatalog() {
+        val algorithms = AlgorithmCatalog.getAllAlgorithms()
+        assertFalse("Should have algorithms in catalog", algorithms.isEmpty())
         
         // Should find at least AES (most basic algorithm)
         val aesAlgorithms = algorithms.filter { it.algorithmName == "AES" }
@@ -30,7 +29,7 @@ class AlgorithmDiscoveryTest {
         assertTrue("Should support 256-bit AES", aesKeySizes.contains(256))
         
         // Print discovered algorithms for debugging
-        println("Discovered ${algorithms.size} algorithm configurations:")
+        println("Catalog contains ${algorithms.size} algorithm configurations:")
         algorithms.groupBy { it.algorithmName }.forEach { (name, variants) ->
             val keySizes = variants.map { it.keySize }.distinct().sorted()
             println("  $name: ${keySizes.joinToString(", ")} bit keys")
@@ -38,8 +37,8 @@ class AlgorithmDiscoveryTest {
     }
     
     @Test
-    fun testAESDiscovery() {
-        val algorithms = AlgorithmDiscovery.discoverAlgorithms()
+    fun testAESCatalog() {
+        val algorithms = AlgorithmCatalog.getAllAlgorithms()
         val aesAlgorithms = algorithms.filter { it.algorithmName == "AES" }
         
         assertFalse("Should find AES algorithms", aesAlgorithms.isEmpty())
@@ -51,8 +50,8 @@ class AlgorithmDiscoveryTest {
     }
     
     @Test
-    fun testProviderDiscovery() {
-        val providers = AlgorithmDiscovery.getAvailableCipherProviders()
+    fun testProviderCatalog() {
+        val providers = AlgorithmCatalog.getAvailableCipherProviders()
         assertFalse("Should find at least one provider", providers.isEmpty())
         
         // Should include at least SunJCE or BC (Bouncy Castle)
@@ -66,13 +65,13 @@ class AlgorithmDiscoveryTest {
     fun testAlgorithmAvailabilityCheck() {
         // AES-128 should definitely be available
         assertTrue("AES-128 should be available", 
-            AlgorithmDiscovery.isAlgorithmAvailable("AES", 128))
+            AlgorithmCatalog.isAlgorithmAvailable("AES", 128))
     }
     
     @Test
     fun testSecurityRanking() {
-        val aesRanking = AlgorithmDiscovery.getSecurityRanking("AES")
-        val desRanking = AlgorithmDiscovery.getSecurityRanking("DES")
+        val aesRanking = AlgorithmCatalog.getSecurityRanking("AES")
+        val desRanking = AlgorithmCatalog.getSecurityRanking("DES")
         
         assertTrue("AES should have higher security ranking than DES", 
             aesRanking > desRanking)
@@ -80,13 +79,19 @@ class AlgorithmDiscoveryTest {
     }
     
     @Test
-    fun testDiscoveryCache() {
-        // First call should populate cache
-        val algorithms1 = AlgorithmDiscovery.discoverAlgorithms()
+    fun testCatalogConsistency() {
+        val algorithms = AlgorithmCatalog.getAllAlgorithms()
         
-        // Second call should return cached result
-        val algorithms2 = AlgorithmDiscovery.discoverAlgorithms()
+        // All algorithms should have positive key sizes
+        algorithms.forEach { algorithm ->
+            assertTrue("Key size should be positive for ${algorithm.name}", 
+                algorithm.keySize > 0)
+        }
         
-        assertEquals("Cached result should be identical", algorithms1, algorithms2)
+        // All algorithms should have at least one mode
+        algorithms.forEach { algorithm ->
+            assertFalse("Should have at least one mode for ${algorithm.name}", 
+                algorithm.supportedModes.isEmpty())
+        }
     }
 }

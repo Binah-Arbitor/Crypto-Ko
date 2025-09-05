@@ -321,6 +321,7 @@ class EncryptionFragment : Fragment() {
             val totalAlgorithms = algorithmInfo["totalAlgorithms"] as? Int ?: 0
             val uniqueBaseAlgorithms = algorithmInfo["uniqueBaseAlgorithms"] as? Int ?: 0
             val providers = algorithmInfo["availableProviders"] as? List<*> ?: emptyList<String>()
+            @Suppress("UNUSED_VARIABLE")
             val algorithmsByFamily = algorithmInfo["algorithmsByFamily"] as? Map<*, *> ?: emptyMap<String, List<String>>()
             
             // Update count display
@@ -329,7 +330,7 @@ class EncryptionFragment : Fragment() {
             // Update security ranking for currently selected algorithm
             val selectedAlgorithm = algorithmSpinner.selectedItem as? String
             if (selectedAlgorithm != null) {
-                val ranking = AlgorithmDiscovery.getSecurityRanking(selectedAlgorithm)
+                val ranking = AlgorithmCatalog.getSecurityRanking(selectedAlgorithm)
                 val rankingText = when {
                     ranking >= 8 -> "Excellent (${ranking}/10)"
                     ranking >= 6 -> "Good (${ranking}/10)"
