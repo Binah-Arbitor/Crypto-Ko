@@ -14,6 +14,19 @@
     <color name="github_text_secondary">#8B949E</color>
     <color name="github_border">#30363D</color>
     
+    <!-- Discord inspired colors for app icon -->
+    <color name="discord_blurple">#5865F2</color>
+    <color name="discord_blurple_dark">#4752C4</color>
+    <color name="discord_blurple_light">#7289DA</color>
+    <color name="discord_dark_bg">#2C2F33</color>
+    <color name="discord_darker_bg">#23272A</color>
+    <color name="discord_light_bg">#36393F</color>
+    <color name="discord_white">#FFFFFF</color>
+    <color name="discord_greyple">#99AAB5</color>
+    <color name="discord_green">#43B581</color>
+    <color name="discord_yellow">#FAA61A</color>
+    <color name="discord_red">#F04747</color>
+    
     <!-- Material Design fallbacks -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
