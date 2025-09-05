@@ -4,14 +4,17 @@ A powerful, extensible Android encryption/decryption application built with Kotl
 
 ## Features
 
-### 🔐 Dynamic Encryption Algorithm Support
-- **Runtime Algorithm Discovery**: Automatically detects all available OpenSSL/Bouncy Castle algorithms
-- **Comprehensive Algorithm Database**: AES, ChaCha20, ARIA, Camellia, Twofish, Blowfish, SEED, IDEA, CAST5, SM4, DES, 3DES, RC2, RC4 and more
-- **Dynamic Key Size Detection**: Supports all key lengths offered by each algorithm (128, 192, 224, 256, 448+ bits)
+### 🔐 Enhanced Cryptographic Algorithm Support (Beyond OpenSSL)
+- **Comprehensive Algorithm Database**: 40+ algorithm families including AES, ChaCha20, XSalsa20, ARIA, Camellia, Twofish, Serpent, HC128/256, ZUC-128/256, Blowfish, SEED, IDEA, CAST5/6, SM4, DSTU7624, GOST3412, NOEKEON, SHACAL-2, Grain128, VMPC, Threefish, and more
+- **International Standards**: Chinese (ZUC, SM4), Korean (ARIA, SEED), Japanese (Camellia), Ukrainian (DSTU7624), Russian (GOST3412), and other national standards
+- **Modern Stream Ciphers**: XSalsa20, HC128/256, ZUC-128/256, Grain128, VMPC extending beyond traditional OpenSSL offerings
+- **Lightweight/IoT Ciphers**: NOEKEON, Grain128, VMPC optimized for resource-constrained environments
+- **Research & Advanced Ciphers**: SHACAL-2 (SHA-256 based), Tnepres (Serpent variant), DSTU7624 (large block sizes)
+- **Dynamic Key Size Detection**: Supports all key lengths offered by each algorithm (40 to 1024+ bits)
 - **All Encryption Modes**: CBC, CFB, OFB, ECB, GCM, CTR, and stream modes
-- **Security-Based Ranking**: Algorithms sorted by cryptographic strength
+- **Security-Based Ranking**: Algorithms sorted by cryptographic strength with detailed security assessments
 - **Provider Information**: Real-time display of available cryptographic providers
-- **Secure Implementation**: Uses Bouncy Castle cryptographic provider with dynamic capabilities
+- **Bouncy Castle Integration**: Leverages BC's extensive algorithm support far beyond OpenSSL capabilities
 
 ### ⚡ High-Performance Multithreading
 - **Intelligent Thread Management**: Up to 2x CPU core count with user adjustment
@@ -75,11 +78,58 @@ The core innovation of this upgrade is the `AlgorithmDiscovery` class that:
 - **Caching**: Intelligent caching system to avoid repeated expensive discovery operations
 - **Refresh Capability**: Allows manual refresh when providers are updated
 
-## Dynamic Algorithm & Mode Support
+## Enhanced Cryptographic Algorithm Support
 
-Instead of static algorithm lists, the application now **dynamically discovers** all available algorithms at runtime. This includes:
+The application now provides **significantly enhanced cryptographic diversity** beyond traditional OpenSSL capabilities through Bouncy Castle integration:
 
-### Automatically Detected Algorithm Families
+### Supported Algorithm Categories
+
+**Modern High-Security Algorithms (8-10/10 security ranking):**
+- AES (128/192/256-bit) - Modern standard
+- ChaCha20 (256-bit) - Google's stream cipher
+- ARIA (128/192/256-bit) - Korean standard
+- Camellia (128/192/256-bit) - Japanese standard
+- Twofish (128/192/256-bit) - AES finalist
+- Serpent (128/192/256-bit) - AES finalist
+- XSalsa20 (256-bit) - Extended Salsa20
+
+**International Standards:**
+- **Chinese**: ZUC-128/256, SM4
+- **Korean**: ARIA, SEED  
+- **Japanese**: Camellia
+- **Ukrainian**: DSTU7624 (128/256/512-bit)
+- **Russian**: GOST3412 (modern), GOST28147 (legacy)
+
+**Modern Stream Ciphers:**
+- XSalsa20 - Extended nonce Salsa20
+- HC128/HC256 - eSTREAM finalists
+- ZUC-128/256 - Chinese standard
+- Grain128 - Lightweight stream cipher
+- VMPC - Variable Memory Parameter Cipher
+
+**Lightweight/IoT Optimized:**
+- NOEKEON - Compact block cipher
+- Grain128 - Hardware-efficient stream cipher
+- VMPC - Low resource usage
+
+**Research & Advanced Algorithms:**
+- SHACAL-2 - Based on SHA-256 compression function
+- DSTU7624 - Ukrainian standard with large block sizes
+- Tnepres - Serpent variant
+- Threefish - Part of Skein hash family
+
+### Security-Based Algorithm Ranking
+
+All algorithms are ranked on a 1-10 security scale:
+- **10/10**: AES (industry standard)
+- **9/10**: ChaCha20 (modern stream cipher)
+- **8/10**: ARIA, Camellia (international standards)
+- **7/10**: Twofish, Serpent, XSalsa20 (AES finalists & modern)
+- **6/10**: SM4, Blowfish, HC256, ZUC-256, SHACAL-2, DSTU7624
+- **5/10**: SEED, IDEA, GOST standards, lightweight ciphers
+- **≤4/10**: Legacy algorithms (use caution)
+
+### Multithreading Support
 - **AES Family**: All key sizes (128, 192, 224, 256-bit) with all modes (CBC, CFB, OFB, ECB, GCM, CTR)
 - **Modern Ciphers**: ChaCha20, ARIA, Camellia, Twofish with detected key size variants
 - **International Standards**: SM4 (Chinese), SEED (Korean), GOST28147 (Russian)  
@@ -140,10 +190,13 @@ Instead of static algorithm lists, the application now **dynamically discovers**
 5. **Dynamic Key Sizes**: See all supported key sizes for each algorithm family
 
 ### Example Algorithm Selection
-- **High Security**: AES-256-GCM, ChaCha20, ARIA-256-GCM
-- **Balanced Performance**: AES-128-CBC, Camellia-192-CBC
+- **Maximum Security**: AES-256-GCM, ChaCha20, XSalsa20
+- **International Standards**: ARIA-256-GCM, Camellia-256-CBC, ZUC-256, DSTU7624-512
+- **Balanced Performance**: AES-128-CBC, Twofish-256-CBC, Serpent-192-CBC
+- **Lightweight/IoT**: NOEKEON-128-CBC, Grain128 (stream), VMPC (stream)
+- **Research/Advanced**: SHACAL-2-512-CBC, Threefish-1024-CBC
 - **Legacy Compatibility**: 3DES-CBC, Twofish-256-CBC
-- **Avoid**: DES, RC4 (marked with low security rankings)
+- **Avoid**: DES, RC4, TEA (marked with low security rankings)
 
 ## Future Enhancements
 

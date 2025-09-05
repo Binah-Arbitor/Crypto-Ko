@@ -29,6 +29,13 @@ class BouncyCastleCryptoEngine : CryptoEngine {
         private const val SALT_SIZE = 16
         private const val MIN_CHUNK_SIZE = 64 * 1024  // 64KB minimum chunk size for multithreading
         
+        // Stream ciphers that don't use traditional block modes
+        private val STREAM_CIPHERS = setOf(
+            "ChaCha20", "RC4", "Salsa20", "XSalsa20", 
+            "HC128", "HC256", "ZUC128", "ZUC256", 
+            "Grain128", "VMPC"
+        )
+        
         init {
             // Add Bouncy Castle provider for additional algorithms
             if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
@@ -171,6 +178,19 @@ class BouncyCastleCryptoEngine : CryptoEngine {
             mode == "NONE" -> algorithm.algorithmName
             algorithm.algorithmName == "RC4" -> "RC4"
             algorithm.algorithmName == "ChaCha20" -> "ChaCha20"
+            // Handle new stream ciphers
+            algorithm.algorithmName == "XSalsa20" -> "XSalsa20"
+            algorithm.algorithmName == "HC128" -> "HC128"
+            algorithm.algorithmName == "HC256" -> "HC256"
+            algorithm.algorithmName == "ZUC128" -> "ZUC-128"
+            algorithm.algorithmName == "ZUC256" -> "ZUC-256"
+            algorithm.algorithmName == "Grain128" -> "Grain128"
+            algorithm.algorithmName == "VMPC" -> "VMPC"
+            // Handle block ciphers with specific transformations
+            algorithm.algorithmName == "SHACAL2" -> "SHACAL-2/$mode/PKCS5Padding"
+            algorithm.algorithmName == "GOST3412" -> "GOST3412-2015/$mode/PKCS5Padding"
+            algorithm.algorithmName == "DSTU7624" -> "DSTU7624/$mode/PKCS5Padding"
+            algorithm.algorithmName == "Tnepres" -> "Tnepres/$mode/PKCS5Padding"
             else -> "${algorithm.algorithmName}/$mode/PKCS5Padding"
         }
         
@@ -178,7 +198,8 @@ class BouncyCastleCryptoEngine : CryptoEngine {
     }
     
     private fun needsIV(algorithm: CipherAlgorithm, mode: String): Boolean {
-        return mode != "ECB" && mode != "NONE" && algorithm.algorithmName != "RC4"
+        return mode != "ECB" && mode != "NONE" && mode != "STREAM" && 
+               !STREAM_CIPHERS.contains(algorithm.algorithmName)
     }
     
     private fun generateIV(blockSize: Int): ByteArray {
