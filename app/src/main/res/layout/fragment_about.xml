@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="A powerful, extensible Android encryption application with GitHub-inspired design. Supports all OpenSSL symmetric encryption algorithms with comprehensive security features."
+                    android:text="A powerful, extensible Android encryption application with modern Material Design 3 UI. Built with advanced Bouncy Castle cryptographic algorithms for enterprise-grade security."
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     android:lineSpacingExtra="4dp" />
@@ -98,7 +98,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Support for all OpenSSL symmetric algorithms\n• AES, DES, Blowfish, Twofish, ChaCha20, and more\n• All encryption modes (CBC, GCM, CTR, etc.)\n• Secure PBKDF2 key derivation\n• GitHub-inspired dark theme\n• Extensible architecture\n• Future-ready for multithreading"
+                    android:text="• Advanced Bouncy Castle cryptographic library\n• 40+ algorithm families: AES, ChaCha20, XSalsa20, ARIA, Camellia, Twofish, Serpent\n• All encryption modes (CBC, GCM, CTR, OFB, CFB, ECB)\n• Secure PBKDF2 key derivation with salt\n• Modern Material Design 3 interface\n• Multithreading support for large files\n• Security-based algorithm ranking"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     android:lineSpacingExtra="4dp" />

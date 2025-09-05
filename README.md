@@ -1,20 +1,20 @@
 # Crypto-Ko
 
-A powerful, extensible Android encryption/decryption application built with Kotlin, featuring GitHub-inspired UI design and support for all OpenSSL symmetric encryption algorithms.
+A powerful, extensible Android encryption/decryption application built with Kotlin, featuring modern Material Design 3 UI and advanced Bouncy Castle cryptographic algorithms.
 
 ## Features
 
-### 🔐 Enhanced Cryptographic Algorithm Support (Beyond OpenSSL)
+### 🔐 Advanced Bouncy Castle Cryptographic Algorithm Support
 - **Comprehensive Algorithm Database**: 40+ algorithm families including AES, ChaCha20, XSalsa20, ARIA, Camellia, Twofish, Serpent, HC128/256, ZUC-128/256, Blowfish, SEED, IDEA, CAST5/6, SM4, DSTU7624, GOST3412, NOEKEON, SHACAL-2, Grain128, VMPC, Threefish, and more
 - **International Standards**: Chinese (ZUC, SM4), Korean (ARIA, SEED), Japanese (Camellia), Ukrainian (DSTU7624), Russian (GOST3412), and other national standards
-- **Modern Stream Ciphers**: XSalsa20, HC128/256, ZUC-128/256, Grain128, VMPC extending beyond traditional OpenSSL offerings
+- **Modern Stream Ciphers**: XSalsa20, HC128/256, ZUC-128/256, Grain128, VMPC with advanced cryptographic properties
 - **Lightweight/IoT Ciphers**: NOEKEON, Grain128, VMPC optimized for resource-constrained environments
 - **Research & Advanced Ciphers**: SHACAL-2 (SHA-256 based), Tnepres (Serpent variant), DSTU7624 (large block sizes)
 - **Dynamic Key Size Detection**: Supports all key lengths offered by each algorithm (40 to 1024+ bits)
 - **All Encryption Modes**: CBC, CFB, OFB, ECB, GCM, CTR, and stream modes
 - **Security-Based Ranking**: Algorithms sorted by cryptographic strength with detailed security assessments
 - **Provider Information**: Real-time display of available cryptographic providers
-- **Bouncy Castle Integration**: Leverages BC's extensive algorithm support far beyond OpenSSL capabilities
+- **Bouncy Castle Excellence**: Leverages BC's comprehensive cryptographic library with enterprise-grade security
 
 ### ⚡ High-Performance Multithreading
 - **Intelligent Thread Management**: Up to 2x CPU core count with user adjustment
@@ -23,7 +23,7 @@ A powerful, extensible Android encryption/decryption application built with Kotl
 - **Adaptive Chunking**: Smart file splitting for optimal performance
 - **Thread-Safe Operations**: Secure coordination of parallel encryption/decryption
 
-### 🎨 GitHub-Inspired UI
+### 🎨 Modern Material Design 3 UI
 - **Dark Theme**: Authentic GitHub color scheme and styling
 - **Material Design 3**: Modern Android design patterns
 - **Intuitive Interface**: Clean, developer-friendly layout
@@ -33,7 +33,7 @@ A powerful, extensible Android encryption/decryption application built with Kotl
 
 ### 🔍 Dynamic Algorithm Discovery
 - **Real-time Detection**: Automatically discovers all available cryptographic algorithms at runtime
-- **Provider Integration**: Seamlessly integrates with multiple security providers (Bouncy Castle, AndroidOpenSSL, SunJCE)
+- **Provider Integration**: Seamlessly integrates with multiple security providers (Bouncy Castle, SunJCE)
 - **Security Assessment**: Real-time security ranking and recommendations for each algorithm
 - **Capability Testing**: Tests each algorithm/mode/key-size combination for actual availability
 - **Refresh Capability**: Manual algorithm refresh to detect newly installed providers
@@ -80,7 +80,7 @@ The core innovation of this upgrade is the `AlgorithmDiscovery` class that:
 
 ## Enhanced Cryptographic Algorithm Support
 
-The application now provides **significantly enhanced cryptographic diversity** beyond traditional OpenSSL capabilities through Bouncy Castle integration:
+The application provides **comprehensive cryptographic diversity** through advanced Bouncy Castle integration:
 
 ### Supported Algorithm Categories
 
