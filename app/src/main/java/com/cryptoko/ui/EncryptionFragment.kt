@@ -18,6 +18,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import kotlinx.coroutines.launch
+import java.io.File
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
@@ -48,16 +50,25 @@ class EncryptionFragment : Fragment() {
     private lateinit var algorithmDetailsText: TextView
     private lateinit var providersText: TextView
     
-    private var selectedFileUri: Uri? = null
+    private var selectedFileUris: MutableList<Uri> = mutableListOf()
     private val cryptoEngine = BouncyCastleCryptoEngine()
     
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.data?.let { uri ->
-                selectedFileUri = uri
-                updateFileDisplay(uri)
+            selectedFileUris.clear()
+            result.data?.let { intent ->
+                if (intent.clipData != null) {
+                    // Multiple files selected
+                    for (i in 0 until intent.clipData!!.itemCount) {
+                        selectedFileUris.add(intent.clipData!!.getItemAt(i).uri)
+                    }
+                } else if (intent.data != null) {
+                    // Single file selected
+                    selectedFileUris.add(intent.data!!)
+                }
+                updateFileDisplay()
             }
         }
     }
@@ -361,16 +372,31 @@ class EncryptionFragment : Fragment() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)  // Allow multiple file selection
         }
         filePickerLauncher.launch(intent)
     }
     
-    private fun updateFileDisplay(uri: Uri) {
-        val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri)
-        val fileSize = com.cryptoko.utils.FileUtils.getFileSize(requireContext(), uri)
-        val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(fileSize)
+    private fun updateFileDisplay() {
+        if (selectedFileUris.isEmpty()) {
+            fileCard.visibility = View.GONE
+            return
+        }
         
-        filePathText.text = "${fileName ?: "Selected file"} ($formattedSize)"
+        if (selectedFileUris.size == 1) {
+            val uri = selectedFileUris.first()
+            val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri)
+            val fileSize = com.cryptoko.utils.FileUtils.getFileSize(requireContext(), uri)
+            val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(fileSize)
+            
+            filePathText.text = "${fileName ?: "Selected file"} ($formattedSize)"
+        } else {
+            // Multiple files selected
+            val totalSize = selectedFileUris.sumOf { com.cryptoko.utils.FileUtils.getFileSize(requireContext(), it) }
+            val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(totalSize)
+            filePathText.text = "${selectedFileUris.size} files selected ($formattedSize)"
+        }
+        
         fileCard.visibility = View.VISIBLE
     }
     
@@ -383,14 +409,14 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun validateInputs(): String? {
-        if (selectedFileUri == null) {
-            return getString(R.string.file_not_selected)
+        if (selectedFileUris.isEmpty()) {
+            return "No files selected"
         }
         
         val password = passwordEdit.text.toString()
         
         if (password.isEmpty()) {
-            return getString(R.string.password_empty)
+            return "Password cannot be empty"
         }
         
         return null
@@ -417,7 +443,7 @@ class EncryptionFragment : Fragment() {
             return
         }
         
-        val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
+        val inputPath = getFilePathFromUri(selectedFileUris.firstOrNull() ?: return) ?: return
         val outputPath = "$inputPath.enc"
         
         val config = CryptoConfig(
@@ -454,7 +480,7 @@ class EncryptionFragment : Fragment() {
             return
         }
         
-        val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
+        val inputPath = getFilePathFromUri(selectedFileUris.firstOrNull() ?: return) ?: return
         val outputPath = inputPath.removeSuffix(".enc")
         
         val config = CryptoConfig(
