@@ -41,6 +41,13 @@ class EncryptionFragment : Fragment() {
     private lateinit var progressIndicator: LinearProgressIndicator
     private lateinit var progressText: TextView
     
+    // Algorithm Information UI elements
+    private lateinit var refreshAlgorithmsButton: MaterialButton
+    private lateinit var algorithmCountText: TextView
+    private lateinit var securityRankingText: TextView
+    private lateinit var algorithmDetailsText: TextView
+    private lateinit var providersText: TextView
+    
     private var selectedFileUri: Uri? = null
     private val cryptoEngine = BouncyCastleCryptoEngine()
     
@@ -69,6 +76,7 @@ class EncryptionFragment : Fragment() {
         initializeViews(view)
         setupSpinners()
         setupThreadControls()
+        setupAlgorithmInformation()
         setupClickListeners()
     }
     
@@ -89,6 +97,13 @@ class EncryptionFragment : Fragment() {
         decryptButton = view.findViewById(R.id.decrypt_button)
         progressIndicator = view.findViewById(R.id.progress_indicator)
         progressText = view.findViewById(R.id.progress_text)
+        
+        // Algorithm Information UI elements
+        refreshAlgorithmsButton = view.findViewById(R.id.refresh_algorithms_button)
+        algorithmCountText = view.findViewById(R.id.algorithm_count_text)
+        securityRankingText = view.findViewById(R.id.security_ranking_text)
+        algorithmDetailsText = view.findViewById(R.id.algorithm_details_text)
+        providersText = view.findViewById(R.id.providers_text)
     }
     
     private fun setupSpinners() {
@@ -104,6 +119,7 @@ class EncryptionFragment : Fragment() {
         algorithmSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 updateKeySizeSpinner()
+                updateAlgorithmInformation()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -143,6 +159,7 @@ class EncryptionFragment : Fragment() {
         keySizeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 updateModeSpinner()
+                updateAlgorithmInformation()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -246,6 +263,84 @@ class EncryptionFragment : Fragment() {
         }
         
         threadInfoText.text = infoText
+    }
+    
+    private fun setupAlgorithmInformation() {
+        // Initialize algorithm information display
+        updateAlgorithmInformation()
+        
+        // Set up refresh button
+        refreshAlgorithmsButton.setOnClickListener {
+            CipherAlgorithm.refreshAlgorithms()
+            updateAlgorithmInformation()
+            // Also refresh the spinners to show any new algorithms
+            setupSpinners()
+            showMessage("Algorithm list refreshed")
+        }
+    }
+    
+    private fun updateAlgorithmInformation() {
+        try {
+            val algorithmInfo = CipherAlgorithm.getAlgorithmInfo()
+            val totalAlgorithms = algorithmInfo["totalAlgorithms"] as? Int ?: 0
+            val uniqueBaseAlgorithms = algorithmInfo["uniqueBaseAlgorithms"] as? Int ?: 0
+            val providers = algorithmInfo["availableProviders"] as? List<*> ?: emptyList<String>()
+            val algorithmsByFamily = algorithmInfo["algorithmsByFamily"] as? Map<*, *> ?: emptyMap<String, List<String>>()
+            
+            // Update count display
+            algorithmCountText.text = "$uniqueBaseAlgorithms families, $totalAlgorithms total"
+            
+            // Update security ranking for currently selected algorithm
+            val selectedAlgorithm = algorithmSpinner.selectedItem as? String
+            if (selectedAlgorithm != null) {
+                val ranking = AlgorithmDiscovery.getSecurityRanking(selectedAlgorithm)
+                val rankingText = when {
+                    ranking >= 8 -> "Excellent (${ranking}/10)"
+                    ranking >= 6 -> "Good (${ranking}/10)"
+                    ranking >= 4 -> "Fair (${ranking}/10)"
+                    else -> "Weak (${ranking}/10)"
+                }
+                securityRankingText.text = rankingText
+                
+                val rankingColor = when {
+                    ranking >= 8 -> android.graphics.Color.GREEN
+                    ranking >= 6 -> android.graphics.Color.BLUE
+                    ranking >= 4 -> android.graphics.Color.rgb(255, 165, 0) // Orange
+                    else -> android.graphics.Color.RED
+                }
+                securityRankingText.setTextColor(rankingColor)
+            } else {
+                securityRankingText.text = "Select algorithm"
+            }
+            
+            // Update details text
+            val detailsBuilder = StringBuilder()
+            if (selectedAlgorithm != null) {
+                val keySizes = CipherAlgorithm.getKeySizesForAlgorithm(selectedAlgorithm)
+                detailsBuilder.append("$selectedAlgorithm: ${keySizes.joinToString(", ")} bit keys")
+                
+                val selectedKeySize = keySizeSpinner.selectedItem as? String
+                if (selectedKeySize != null) {
+                    val keySize = selectedKeySize.removeSuffix("-bit").toIntOrNull()
+                    if (keySize != null) {
+                        val modes = CipherAlgorithm.getModesForAlgorithm(selectedAlgorithm, keySize)
+                        detailsBuilder.append(" • Modes: ${modes.joinToString(", ")}")
+                    }
+                }
+            } else {
+                detailsBuilder.append("Select an algorithm to see detailed information")
+            }
+            algorithmDetailsText.text = detailsBuilder.toString()
+            
+            // Update providers text
+            providersText.text = "Providers: ${providers.joinToString(", ")}"
+            
+        } catch (e: Exception) {
+            algorithmCountText.text = "Error loading algorithms"
+            securityRankingText.text = "Unknown"
+            algorithmDetailsText.text = "Error: ${e.message}"
+            providersText.text = "Providers: Unable to load"
+        }
     }
     
     private fun setupClickListeners() {
@@ -467,6 +562,11 @@ class EncryptionFragment : Fragment() {
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()
+    }
+    
+    private fun showMessage(message: String) {
+        // Simple toast message for feedback
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
     
     private fun getFilePathFromUri(uri: Uri): String? {
