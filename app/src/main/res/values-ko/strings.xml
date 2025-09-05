@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">크립토-코</string>
+    <string name="app_name">Crypto-Ko</string>
     <string name="encrypt_file">파일 암호화</string>
     <string name="decrypt_file">파일 복호화</string>
     <string name="select_file">파일 선택</string>
