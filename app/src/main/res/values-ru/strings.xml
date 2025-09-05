@@ -28,4 +28,14 @@
     <string name="github_style_crypto">Криптография в стиле GitHub</string>
     <string name="secure_fast_extensible">Безопасно • Быстро • Расширяемо</string>
     <string name="language">Язык</string>
+    <string name="key_size_help">Большие размеры ключей обеспечивают лучшую безопасность, но меньшую производительность</string>
+    <string name="padding_help">PKCS7Padding рекомендуется для большинства случаев использования</string>
+    <string name="language_help">Выберите предпочитаемый язык для интерфейса</string>
+    <string name="default_settings_help">Эти настройки будут применяться по умолчанию при шифровании файлов</string>
+    <string name="performance_help">Использовать несколько ядер ЦП для более быстрого шифрования/расшифровки, если поддерживается</string>
+    <string name="buffer_help">Большие размеры буфера могут улучшить производительность для больших файлов</string>
+    <string name="performance_settings">Настройки производительности</string>
+    <string name="default_encryption_settings">Настройки шифрования по умолчанию</string>
+    <string name="buffer_size">Размер буфера (КБ)</string>
+    <string name="enable_multithreading">Включить многопоточность</string>
 </resources>

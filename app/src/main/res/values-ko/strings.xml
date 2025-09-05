@@ -28,4 +28,14 @@
     <string name="github_style_crypto">깃허브 스타일 암호화</string>
     <string name="secure_fast_extensible">보안 • 빠름 • 확장성</string>
     <string name="language">언어</string>
+    <string name="key_size_help">더 큰 키 크기는 더 나은 보안을 제공하지만 성능이 느려집니다</string>
+    <string name="padding_help">PKCS7Padding이 대부분의 사용 사례에 권장됩니다</string>
+    <string name="language_help">인터페이스의 기본 언어를 선택하세요</string>
+    <string name="default_settings_help">이 설정들이 파일 암호화 시 기본적으로 적용됩니다</string>
+    <string name="performance_help">지원되는 경우 더 빠른 암호화/복호화를 위해 멀티 CPU 코어를 활용합니다</string>
+    <string name="buffer_help">더 큰 버퍼 크기는 대용량 파일의 성능을 향상시킬 수 있습니다</string>
+    <string name="performance_settings">성능 설정</string>
+    <string name="default_encryption_settings">기본 암호화 설정</string>
+    <string name="buffer_size">버퍼 크기 (KB)</string>
+    <string name="enable_multithreading">멀티스레딩 활성화</string>
 </resources>

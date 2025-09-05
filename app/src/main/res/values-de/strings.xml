@@ -28,4 +28,14 @@
     <string name="github_style_crypto">GitHub-Stil Verschlüsselung</string>
     <string name="secure_fast_extensible">Sicher • Schnell • Erweiterbar</string>
     <string name="language">Sprache</string>
+    <string name="key_size_help">Größere Schlüsselgrößen bieten bessere Sicherheit aber langsamere Leistung</string>
+    <string name="padding_help">PKCS7Padding wird für die meisten Anwendungsfälle empfohlen</string>
+    <string name="language_help">Wählen Sie Ihre bevorzugte Sprache für die Benutzeroberfläche</string>
+    <string name="default_settings_help">Diese Einstellungen werden standardmäßig beim Verschlüsseln von Dateien angewendet</string>
+    <string name="performance_help">Mehrere CPU-Kerne für schnellere Ver-/Entschlüsselung nutzen, wenn unterstützt</string>
+    <string name="buffer_help">Größere Puffergrößen können die Leistung bei großen Dateien verbessern</string>
+    <string name="performance_settings">Leistungseinstellungen</string>
+    <string name="default_encryption_settings">Standard-Verschlüsselungseinstellungen</string>
+    <string name="buffer_size">Puffergröße (KB)</string>
+    <string name="enable_multithreading">Multithreading aktivieren</string>
 </resources>

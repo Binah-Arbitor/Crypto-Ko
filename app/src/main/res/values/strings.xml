@@ -28,4 +28,14 @@
     <string name="github_style_crypto">GitHub Style Crypto</string>
     <string name="secure_fast_extensible">Secure • Fast • Extensible</string>
     <string name="language">Language</string>
+    <string name="key_size_help">Higher key sizes provide better security but slower performance</string>
+    <string name="padding_help">PKCS7Padding is recommended for most use cases</string>
+    <string name="language_help">Select your preferred language for the interface</string>
+    <string name="default_settings_help">These settings will be applied by default when encrypting files</string>
+    <string name="performance_help">Utilize multiple CPU cores for faster encryption/decryption when supported</string>
+    <string name="buffer_help">Larger buffer sizes may improve performance for large files</string>
+    <string name="performance_settings">Performance Settings</string>
+    <string name="default_encryption_settings">Default Encryption Settings</string>
+    <string name="buffer_size">Buffer Size (KB)</string>
+    <string name="enable_multithreading">Enable Multithreading</string>
 </resources>

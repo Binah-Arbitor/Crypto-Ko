@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select your preferred language for the interface"
+                    android:text="@string/language_help"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="12sp" />
 
@@ -69,7 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Default Encryption Settings"
+                    android:text="@string/default_encryption_settings"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -126,7 +126,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="These settings will be applied by default when encrypting files"
+                    android:text="@string/default_settings_help"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="12sp" />
 
@@ -150,7 +150,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Performance Settings"
+                    android:text="@string/performance_settings"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -162,13 +162,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="Enable Multithreading"
+                    android:text="@string/enable_multithreading"
                     android:textColor="?attr/colorOnSurface" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Utilize multiple CPU cores for faster encryption/decryption when supported"
+                    android:text="@string/performance_help"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="12sp"
                     android:layout_marginBottom="16dp" />
@@ -177,7 +177,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Buffer Size (KB)"
+                    android:text="@string/buffer_size"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
                     android:layout_marginBottom="4dp" />
@@ -213,7 +213,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Larger buffer sizes may improve performance for large files"
+                    android:text="@string/buffer_help"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="12sp"
                     android:layout_marginTop="8dp" />
