@@ -4,7 +4,7 @@ import org.junit.Test
 import org.junit.Assert.*
 
 /**
- * Test class for enhanced algorithm support beyond OpenSSL capabilities
+ * Test class for comprehensive Bouncy Castle algorithm support
  */
 class EnhancedAlgorithmTest {
     
@@ -47,7 +47,7 @@ class EnhancedAlgorithmTest {
         assertTrue("Should include SHACAL2", algorithmNames.contains("SHACAL2"))
         assertTrue("Should include DSTU7624", algorithmNames.contains("DSTU7624"))
         
-        // Verify total algorithm count has increased significantly beyond basic OpenSSL
+        // Verify comprehensive algorithm support
         assertTrue("Should have at least 35 different algorithm families", algorithmNames.size >= 35)
     }
     

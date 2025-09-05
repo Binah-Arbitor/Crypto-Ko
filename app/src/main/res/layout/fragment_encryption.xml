@@ -11,9 +11,63 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="24dp">
 
-        <!-- File Selection Card -->
+        <!-- Hero Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            style="@style/Widget.CryptoKo.Card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp"
+                android:gravity="center">
+
+                <!-- Modern icon with gradient background -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="?attr/colorPrimaryContainer">
+                    
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_lock"
+                        app:tint="?attr/colorOnPrimaryContainer" />
+                        
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Secure Encryption"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="28sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enterprise-grade cryptography powered by Bouncy Castle"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginBottom="24dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- File Selection Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,54 +78,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="File Selection"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
+                <!-- Section header with icon -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select one or more files to encrypt or decrypt. Multiple files will be processed individually."
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.3"
-                    android:layout_marginBottom="16dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
 
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_file"
+                        app:tint="?attr/colorPrimary"
+                        android:layout_marginEnd="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="File Selection"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Choose files to encrypt or decrypt"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- File selection button -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/select_file_button"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="64dp"
                     android:text="@string/select_file"
                     android:textSize="16sp"
+                    android:textAllCaps="false"
                     style="@style/Widget.CryptoKo.Button.Outlined"
                     app:icon="@drawable/ic_file"
-                    app:iconGravity="start" />
+                    app:iconGravity="start"
+                    app:iconSize="24dp"
+                    android:layout_marginBottom="16dp" />
 
+                <!-- Selected file display -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/file_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:visibility="gone"
-                    style="@style/Widget.CryptoKo.Card">
+                    style="@style/Widget.CryptoKo.Card.Outlined">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:src="@drawable/ic_file"
                             app:tint="?attr/colorPrimary"
                             android:layout_marginEnd="16dp" />
@@ -83,7 +163,14 @@
                             android:layout_weight="1"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
+                            android:fontFamily="sans-serif-medium"
                             tools:text="example_file.txt" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_check_circle"
+                            app:tint="?attr/colorSecondary" />
 
                     </LinearLayout>
 
@@ -93,7 +180,7 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Algorithm Configuration Card -->
+        <!-- Cryptographic Configuration Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,23 +191,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!-- Section header -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Encryption Configuration"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_settings"
+                        app:tint="?attr/colorPrimary"
+                        android:layout_marginEnd="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cryptographic Configuration"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Advanced encryption settings"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <!-- Algorithm Selection -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -128,30 +246,40 @@
                         android:text="@string/algorithm"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
                         android:layout_marginBottom="12dp" />
 
-                    <Spinner
-                        android:id="@+id/algorithm_spinner"
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:background="@drawable/spinner_background" />
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.CryptoKo.Card.Outlined">
+
+                        <Spinner
+                            android:id="@+id/algorithm_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="@android:color/transparent"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
                 </LinearLayout>
 
-                <!-- Key Size and Mode in horizontal layout -->
+                <!-- Configuration grid -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="24dp">
 
-                    <!-- Key Size Selection -->
+                    <!-- Key Size -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginEnd="16dp">
+                        android:layout_marginEnd="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -159,23 +287,33 @@
                             android:text="@string/key_size"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
                             android:layout_marginBottom="12dp" />
 
-                        <Spinner
-                            android:id="@+id/key_size_spinner"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:background="@drawable/spinner_background" />
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CryptoKo.Card.Outlined">
+
+                            <Spinner
+                                android:id="@+id/key_size_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:background="@android:color/transparent"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
 
-                    <!-- Mode Selection -->
+                    <!-- Mode -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+                        android:layout_marginStart="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -183,31 +321,41 @@
                             android:text="@string/mode"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
                             android:layout_marginBottom="12dp" />
 
-                        <Spinner
-                            android:id="@+id/mode_spinner"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:background="@drawable/spinner_background" />
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CryptoKo.Card.Outlined">
+
+                            <Spinner
+                                android:id="@+id/mode_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:background="@android:color/transparent"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <!-- Padding and Threading Controls -->
+                <!-- Advanced Settings -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="horizontal">
 
+                    <!-- Padding -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginEnd="16dp">
+                        android:layout_marginEnd="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -215,14 +363,24 @@
                             android:text="@string/padding"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
-                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
                             android:layout_marginBottom="12dp" />
 
-                        <Spinner
-                            android:id="@+id/padding_spinner"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:background="@drawable/spinner_background" />
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.CryptoKo.Card.Outlined">
+
+                            <Spinner
+                                android:id="@+id/padding_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:background="@android:color/transparent"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
 
                     <!-- Thread Count -->
@@ -231,53 +389,61 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginStart="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Threads"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="12dp" />
+                        android:layout_marginStart="12dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="12dp">
 
-                            <SeekBar
-                                android:id="@+id/thread_count_seekbar"
+                            <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:max="15"
-                                android:progress="3"
-                                style="@style/Widget.CryptoKo.SeekBar" />
+                                android:text="Threads"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="16sp"
+                                android:fontFamily="sans-serif-medium" />
 
                             <TextView
                                 android:id="@+id/thread_count_text"
-                                android:layout_width="40dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4"
-                                android:textColor="?attr/colorOnSurface"
+                                android:textColor="?attr/colorPrimary"
                                 android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:gravity="center" />
+                                android:fontFamily="sans-serif-medium"
+                                android:background="@drawable/chip_background"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="4dp" />
+
                         </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/thread_count_seekbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:max="15"
+                            android:progress="3"
+                            android:progressTint="?attr/colorPrimary"
+                            android:progressBackgroundTint="?attr/colorOutlineVariant"
+                            android:thumbTint="?attr/colorPrimary" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
+                <!-- Thread info -->
                 <TextView
                     android:id="@+id/thread_info_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="Multithreading available for ECB, CTR, OFB, GCM modes"
-                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.2"
                     android:alpha="0.9" />
 
             </LinearLayout>
@@ -295,7 +461,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
                 <LinearLayout
                     android:id="@+id/algorithm_info_header"
@@ -306,7 +472,15 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="8dp"
                     android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_info"
+                        app:tint="?attr/colorPrimary"
+                        android:layout_marginEnd="16dp" />
 
                     <TextView
                         android:layout_width="0dp"
@@ -315,24 +489,27 @@
                         android:text="Algorithm Information"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="sans-serif-medium" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/refresh_algorithms_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Refresh"
+                        android:textSize="14sp"
+                        android:textAllCaps="false"
+                        style="@style/Widget.CryptoKo.Button.Tonal"
+                        app:icon="@drawable/ic_refresh"
+                        app:iconSize="18dp" />
 
                     <ImageView
                         android:id="@+id/algorithm_info_expand_icon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_arrow_drop_down"
-                        app:tint="?attr/colorOnSurfaceVariant"
-                        android:layout_marginStart="8dp" />
+                        app:tint="?attr/colorOnSurface" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/refresh_algorithms_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:text="Refresh"
-                        android:textSize="14sp"
-                        style="@style/Widget.CryptoKo.Button.Outlined" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -342,119 +519,159 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="16dp">
-
+                    <!-- Algorithm stats -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginEnd="16dp">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Available Algorithms"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="6dp" />
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            style="@style/Widget.CryptoKo.Card.Outlined">
 
-                        <TextView
-                            android:id="@+id/algorithm_count_text"
-                            android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/algorithm_count_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="40+"
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textSize="24sp"
+                                    android:fontFamily="sans-serif-medium" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Algorithms"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="0 algorithms"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            style="@style/Widget.CryptoKo.Card.Outlined">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:padding="16dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/security_ranking_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="High"
+                                    android:textColor="?attr/colorSecondary"
+                                    android:textSize="24sp"
+                                    android:fontFamily="sans-serif-medium" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Security"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/algorithm_details_text"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="16dp">
+                        android:text="Discovering available cryptographic algorithms..."
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp"
+                        android:lineSpacingMultiplier="1.3"
+                        android:layout_marginBottom="12dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Security Ranking"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:layout_marginBottom="6dp" />
+                    <TextView
+                        android:id="@+id/providers_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Providers: Loading..."
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="13sp"
+                        android:alpha="0.8" />
 
-                        <TextView
-                            android:id="@+id/security_ranking_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="High Security"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/algorithm_details_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Discovering available cryptographic algorithms..."
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.2"
-                    android:alpha="0.9" />
-
-                <TextView
-                    android:id="@+id/providers_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Providers: Loading..."
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="13sp"
-                    android:alpha="0.8" />
-                </LinearLayout>
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Password Card -->
+        <!-- Password Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             style="@style/Widget.CryptoKo.Card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Security"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Enter a strong password to protect your files. This password will be required to decrypt the files later."
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="14sp"
-                    android:lineSpacingMultiplier="1.3"
-                    android:layout_marginBottom="16dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <ImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/ic_key"
+                        app:tint="?attr/colorPrimary"
+                        android:layout_marginEnd="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Security Passphrase"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="20sp"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Secure password for encryption"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_layout"
@@ -462,6 +679,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_key"
+                    app:startIconTint="?attr/colorOnSurface"
                     style="@style/Widget.CryptoKo.TextInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -469,7 +688,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:textColor="?attr/colorOnSurface" />
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -477,31 +697,29 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Progress Indicator -->
+        <!-- Progress Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="32dp">
+            android:layout_marginBottom="32dp"
+            android:visibility="gone">
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress_indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:indicatorColor="?attr/colorPrimary"
-                app:trackColor="?attr/colorSurfaceVariant" />
+                android:layout_height="8dp"
+                android:layout_marginBottom="16dp"
+                style="@style/Widget.CryptoKo.LinearProgressIndicator" />
 
             <TextView
                 android:id="@+id/progress_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
-                android:visibility="gone"
-                android:alpha="0.8"
-                android:lineSpacingMultiplier="1.2"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingMultiplier="1.3"
                 tools:text="Processing..." />
 
         </LinearLayout>
@@ -518,26 +736,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="12dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/start_encryption"
-                android:textSize="18sp"
-                android:minHeight="56dp"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:minHeight="64dp"
                 style="@style/Widget.CryptoKo.Button"
                 app:icon="@drawable/ic_lock"
-                app:iconGravity="start" />
+                app:iconGravity="start"
+                app:iconSize="24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/decrypt_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/start_decryption"
-                android:textSize="18sp"
-                android:minHeight="56dp"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:minHeight="64dp"
                 style="@style/Widget.CryptoKo.Button.Outlined"
                 app:icon="@drawable/ic_unlock"
-                app:iconGravity="start" />
+                app:iconGravity="start"
+                app:iconSize="24dp" />
 
         </LinearLayout>
 

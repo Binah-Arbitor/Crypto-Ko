@@ -60,7 +60,7 @@ class AlgorithmDiscoveryTest {
         
         // Should include at least SunJCE or BC (Bouncy Castle)
         val hasBasicProvider = providers.any { 
-            it.contains("SunJCE") || it.contains("BC") || it.contains("AndroidOpenSSL") 
+            it.contains("SunJCE") || it.contains("BC") 
         }
         assertTrue("Should have a basic cryptographic provider", hasBasicProvider)
     }

@@ -4,13 +4,13 @@ import com.cryptoko.crypto.AlgorithmCatalog
 import com.cryptoko.crypto.CipherAlgorithm
 
 /**
- * Enhanced example demonstrating the expanded cryptographic algorithm support
- * beyond traditional OpenSSL capabilities using Bouncy Castle
+ * Enhanced example demonstrating the comprehensive cryptographic algorithm support
+ * using advanced Bouncy Castle capabilities
  */
 object EnhancedAlgorithmShowcase {
     
     /**
-     * Demonstrates the enhanced algorithm capabilities beyond OpenSSL
+     * Demonstrates the comprehensive cryptographic algorithm capabilities
      */
     fun showcaseEnhancedAlgorithms() {
         println("=== Enhanced Cryptographic Algorithm Showcase ===")
@@ -144,9 +144,8 @@ object EnhancedAlgorithmShowcase {
     }
     
     private fun showcaseSecurityComparison() {
-        println("📊 SECURITY COMPARISON vs OpenSSL")
-        println("OpenSSL typically provides: AES, DES, 3DES, RC4, Blowfish (~5-6 algorithms)")
-        println("Crypto-Ko Enhanced provides: 40+ algorithm families")
+        println("📊 COMPREHENSIVE CRYPTOGRAPHIC SUPPORT")
+        println("Bouncy Castle provides enterprise-grade cryptographic algorithms")
         println()
         
         val totalAlgorithms = CipherAlgorithm.getBaseAlgorithmNames().size

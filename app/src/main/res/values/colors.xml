@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- GitHub inspired color scheme -->
+    <!-- Modern Material Design 3 inspired color palette -->
+    
+    <!-- Primary brand colors -->
+    <color name="md3_primary">#6750A4</color>
+    <color name="md3_on_primary">#FFFFFF</color>
+    <color name="md3_primary_container">#EADDFF</color>
+    <color name="md3_on_primary_container">#21005D</color>
+    
+    <!-- Secondary colors -->
+    <color name="md3_secondary">#625B71</color>
+    <color name="md3_on_secondary">#FFFFFF</color>
+    <color name="md3_secondary_container">#E8DEF8</color>
+    <color name="md3_on_secondary_container">#1D192B</color>
+    
+    <!-- Tertiary colors -->
+    <color name="md3_tertiary">#7D5260</color>
+    <color name="md3_on_tertiary">#FFFFFF</color>
+    <color name="md3_tertiary_container">#FFD8E4</color>
+    <color name="md3_on_tertiary_container">#31111D</color>
+    
+    <!-- Error colors -->
+    <color name="md3_error">#BA1A1A</color>
+    <color name="md3_on_error">#FFFFFF</color>
+    <color name="md3_error_container">#FFDAD6</color>
+    <color name="md3_on_error_container">#410002</color>
+    
+    <!-- Neutral surface colors - Light theme -->
+    <color name="md3_surface_light">#FFFBFE</color>
+    <color name="md3_on_surface_light">#1C1B1F</color>
+    <color name="md3_surface_variant_light">#E7E0EC</color>
+    <color name="md3_on_surface_variant_light">#49454F</color>
+    <color name="md3_outline_light">#79747E</color>
+    <color name="md3_outline_variant_light">#CAC4D0</color>
+    <color name="md3_background_light">#FFFBFE</color>
+    <color name="md3_on_background_light">#1C1B1F</color>
+    
+    <!-- Neutral surface colors - Dark theme -->
+    <color name="md3_surface_dark">#1C1B1F</color>
+    <color name="md3_on_surface_dark">#E6E1E5</color>
+    <color name="md3_surface_variant_dark">#49454F</color>
+    <color name="md3_on_surface_variant_dark">#CAC4D0</color>
+    <color name="md3_outline_dark">#938F99</color>
+    <color name="md3_outline_variant_dark">#49454F</color>
+    <color name="md3_background_dark">#1C1B1F</color>
+    <color name="md3_on_background_dark">#E6E1E5</color>
+    
+    <!-- Surface containers - Dark theme -->
+    <color name="md3_surface_container_lowest_dark">#0F0D13</color>
+    <color name="md3_surface_container_low_dark">#1C1B1F</color>
+    <color name="md3_surface_container_dark">#201F23</color>
+    <color name="md3_surface_container_high_dark">#2B2930</color>
+    <color name="md3_surface_container_highest_dark">#36343B</color>
+    
+    <!-- Surface containers - Light theme -->
+    <color name="md3_surface_container_lowest_light">#FFFFFF</color>
+    <color name="md3_surface_container_low_light">#F7F2FA</color>
+    <color name="md3_surface_container_light">#F3EDF7</color>
+    <color name="md3_surface_container_high_light">#ECE6F0</color>
+    <color name="md3_surface_container_highest_light">#E6E0E9</color>
+    
+    <!-- Crypto-specific accent colors -->
+    <color name="crypto_green">#00C853</color>
+    <color name="crypto_green_light">#69F0AE</color>
+    <color name="crypto_red">#FF5252</color>
+    <color name="crypto_red_light">#FF8A80</color>
+    <color name="crypto_blue">#2196F3</color>
+    <color name="crypto_blue_light">#64B5F6</color>
+    <color name="crypto_orange">#FF9800</color>
+    <color name="crypto_orange_light">#FFB74D</color>
+    
+    <!-- Legacy GitHub colors (for backward compatibility) -->
     <color name="github_dark_bg">#0D1117</color>
     <color name="github_dark_surface">#161B22</color>
     <color name="github_dark_surface_variant">#21262D</color>
@@ -13,41 +83,6 @@
     <color name="github_text_primary">#F0F6FC</color>
     <color name="github_text_secondary">#8B949E</color>
     <color name="github_border">#30363D</color>
-    
-    <!-- Discord inspired colors for app icon -->
-    <color name="discord_blurple">#5865F2</color>
-    <color name="discord_blurple_dark">#4752C4</color>
-    <color name="discord_blurple_light">#7289DA</color>
-    <color name="discord_dark_bg">#2C2F33</color>
-    <color name="discord_darker_bg">#23272A</color>
-    <color name="discord_light_bg">#36393F</color>
-    <color name="discord_white">#FFFFFF</color>
-    <color name="discord_greyple">#99AAB5</color>
-    <color name="discord_green">#43B581</color>
-    <color name="discord_yellow">#FAA61A</color>
-    <color name="discord_red">#F04747</color>
-    
-    <!-- Korean-inspired modern colors for app icon -->
-    <color name="korean_blue">#3366FF</color>
-    <color name="korean_blue_dark">#1F4EF5</color>
-    <color name="korean_blue_light">#6699FF</color>
-    <color name="korean_bg_primary">#F8F9FA</color>
-    <color name="korean_bg_secondary">#E9ECEF</color>
-    <color name="korean_accent">#FF6B35</color>
-    <color name="korean_success">#28A745</color>
-    <color name="korean_text">#212529</color>
-    <color name="korean_border">#DEE2E6</color>
-    
-    <!-- Matrix-inspired cryptographic colors -->
-    <color name="matrix_green_bright">#00FF00</color>
-    <color name="matrix_green">#00CC00</color>
-    <color name="matrix_green_dark">#008800</color>
-    <color name="matrix_bg_black">#000000</color>
-    <color name="matrix_bg_dark">#001100</color>
-    <color name="matrix_bg_darker">#000800</color>
-    <color name="matrix_digital_green">#00FF41</color>
-    <color name="matrix_code_green">#00DD00</color>
-    <color name="matrix_shadow">#003300</color>
     
     <!-- Material Design fallbacks -->
     <color name="purple_200">#FFBB86FC</color>

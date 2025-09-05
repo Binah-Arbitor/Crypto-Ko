@@ -1,94 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- GitHub inspired theme -->
+    <!-- Modern Material Design 3 theme -->
     <style name="Theme.CryptoKo" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/github_blue</item>
-        <item name="colorOnPrimary">@color/github_text_primary</item>
-        <item name="colorPrimaryContainer">@color/github_dark_surface_variant</item>
-        <item name="colorOnPrimaryContainer">@color/github_text_primary</item>
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/md3_primary</item>
+        <item name="colorOnPrimary">@color/md3_on_primary</item>
+        <item name="colorPrimaryContainer">@color/md3_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/md3_on_primary_container</item>
         
-        <item name="colorSecondary">@color/github_green</item>
-        <item name="colorOnSecondary">@color/github_dark_bg</item>
-        <item name="colorSecondaryContainer">@color/github_dark_surface</item>
-        <item name="colorOnSecondaryContainer">@color/github_text_primary</item>
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/md3_secondary</item>
+        <item name="colorOnSecondary">@color/md3_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/md3_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/md3_on_secondary_container</item>
         
-        <item name="colorTertiary">@color/github_purple</item>
-        <item name="colorOnTertiary">@color/github_dark_bg</item>
+        <!-- Tertiary colors -->
+        <item name="colorTertiary">@color/md3_tertiary</item>
+        <item name="colorOnTertiary">@color/md3_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/md3_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/md3_on_tertiary_container</item>
         
-        <item name="colorError">@color/github_red</item>
-        <item name="colorOnError">@color/github_text_primary</item>
+        <!-- Error colors -->
+        <item name="colorError">@color/md3_error</item>
+        <item name="colorOnError">@color/md3_on_error</item>
+        <item name="colorErrorContainer">@color/md3_error_container</item>
+        <item name="colorOnErrorContainer">@color/md3_on_error_container</item>
         
-        <item name="colorSurface">@color/github_dark_surface</item>
-        <item name="colorOnSurface">@color/github_text_primary</item>
-        <item name="colorSurfaceVariant">@color/github_dark_surface_variant</item>
-        <item name="colorOnSurfaceVariant">@color/github_text_secondary</item>
+        <!-- Surface colors (adaptive based on theme) -->
+        <item name="colorSurface">@color/md3_surface_dark</item>
+        <item name="colorOnSurface">@color/md3_on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/md3_surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/md3_on_surface_variant_dark</item>
+        <item name="colorSurfaceContainer">@color/md3_surface_container_dark</item>
+        <item name="colorSurfaceContainerLow">@color/md3_surface_container_low_dark</item>
+        <item name="colorSurfaceContainerHigh">@color/md3_surface_container_high_dark</item>
+        <item name="colorSurfaceContainerHighest">@color/md3_surface_container_highest_dark</item>
         
-        <item name="colorBackground">@color/github_dark_bg</item>
-        <item name="colorOnBackground">@color/github_text_primary</item>
+        <!-- Background colors -->
+        <item name="colorBackground">@color/md3_background_dark</item>
+        <item name="colorOnBackground">@color/md3_on_background_dark</item>
         
-        <item name="colorOutline">@color/github_border</item>
+        <!-- Outline colors -->
+        <item name="colorOutline">@color/md3_outline_dark</item>
+        <item name="colorOutlineVariant">@color/md3_outline_variant_dark</item>
         
-        <item name="android:statusBarColor">@color/github_dark_bg</item>
-        <item name="android:navigationBarColor">@color/github_dark_bg</item>
+        <!-- System UI -->
+        <item name="android:statusBarColor">@color/md3_surface_dark</item>
+        <item name="android:navigationBarColor">@color/md3_surface_dark</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         
-        <!-- Spinner dropdown style -->
-        <item name="android:spinnerDropDownItemStyle">@style/Widget.CryptoKo.SpinnerDropDownItem</item>
-        <item name="android:dropDownListViewStyle">@style/Widget.CryptoKo.DropDownListView</item>
+        <!-- Material Design 3 shapes -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.CryptoKo.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.CryptoKo.LargeComponent</item>
     </style>
     
+    <!-- Modern component shapes -->
+    <style name="ShapeAppearance.CryptoKo.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    
+    <style name="ShapeAppearance.CryptoKo.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+    
+    <style name="ShapeAppearance.CryptoKo.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+    
+    <!-- Modern button styles -->
     <style name="Widget.CryptoKo.Button" parent="Widget.Material3.Button">
-        <item name="backgroundTint">@color/github_blue</item>
-        <item name="android:textColor">@color/github_text_primary</item>
-        <item name="cornerRadius">6dp</item>
+        <item name="backgroundTint">@color/md3_primary</item>
+        <item name="android:textColor">@color/md3_on_primary</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
     
     <style name="Widget.CryptoKo.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="strokeColor">@color/github_border</item>
-        <item name="android:textColor">@color/github_text_primary</item>
-        <item name="cornerRadius">6dp</item>
-    </style>
-    
-    <style name="Widget.CryptoKo.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/github_dark_surface</item>
-        <item name="strokeColor">@color/github_border</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="cardCornerRadius">6dp</item>
-        <item name="cardElevation">0dp</item>
-    </style>
-    
-    <style name="Widget.CryptoKo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/github_border</item>
-        <item name="android:textColorHint">@color/github_text_secondary</item>
-        <item name="hintTextColor">@color/github_text_secondary</item>
-    </style>
-    
-    <style name="Widget.CryptoKo.SeekBar" parent="Widget.AppCompat.SeekBar">
-        <item name="android:progressBackgroundTint">@color/github_border</item>
-        <item name="android:progressTint">@color/github_blue</item>
-        <item name="android:thumbTint">@color/github_blue</item>
-    </style>
-    
-    <style name="Widget.CryptoKo.Spinner" parent="@android:style/Widget.Spinner">
-        <item name="android:popupBackground">@drawable/spinner_popup_background</item>
-        <item name="android:dropDownSelector">@drawable/spinner_dropdown_background</item>
-    </style>
-    
-    <style name="Widget.CryptoKo.SpinnerDropDownItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="strokeColor">@color/md3_outline</item>
+        <item name="android:textColor">@color/md3_primary</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
+        <item name="android:minHeight">56dp</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/github_text_primary</item>
-        <item name="android:background">@drawable/spinner_dropdown_background</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
     </style>
     
-    <style name="Widget.CryptoKo.DropDownListView" parent="@android:style/Widget.ListView.DropDown">
-        <item name="android:background">@color/github_dark_bg</item>
-        <item name="android:divider">@color/github_border</item>
-        <item name="android:dividerHeight">1dp</item>
+    <style name="Widget.CryptoKo.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="backgroundTint">@color/md3_secondary_container</item>
+        <item name="android:textColor">@color/md3_on_secondary_container</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+    
+    <!-- Modern card styles -->
+    <style name="Widget.CryptoKo.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/md3_surface_container</item>
+        <item name="strokeColor">@color/md3_outline_variant</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.MediumComponent</item>
+        <item name="cardElevation">2dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.Card.Outlined" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardBackgroundColor">@color/md3_surface</item>
+        <item name="strokeColor">@color/md3_outline_variant</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.MediumComponent</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+    
+    <!-- Text input styles -->
+    <style name="Widget.CryptoKo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/md3_primary</item>
+        <item name="boxStrokeErrorColor">@color/md3_error</item>
+        <item name="android:textColorHint">@color/md3_on_surface_variant</item>
+        <item name="hintTextColor">@color/md3_on_surface_variant</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
+        <item name="endIconTint">@color/md3_on_surface_variant</item>
+    </style>
+    
+    <!-- Modern typography styles -->
+    <style name="TextAppearance.CryptoKo.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">57sp</item>
+        <item name="android:lineHeight">64sp</item>
+        <item name="android:letterSpacing">-0.25sp</item>
+    </style>
+    
+    <style name="TextAppearance.CryptoKo.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:lineHeight">40sp</item>
+    </style>
+    
+    <style name="TextAppearance.CryptoKo.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:lineHeight">28sp</item>
+    </style>
+    
+    <style name="TextAppearance.CryptoKo.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.15sp</item>
+    </style>
+    
+    <!-- Progress indicator style -->
+    <style name="Widget.CryptoKo.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
+        <item name="indicatorColor">@color/md3_primary</item>
+        <item name="trackColor">@color/md3_surface_variant</item>
+        <item name="trackCornerRadius">8dp</item>
+        <item name="indicatorCornerRadius">8dp</item>
     </style>
 </resources>

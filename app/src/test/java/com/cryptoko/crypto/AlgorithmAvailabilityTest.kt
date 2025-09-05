@@ -41,13 +41,13 @@ class AlgorithmAvailabilityTest {
             println("Missing: ${missing.joinToString(", ")}")
         }
         
-        // Test that we have significantly more algorithms than basic OpenSSL
-        val basicOpensslAlgorithms = setOf("AES", "DES", "3DES", "RC4", "Blowfish")
-        val availableBasic = algorithmNames.intersect(basicOpensslAlgorithms).size
+        // Test that we have a comprehensive set of cryptographic algorithms
+        val basicAlgorithms = setOf("AES", "DES", "3DES", "RC4", "Blowfish")
+        val availableBasic = algorithmNames.intersect(basicAlgorithms).size
         
-        assertTrue("Should have basic OpenSSL algorithms", availableBasic >= 4)
-        assertTrue("Should have significantly more algorithms than basic OpenSSL", 
-            algorithmNames.size > basicOpensslAlgorithms.size * 3)
+        assertTrue("Should have basic encryption algorithms", availableBasic >= 4)
+        assertTrue("Should have comprehensive algorithm support", 
+            algorithmNames.size > basicAlgorithms.size * 3)
         
         // Print full list for verification
         val output = StringBuilder()
