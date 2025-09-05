@@ -24,16 +24,20 @@ android {
         create("release") {
             val keystorePropertiesFile = rootProject.file("keystore.properties")
             if (keystorePropertiesFile.exists()) {
-                val keystoreProperties = java.util.Properties()
-                keystoreProperties.load(java.io.FileInputStream(keystorePropertiesFile))
+                val keystoreProperties = keystorePropertiesFile.readLines()
+                    .filter { it.isNotBlank() && !it.startsWith("#") }
+                    .associate { 
+                        val parts = it.split("=", limit = 2)
+                        if (parts.size == 2) parts[0].trim() to parts[1].trim() else "" to ""
+                    }
 
-                keyAlias = keystoreProperties.getProperty("keyAlias")
-                keyPassword = keystoreProperties.getProperty("keyPassword")
-                val storeFilePath = keystoreProperties.getProperty("storeFile")
+                keyAlias = keystoreProperties["keyAlias"]
+                keyPassword = keystoreProperties["keyPassword"]
+                val storeFilePath = keystoreProperties["storeFile"]
                 if (!storeFilePath.isNullOrEmpty()) {
                     storeFile = file(storeFilePath)
                 }
-                storePassword = keystoreProperties.getProperty("storePassword")
+                storePassword = keystoreProperties["storePassword"]
             } else {
                 // keystore.properties not present locally — release signing will be skipped
                 println("Warning: keystore.properties file not found. Release signing will be disabled.")
