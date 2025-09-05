@@ -11,34 +11,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <!-- File Selection Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             style="@style/Widget.CryptoKo.Card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="File Selection"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="8dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/select_file_button"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:text="@string/select_file"
                     style="@style/Widget.CryptoKo.Button.Outlined"
                     app:icon="@drawable/ic_file"
@@ -48,7 +48,7 @@
                     android:id="@+id/file_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="8dp"
                     android:visibility="gone"
                     style="@style/Widget.CryptoKo.Card">
 
@@ -56,15 +56,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="12dp"
+                        android:padding="8dp"
                         android:gravity="center_vertical">
 
                         <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:src="@drawable/ic_file"
                             app:tint="?attr/colorPrimary"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="8dp" />
 
                         <TextView
                             android:id="@+id/file_path_text"
@@ -72,7 +72,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textColor="?attr/colorOnSurface"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             tools:text="example_file.txt" />
 
                     </LinearLayout>
@@ -87,139 +87,173 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             style="@style/Widget.CryptoKo.Card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Encryption Configuration"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="8dp" />
 
-                <!-- Algorithm Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/algorithm"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/algorithm_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/spinner_background" />
-
-                <!-- Mode Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mode"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/mode_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/spinner_background" />
-
-                <!-- Key Size Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/key_size"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/key_size_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/spinner_background" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/key_size_help"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Padding Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/padding"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
-                <Spinner
-                    android:id="@+id/padding_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/spinner_background" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/padding_help"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Thread Count Selection -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thread Count (Multithreading)"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="4dp" />
-
+                <!-- Algorithm, Key Size, Mode in horizontal layout -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:layout_marginBottom="8dp">
 
-                    <SeekBar
-                        android:id="@+id/thread_count_seekbar"
+                    <!-- Algorithm Selection -->
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:max="15"
-                        android:progress="3"
-                        android:layout_marginEnd="16dp" />
+                        android:orientation="vertical"
+                        android:layout_marginEnd="4dp">
 
-                    <TextView
-                        android:id="@+id/thread_count_text"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/algorithm"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp" />
+
+                        <Spinner
+                            android:id="@+id/algorithm_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/spinner_background" />
+                    </LinearLayout>
+
+                    <!-- Key Size Selection -->
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="4"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:minWidth="32dp"
-                        android:gravity="center" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/key_size"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp" />
+
+                        <Spinner
+                            android:id="@+id/key_size_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/spinner_background" />
+                    </LinearLayout>
+
+                    <!-- Mode Selection -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mode"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp" />
+
+                        <Spinner
+                            android:id="@+id/mode_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/spinner_background" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Padding Selection -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/padding"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp" />
+
+                        <Spinner
+                            android:id="@+id/padding_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/spinner_background" />
+                    </LinearLayout>
+
+                    <!-- Thread Count -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Threads"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="12sp"
+                            android:layout_marginBottom="2dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <SeekBar
+                                android:id="@+id/thread_count_seekbar"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:max="15"
+                                android:progress="3" />
+
+                            <TextView
+                                android:id="@+id/thread_count_text"
+                                android:layout_width="24dp"
+                                android:layout_height="wrap_content"
+                                android:text="4"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <TextView
@@ -228,8 +262,7 @@
                     android:layout_height="wrap_content"
                     android:text="Multithreading available for ECB, CTR, OFB, GCM modes"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="12sp"
-                    android:layout_marginBottom="8dp" />
+                    android:textSize="10sp" />
 
             </LinearLayout>
 
@@ -239,29 +272,28 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             style="@style/Widget.CryptoKo.Card">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Security"
                     android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="8dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
                     android:hint="@string/password"
                     app:endIconMode="password_toggle"
                     style="@style/Widget.CryptoKo.TextInputLayout">
@@ -275,8 +307,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
@@ -286,7 +316,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="12dp">
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress_indicator"
@@ -302,7 +332,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 android:visibility="gone"
                 tools:text="Processing..." />
 
@@ -320,7 +350,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="6dp"
                 android:text="@string/start_encryption"
                 style="@style/Widget.CryptoKo.Button"
                 app:icon="@drawable/ic_lock"
@@ -331,7 +361,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="6dp"
                 android:text="@string/start_decryption"
                 style="@style/Widget.CryptoKo.Button.Outlined"
                 app:icon="@drawable/ic_unlock"

@@ -21,7 +21,17 @@ object FileUtils {
         return context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
             val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             cursor.moveToFirst()
-            cursor.getString(nameIndex)
+            // Ensure proper UTF-8 encoding for Korean characters
+            val fileName = cursor.getString(nameIndex)
+            fileName?.let {
+                // Check if the filename contains corrupted characters and try to fix them
+                if (it.contains("?") || it.contains("�")) {
+                    // If there are corruption indicators, try to get a clean name
+                    "file_${System.currentTimeMillis()}"
+                } else {
+                    it
+                }
+            }
         }
     }
     
@@ -43,7 +53,9 @@ object FileUtils {
     fun copyUriToInternalStorage(context: Context, uri: Uri, fileName: String): String? {
         return try {
             val inputStream = context.contentResolver.openInputStream(uri)
-            val internalFile = File(context.cacheDir, fileName)
+            // Sanitize filename for Korean characters - ensure UTF-8 safe filename  
+            val safeFileName = sanitizeFileName(fileName)
+            val internalFile = File(context.cacheDir, safeFileName)
             
             inputStream?.use { input ->
                 FileOutputStream(internalFile).use { output ->
@@ -54,6 +66,23 @@ object FileUtils {
             internalFile.absolutePath
         } catch (e: Exception) {
             null
+        }
+    }
+    
+    /**
+     * Sanitizes filename to ensure it's safe for file system and UTF-8 compatible
+     */
+    private fun sanitizeFileName(fileName: String): String {
+        // Replace problematic characters while preserving Korean characters
+        val sanitized = fileName.replace(Regex("[<>:\"/\\\\|?*]"), "_")
+        
+        // Ensure the filename isn't empty and has reasonable length
+        return if (sanitized.isBlank()) {
+            "file_${System.currentTimeMillis()}"
+        } else if (sanitized.length > 200) {
+            sanitized.substring(0, 200)
+        } else {
+            sanitized
         }
     }
     

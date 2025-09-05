@@ -49,5 +49,40 @@ data class CipherAlgorithm(
         fun getAlgorithmNames(): List<String> {
             return ALL_ALGORITHMS.map { it.name }
         }
+
+        /**
+         * Get unique base algorithm names (AES, DES, etc.) for separate selection
+         */
+        fun getBaseAlgorithmNames(): List<String> {
+            return ALL_ALGORITHMS.map { it.algorithmName }.distinct().sorted()
+        }
+
+        /**
+         * Get available key sizes for a specific base algorithm
+         */
+        fun getKeySizesForAlgorithm(algorithmName: String): List<Int> {
+            return ALL_ALGORITHMS
+                .filter { it.algorithmName == algorithmName }
+                .map { it.keySize }
+                .distinct()
+                .sorted()
+        }
+
+        /**
+         * Get supported modes for a specific algorithm and key size combination
+         */
+        fun getModesForAlgorithm(algorithmName: String, keySize: Int): List<String> {
+            return ALL_ALGORITHMS
+                .filter { it.algorithmName == algorithmName && it.keySize == keySize }
+                .flatMap { it.supportedModes }
+                .distinct()
+        }
+
+        /**
+         * Create a CipherAlgorithm instance from separate components
+         */
+        fun createFromComponents(algorithmName: String, keySize: Int): CipherAlgorithm? {
+            return ALL_ALGORITHMS.find { it.algorithmName == algorithmName && it.keySize == keySize }
+        }
     }
 }
