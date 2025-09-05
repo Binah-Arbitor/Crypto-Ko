@@ -97,7 +97,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.2")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     
-    // Encryption libraries
+    // Encryption libraries - using stable Bouncy Castle for enhanced algorithm support
     implementation("org.bouncycastle:bcprov-jdk15on:1.70")
     implementation("org.bouncycastle:bcpkix-jdk15on:1.70")
     

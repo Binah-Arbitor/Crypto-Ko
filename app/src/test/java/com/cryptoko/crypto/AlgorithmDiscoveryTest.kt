@@ -54,6 +54,10 @@ class AlgorithmDiscoveryTest {
         val providers = AlgorithmCatalog.getAvailableCipherProviders()
         assertFalse("Should find at least one provider", providers.isEmpty())
         
+        // Print providers for debugging
+        println("Available cryptographic providers:")
+        providers.forEach { println("  - $it") }
+        
         // Should include at least SunJCE or BC (Bouncy Castle)
         val hasBasicProvider = providers.any { 
             it.contains("SunJCE") || it.contains("BC") || it.contains("AndroidOpenSSL") 

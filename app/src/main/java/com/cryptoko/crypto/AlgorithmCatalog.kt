@@ -27,13 +27,25 @@ object AlgorithmCatalog {
         "Camellia" to 8,    // Similar security level to AES, approved by NESSIE
         "Twofish" to 7,     // AES finalist, strong security design
         "Serpent" to 7,     // AES finalist, excellent security
+        "XSalsa20" to 7,    // Extended Salsa20 with larger nonce, excellent security
         "SM4" to 6,         // Chinese national standard, relatively secure
         "Blowfish" to 6,    // Variable key, reasonably secure for most applications
         "Threefish" to 6,   // Part of Skein hash function family
         "Salsa20" to 6,     // Good stream cipher security
+        "HC256" to 6,       // eSTREAM finalist, hardware-oriented stream cipher
+        "HC128" to 6,       // eSTREAM finalist, smaller variant of HC256
+        "SHACAL2" to 6,     // Based on SHA-256 compression function
+        "ZUC256" to 6,      // Chinese stream cipher standard (256-bit variant)
+        "ZUC128" to 6,      // Chinese stream cipher standard (128-bit variant)
+        "DSTU7624" to 6,    // Ukrainian national standard (Kalyna)
+        "NOEKEON" to 5,     // Lightweight block cipher, well-analyzed
         "SEED" to 5,        // Korean standard, decent security
         "IDEA" to 5,        // Good security design, but aging
-        "GOST28147" to 5,   // Russian standard
+        "GOST28147" to 5,   // Russian legacy standard
+        "GOST3412" to 5,    // Russian modern standard (Kuznyechik/Magma)
+        "Grain128" to 5,    // Lightweight stream cipher, eSTREAM finalist
+        "VMPC" to 5,        // Variable Memory Parameter Cipher
+        "Tnepres" to 7,     // Serpent variant with different S-box ordering
         "CAST5" to 4,       // Reasonable security for legacy applications
         "CAST6" to 4,       // CAST family cipher
         "3DES" to 4,        // Triple DES, legacy but significantly better than DES
@@ -127,13 +139,51 @@ object AlgorithmCatalog {
         AlgorithmDefinition("Skipjack", listOf(80), listOf("CBC", "CFB", "OFB", "ECB"), 8),
         
         // DES - Data Encryption Standard (weak, included for legacy)
-        AlgorithmDefinition("DES", listOf(56), listOf("CBC", "CFB", "OFB", "ECB"), 8)
+        AlgorithmDefinition("DES", listOf(56), listOf("CBC", "CFB", "OFB", "ECB"), 8),
+        
+        // === Enhanced International and Modern Algorithms ===
+        
+        // XSalsa20 - Extended Salsa20 with larger nonce
+        AlgorithmDefinition("XSalsa20", listOf(256), listOf("STREAM"), 1),
+        
+        // HC128/HC256 - eSTREAM finalist stream ciphers
+        AlgorithmDefinition("HC128", listOf(128), listOf("STREAM"), 1),
+        AlgorithmDefinition("HC256", listOf(256), listOf("STREAM"), 1),
+        
+        // NOEKEON - Lightweight block cipher
+        AlgorithmDefinition("NOEKEON", listOf(128), listOf("CBC", "CFB", "OFB", "ECB"), 16),
+        
+        // SHACAL-2 - Block cipher based on SHA-256 compression function
+        AlgorithmDefinition("SHACAL2", listOf(128, 256, 384, 512), listOf("CBC", "CFB", "OFB", "ECB"), 32),
+        
+        // ZUC - Chinese stream cipher standard
+        AlgorithmDefinition("ZUC128", listOf(128), listOf("STREAM"), 1),
+        AlgorithmDefinition("ZUC256", listOf(256), listOf("STREAM"), 1),
+        
+        // DSTU7624 - Ukrainian national standard (Kalyna)
+        AlgorithmDefinition("DSTU7624", listOf(128, 256, 512), listOf("CBC", "CFB", "OFB", "ECB"), 16),
+        
+        // GOST3412-2015 - Modern Russian standard (Kuznyechik/Magma)
+        AlgorithmDefinition("GOST3412", listOf(128, 256), listOf("CBC", "CFB", "OFB", "ECB"), 16),
+        
+        // Grain128 - Lightweight stream cipher, eSTREAM finalist
+        AlgorithmDefinition("Grain128", listOf(128), listOf("STREAM"), 1),
+        
+        // VMPC - Variable Memory Parameter Cipher family
+        AlgorithmDefinition("VMPC", listOf(128, 256), listOf("STREAM"), 1),
+        
+        // Tnepres - Serpent variant with different S-box ordering
+        AlgorithmDefinition("Tnepres", listOf(128, 192, 256), listOf("CBC", "CFB", "OFB", "ECB"), 16)
     )
     
     /**
      * Stream ciphers that don't use traditional block modes
      */
-    private val STREAM_CIPHERS = setOf("ChaCha20", "RC4", "Salsa20")
+    private val STREAM_CIPHERS = setOf(
+        "ChaCha20", "RC4", "Salsa20", "XSalsa20", 
+        "HC128", "HC256", "ZUC128", "ZUC256", 
+        "Grain128", "VMPC"
+    )
     
     /**
      * Get all supported cipher algorithms as CipherAlgorithm instances
