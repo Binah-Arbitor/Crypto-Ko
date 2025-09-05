@@ -51,10 +51,26 @@ data class CipherAlgorithm(
         }
 
         /**
+         * Performance ranking of algorithms (higher number = better performance)
+         * Based on general cryptographic performance characteristics
+         */
+        private val ALGORITHM_PERFORMANCE_RANKING = mapOf(
+            "AES" to 10,        // Hardware acceleration available, widely optimized
+            "ChaCha20" to 9,    // Very fast stream cipher, designed for software performance
+            "Camellia" to 8,    // Similar to AES but generally slightly slower
+            "Blowfish" to 7,    // Fast for smaller block sizes but variable key setup time
+            "Twofish" to 6,     // Successor to Blowfish but more complex
+            "DESede" to 4,      // Triple DES, slower due to multiple rounds
+            "DES" to 2          // Oldest and slowest, deprecated
+        )
+
+        /**
          * Get unique base algorithm names (AES, DES, etc.) for separate selection
+         * Sorted by performance (best to worst)
          */
         fun getBaseAlgorithmNames(): List<String> {
-            return ALL_ALGORITHMS.map { it.algorithmName }.distinct().sorted()
+            return ALL_ALGORITHMS.map { it.algorithmName }.distinct()
+                .sortedByDescending { ALGORITHM_PERFORMANCE_RANKING[it] ?: 0 }
         }
 
         /**

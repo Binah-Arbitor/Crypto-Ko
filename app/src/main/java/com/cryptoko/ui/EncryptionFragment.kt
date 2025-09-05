@@ -95,10 +95,10 @@ class EncryptionFragment : Fragment() {
         // Algorithm spinner - now shows base algorithms only (AES, DES, etc.)
         val algorithmAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             CipherAlgorithm.getBaseAlgorithmNames()
         )
-        algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        algorithmAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         algorithmSpinner.adapter = algorithmAdapter
         
         algorithmSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -108,11 +108,8 @@ class EncryptionFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         
-        // Set default to AES
-        val aesIndex = CipherAlgorithm.getBaseAlgorithmNames().indexOf("AES")
-        if (aesIndex >= 0) {
-            algorithmSpinner.setSelection(aesIndex)
-        }
+        // Set default to AES (which should now be first due to performance sorting)
+        algorithmSpinner.setSelection(0)
         
         // Setup padding spinner
         setupPaddingSpinner()
@@ -127,10 +124,10 @@ class EncryptionFragment : Fragment() {
         
         val keySizeAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             keySizeDisplays
         )
-        keySizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        keySizeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         keySizeSpinner.adapter = keySizeAdapter
         
         // Set default key size (prefer 256-bit, then largest available)
@@ -164,10 +161,10 @@ class EncryptionFragment : Fragment() {
         
         val paddingAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             paddingModes
         )
-        paddingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        paddingAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         paddingSpinner.adapter = paddingAdapter
         
         // Select PKCS7Padding as default
@@ -185,10 +182,10 @@ class EncryptionFragment : Fragment() {
         
         val modeAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             modes
         )
-        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        modeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         modeSpinner.adapter = modeAdapter
         
         // Set default to CBC if available, otherwise first mode

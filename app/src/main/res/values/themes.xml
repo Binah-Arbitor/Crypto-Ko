@@ -59,4 +59,10 @@
         <item name="android:textColorHint">@color/github_text_secondary</item>
         <item name="hintTextColor">@color/github_text_secondary</item>
     </style>
+    
+    <style name="Widget.CryptoKo.SeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">@color/github_border</item>
+        <item name="android:progressTint">@color/github_blue</item>
+        <item name="android:thumbTint">@color/github_blue</item>
+    </style>
 </resources>

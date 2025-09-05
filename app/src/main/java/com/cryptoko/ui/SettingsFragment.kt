@@ -83,10 +83,10 @@ class SettingsFragment : Fragment() {
         // Language spinner
         val languageAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             SUPPORTED_LANGUAGES
         )
-        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        languageAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         languageSpinner.adapter = languageAdapter
         
         // Set current language
@@ -99,10 +99,10 @@ class SettingsFragment : Fragment() {
         // Algorithm spinner
         val algorithmAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             CipherAlgorithm.getAlgorithmNames()
         )
-        algorithmAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        algorithmAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         defaultAlgorithmSpinner.adapter = algorithmAdapter
         
         // Set default algorithm
@@ -117,10 +117,10 @@ class SettingsFragment : Fragment() {
         // Padding spinner
         val paddingAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             PADDING_MODES
         )
-        paddingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        paddingAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         defaultPaddingSpinner.adapter = paddingAdapter
         
         // Set default padding if it exists in config
@@ -137,10 +137,10 @@ class SettingsFragment : Fragment() {
         
         val modeAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_item,
             modes
         )
-        modeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        modeAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         defaultModeSpinner.adapter = modeAdapter
         
         // Set default mode

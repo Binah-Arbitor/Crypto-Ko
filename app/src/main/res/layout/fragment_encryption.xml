@@ -241,7 +241,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:max="15"
-                                android:progress="3" />
+                                android:progress="3"
+                                style="@style/Widget.CryptoKo.SeekBar" />
 
                             <TextView
                                 android:id="@+id/thread_count_text"
@@ -262,7 +263,8 @@
                     android:layout_height="wrap_content"
                     android:text="Multithreading available for ECB, CTR, OFB, GCM modes"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="10sp" />
+                    android:textSize="11sp"
+                    android:alpha="0.9" />
 
             </LinearLayout>
 
@@ -331,9 +333,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="10sp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="12sp"
                 android:visibility="gone"
+                android:alpha="0.8"
                 tools:text="Processing..." />
 
         </LinearLayout>
