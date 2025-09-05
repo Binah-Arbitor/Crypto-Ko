@@ -84,7 +84,7 @@
     </style>
     
     <style name="Widget.CryptoKo.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="strokeColor">@color/md3_outline</item>
+        <item name="strokeColor">@color/md3_outline_dark</item>
         <item name="android:textColor">@color/md3_primary</item>
         <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
         <item name="android:minHeight">56dp</item>
@@ -105,8 +105,8 @@
     
     <!-- Modern card styles -->
     <style name="Widget.CryptoKo.Card" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/md3_surface_container</item>
-        <item name="strokeColor">@color/md3_outline_variant</item>
+        <item name="cardBackgroundColor">@color/md3_surface_container_dark</item>
+        <item name="strokeColor">@color/md3_outline_variant_dark</item>
         <item name="strokeWidth">0dp</item>
         <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.MediumComponent</item>
         <item name="cardElevation">2dp</item>
@@ -114,8 +114,8 @@
     </style>
     
     <style name="Widget.CryptoKo.Card.Outlined" parent="Widget.Material3.CardView.Outlined">
-        <item name="cardBackgroundColor">@color/md3_surface</item>
-        <item name="strokeColor">@color/md3_outline_variant</item>
+        <item name="cardBackgroundColor">@color/md3_surface_dark</item>
+        <item name="strokeColor">@color/md3_outline_variant_dark</item>
         <item name="strokeWidth">1dp</item>
         <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.MediumComponent</item>
         <item name="cardElevation">0dp</item>
@@ -126,10 +126,10 @@
     <style name="Widget.CryptoKo.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/md3_primary</item>
         <item name="boxStrokeErrorColor">@color/md3_error</item>
-        <item name="android:textColorHint">@color/md3_on_surface_variant</item>
-        <item name="hintTextColor">@color/md3_on_surface_variant</item>
+        <item name="android:textColorHint">@color/md3_on_surface_variant_dark</item>
+        <item name="hintTextColor">@color/md3_on_surface_variant_dark</item>
         <item name="shapeAppearance">@style/ShapeAppearance.CryptoKo.SmallComponent</item>
-        <item name="endIconTint">@color/md3_on_surface_variant</item>
+        <item name="endIconTint">@color/md3_on_surface_variant_dark</item>
     </style>
     
     <!-- Modern typography styles -->
@@ -138,7 +138,7 @@
         <item name="fontWeight">400</item>
         <item name="android:textSize">57sp</item>
         <item name="android:lineHeight">64sp</item>
-        <item name="android:letterSpacing">-0.25sp</item>
+        <item name="android:letterSpacing">-0.25</item>
     </style>
     
     <style name="TextAppearance.CryptoKo.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
@@ -160,14 +160,13 @@
         <item name="fontWeight">400</item>
         <item name="android:textSize">16sp</item>
         <item name="android:lineHeight">24sp</item>
-        <item name="android:letterSpacing">0.15sp</item>
+        <item name="android:letterSpacing">0.15</item>
     </style>
     
     <!-- Progress indicator style -->
     <style name="Widget.CryptoKo.LinearProgressIndicator" parent="Widget.Material3.LinearProgressIndicator">
         <item name="indicatorColor">@color/md3_primary</item>
-        <item name="trackColor">@color/md3_surface_variant</item>
+        <item name="trackColor">@color/md3_surface_variant_dark</item>
         <item name="trackCornerRadius">8dp</item>
-        <item name="indicatorCornerRadius">8dp</item>
     </style>
 </resources>
