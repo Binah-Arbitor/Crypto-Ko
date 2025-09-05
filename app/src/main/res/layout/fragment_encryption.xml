@@ -105,20 +105,19 @@
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp" />
 
-                <!-- Algorithm, Key Size, Mode in horizontal layout -->
+                <!-- Algorithm, Key Size, Mode in vertical layout for better text display -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginBottom="8dp">
 
                     <!-- Algorithm Selection -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginEnd="4dp">
+                        android:layout_marginBottom="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -126,60 +125,67 @@
                             android:text="@string/algorithm"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginBottom="4dp" />
 
                         <Spinner
                             android:id="@+id/algorithm_spinner"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="56dp"
                             android:background="@drawable/spinner_background" />
                     </LinearLayout>
 
-                    <!-- Key Size Selection -->
+                    <!-- Key Size and Mode in horizontal layout -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="4dp">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Key Size Selection -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/key_size"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginEnd="8dp">
 
-                        <Spinner
-                            android:id="@+id/key_size_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@drawable/spinner_background" />
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/key_size"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="4dp" />
 
-                    <!-- Mode Selection -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="4dp">
+                            <Spinner
+                                android:id="@+id/key_size_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:background="@drawable/spinner_background" />
+                        </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Mode Selection -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/mode"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="8dp">
 
-                        <Spinner
-                            android:id="@+id/mode_spinner"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@drawable/spinner_background" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/mode"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="12sp"
+                                android:layout_marginBottom="4dp" />
+
+                            <Spinner
+                                android:id="@+id/mode_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="56dp"
+                                android:background="@drawable/spinner_background" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -196,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginEnd="4dp">
+                        android:layout_marginEnd="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -204,12 +210,12 @@
                             android:text="@string/padding"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginBottom="4dp" />
 
                         <Spinner
                             android:id="@+id/padding_spinner"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="56dp"
                             android:background="@drawable/spinner_background" />
                     </LinearLayout>
 
@@ -219,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_marginStart="4dp">
+                        android:layout_marginStart="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -227,11 +233,11 @@
                             android:text="Threads"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="12sp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginBottom="4dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="56dp"
                             android:orientation="horizontal"
                             android:gravity="center_vertical">
 
@@ -246,7 +252,7 @@
 
                             <TextView
                                 android:id="@+id/thread_count_text"
-                                android:layout_width="24dp"
+                                android:layout_width="28dp"
                                 android:layout_height="wrap_content"
                                 android:text="4"
                                 android:textColor="?attr/colorOnSurface"
