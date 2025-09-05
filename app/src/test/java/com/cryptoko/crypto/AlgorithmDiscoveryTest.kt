@@ -16,13 +16,25 @@ class AlgorithmDiscoveryTest {
     }
 
     @Test
-    fun testDiscoveryFindsAlgorithms() {
+    fun testEnhancedAlgorithmDiscovery() {
         val algorithms = AlgorithmDiscovery.discoverAlgorithms()
         assertFalse("Should discover at least some algorithms", algorithms.isEmpty())
         
         // Should find at least AES (most basic algorithm)
         val aesAlgorithms = algorithms.filter { it.algorithmName == "AES" }
         assertFalse("Should find AES algorithms", aesAlgorithms.isEmpty())
+        
+        // Should support more key sizes for AES
+        val aesKeySizes = aesAlgorithms.map { it.keySize }.toSet()
+        assertTrue("Should support 128-bit AES", aesKeySizes.contains(128))
+        assertTrue("Should support 256-bit AES", aesKeySizes.contains(256))
+        
+        // Print discovered algorithms for debugging
+        println("Discovered ${algorithms.size} algorithm configurations:")
+        algorithms.groupBy { it.algorithmName }.forEach { (name, variants) ->
+            val keySizes = variants.map { it.keySize }.distinct().sorted()
+            println("  $name: ${keySizes.joinToString(", ")} bit keys")
+        }
     }
     
     @Test
