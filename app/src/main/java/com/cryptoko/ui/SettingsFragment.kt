@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.cryptoko.R
 import com.cryptoko.crypto.CipherAlgorithm
 import com.cryptoko.utils.AppConfig
+import com.google.android.material.switchmaterial.SwitchMaterial
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -19,7 +20,7 @@ class SettingsFragment : Fragment() {
     private lateinit var defaultAlgorithmSpinner: Spinner
     private lateinit var defaultModeSpinner: Spinner
     private lateinit var defaultPaddingSpinner: Spinner
-    private lateinit var multithreadingSwitch: com.google.android.material.switchmaterial.SwitchMaterial
+    private lateinit var multithreadingSwitch: SwitchMaterial
     private lateinit var bufferSizeSeekBar: SeekBar
     private lateinit var bufferSizeText: TextView
     

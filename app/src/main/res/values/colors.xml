@@ -84,6 +84,15 @@
     <color name="github_text_secondary">#8B949E</color>
     <color name="github_border">#30363D</color>
     
+    <!-- Matrix theme colors for launcher -->
+    <color name="matrix_bg_black">#000000</color>
+    <color name="matrix_bg_dark">#0D1117</color>
+    <color name="matrix_bg_darker">#050505</color>
+    <color name="matrix_green">#00FF00</color>
+    <color name="matrix_green_dark">#008F00</color>
+    <color name="matrix_digital_green">#39FF14</color>
+    <color name="matrix_code_green">#00CC00</color>
+    
     <!-- Material Design fallbacks -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
