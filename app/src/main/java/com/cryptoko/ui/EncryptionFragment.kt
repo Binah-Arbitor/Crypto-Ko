@@ -45,10 +45,15 @@ class EncryptionFragment : Fragment() {
     
     // Algorithm Information UI elements
     private lateinit var refreshAlgorithmsButton: MaterialButton
+    private lateinit var algorithmInfoHeader: LinearLayout
+    private lateinit var algorithmInfoExpandIcon: ImageView
+    private lateinit var algorithmInfoContent: LinearLayout
     private lateinit var algorithmCountText: TextView
     private lateinit var securityRankingText: TextView
     private lateinit var algorithmDetailsText: TextView
     private lateinit var providersText: TextView
+    
+    private var isAlgorithmInfoExpanded = false
     
     private var selectedFileUris: MutableList<Uri> = mutableListOf()
     private val cryptoEngine = BouncyCastleCryptoEngine()
@@ -111,6 +116,9 @@ class EncryptionFragment : Fragment() {
         
         // Algorithm Information UI elements
         refreshAlgorithmsButton = view.findViewById(R.id.refresh_algorithms_button)
+        algorithmInfoHeader = view.findViewById(R.id.algorithm_info_header)
+        algorithmInfoExpandIcon = view.findViewById(R.id.algorithm_info_expand_icon)
+        algorithmInfoContent = view.findViewById(R.id.algorithm_info_content)
         algorithmCountText = view.findViewById(R.id.algorithm_count_text)
         securityRankingText = view.findViewById(R.id.security_ranking_text)
         algorithmDetailsText = view.findViewById(R.id.algorithm_details_text)
@@ -280,6 +288,11 @@ class EncryptionFragment : Fragment() {
         // Initialize algorithm information display
         updateAlgorithmInformation()
         
+        // Set up collapsible functionality
+        algorithmInfoHeader.setOnClickListener {
+            toggleAlgorithmInfoExpansion()
+        }
+        
         // Set up refresh button
         refreshAlgorithmsButton.setOnClickListener {
             CipherAlgorithm.refreshAlgorithms()
@@ -287,6 +300,18 @@ class EncryptionFragment : Fragment() {
             // Also refresh the spinners to show any new algorithms
             setupSpinners()
             showMessage("Algorithm list refreshed")
+        }
+    }
+    
+    private fun toggleAlgorithmInfoExpansion() {
+        isAlgorithmInfoExpanded = !isAlgorithmInfoExpanded
+        
+        if (isAlgorithmInfoExpanded) {
+            algorithmInfoContent.visibility = View.VISIBLE
+            algorithmInfoExpandIcon.rotation = 180f
+        } else {
+            algorithmInfoContent.visibility = View.GONE
+            algorithmInfoExpandIcon.rotation = 0f
         }
     }
     
