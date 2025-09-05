@@ -32,6 +32,10 @@
         <item name="android:navigationBarColor">@color/github_dark_bg</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Spinner dropdown style -->
+        <item name="android:spinnerDropDownItemStyle">@style/Widget.CryptoKo.SpinnerDropDownItem</item>
+        <item name="android:dropDownListViewStyle">@style/Widget.CryptoKo.DropDownListView</item>
     </style>
     
     <style name="Widget.CryptoKo.Button" parent="Widget.Material3.Button">
@@ -64,5 +68,27 @@
         <item name="android:progressBackgroundTint">@color/github_border</item>
         <item name="android:progressTint">@color/github_blue</item>
         <item name="android:thumbTint">@color/github_blue</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.Spinner" parent="@android:style/Widget.Spinner">
+        <item name="android:popupBackground">@drawable/spinner_popup_background</item>
+        <item name="android:dropDownSelector">@drawable/spinner_dropdown_background</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.SpinnerDropDownItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/github_text_primary</item>
+        <item name="android:background">@drawable/spinner_dropdown_background</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    
+    <style name="Widget.CryptoKo.DropDownListView" parent="@android:style/Widget.ListView.DropDown">
+        <item name="android:background">@color/github_dark_bg</item>
+        <item name="android:divider">@color/github_border</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 </resources>
