@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec
 class BouncyCastleCryptoEngine : CryptoEngine {
     
     companion object {
-        private const val BUFFER_SIZE = 8192
+        private const val BUFFER_SIZE = 65536  // Increased from 8192 to 64KB for better performance
         private const val IV_SIZE = 16
         private const val GCM_TAG_LENGTH = 16
         private const val SALT_SIZE = 16

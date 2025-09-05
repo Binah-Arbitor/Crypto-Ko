@@ -21,6 +21,10 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import java.io.File
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class EncryptionFragment : Fragment() {
     
@@ -48,16 +52,25 @@ class EncryptionFragment : Fragment() {
     private lateinit var algorithmDetailsText: TextView
     private lateinit var providersText: TextView
     
-    private var selectedFileUri: Uri? = null
+    private var selectedFileUris: MutableList<Uri> = mutableListOf()
     private val cryptoEngine = BouncyCastleCryptoEngine()
     
     private val filePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.data?.let { uri ->
-                selectedFileUri = uri
-                updateFileDisplay(uri)
+            selectedFileUris.clear()
+            result.data?.let { intent ->
+                if (intent.clipData != null) {
+                    // Multiple files selected
+                    for (i in 0 until intent.clipData!!.itemCount) {
+                        selectedFileUris.add(intent.clipData!!.getItemAt(i).uri)
+                    }
+                } else if (intent.data != null) {
+                    // Single file selected
+                    selectedFileUris.add(intent.data!!)
+                }
+                updateFileDisplay(selectedFileUris)
             }
         }
     }
@@ -361,16 +374,31 @@ class EncryptionFragment : Fragment() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
+            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)  // Allow multiple file selection
         }
         filePickerLauncher.launch(intent)
     }
     
-    private fun updateFileDisplay(uri: Uri) {
-        val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri)
-        val fileSize = com.cryptoko.utils.FileUtils.getFileSize(requireContext(), uri)
-        val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(fileSize)
+    private fun updateFileDisplay(uris: List<Uri>) {
+        if (uris.isEmpty()) {
+            fileCard.visibility = View.GONE
+            return
+        }
         
-        filePathText.text = "${fileName ?: "Selected file"} ($formattedSize)"
+        if (uris.size == 1) {
+            val uri = uris.first()
+            val fileName = com.cryptoko.utils.FileUtils.getFileName(requireContext(), uri)
+            val fileSize = com.cryptoko.utils.FileUtils.getFileSize(requireContext(), uri)
+            val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(fileSize)
+            
+            filePathText.text = "${fileName ?: "Selected file"} ($formattedSize)"
+        } else {
+            // Multiple files selected
+            val totalSize = uris.sumOf { com.cryptoko.utils.FileUtils.getFileSize(requireContext(), it) }
+            val formattedSize = com.cryptoko.utils.FileUtils.formatFileSize(totalSize)
+            filePathText.text = "${uris.size} files selected ($formattedSize)"
+        }
+        
         fileCard.visibility = View.VISIBLE
     }
     
@@ -383,17 +411,18 @@ class EncryptionFragment : Fragment() {
     }
     
     private fun validateInputs(): String? {
-        if (selectedFileUri == null) {
-            return getString(R.string.file_not_selected)
+        if (selectedFileUris.isEmpty()) {
+            return "No files selected"
         }
         
         val password = passwordEdit.text.toString()
         
         if (password.isEmpty()) {
-            return getString(R.string.password_empty)
+            return "Password cannot be empty"
         }
         
         return null
+    }
     }
     
     private fun performEncryption() {
@@ -403,6 +432,11 @@ class EncryptionFragment : Fragment() {
             return
         }
         
+        if (selectedFileUris.isEmpty()) {
+            showError("Please select at least one file")
+            return
+        }
+        
         // Get separate components
         val algorithmName = algorithmSpinner.selectedItem as String
         val keySizeDisplay = keySizeSpinner.selectedItem as String
@@ -417,20 +451,8 @@ class EncryptionFragment : Fragment() {
             return
         }
         
-        val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
-        val outputPath = "$inputPath.enc"
-        
-        val config = CryptoConfig(
-            algorithm = algorithm,
-            mode = mode,
-            password = password,
-            inputFile = inputPath,
-            outputFile = outputPath,
-            threadCount = threadCountSeekBar.progress + 1,
-            enableMultithreading = true
-        )
-        
-        startCryptoOperation(config, true)
+        // Process each file
+        processMultipleFiles(algorithm, mode, password, true)
     }
     
     private fun performDecryption() {
@@ -440,6 +462,11 @@ class EncryptionFragment : Fragment() {
             return
         }
         
+        if (selectedFileUris.isEmpty()) {
+            showError("Please select at least one file")
+            return
+        }
+        
         // Get separate components
         val algorithmName = algorithmSpinner.selectedItem as String
         val keySizeDisplay = keySizeSpinner.selectedItem as String
@@ -454,20 +481,100 @@ class EncryptionFragment : Fragment() {
             return
         }
         
-        val inputPath = getFilePathFromUri(selectedFileUri!!) ?: return
-        val outputPath = inputPath.removeSuffix(".enc")
+        // Process each file
+        processMultipleFiles(algorithm, mode, password, false)
+    }
+    
+    private fun processMultipleFiles(algorithm: CipherAlgorithm, mode: String, password: String, isEncryption: Boolean) {
+        setOperationInProgress(true)
         
-        val config = CryptoConfig(
-            algorithm = algorithm,
-            mode = mode,
-            password = password,
-            inputFile = inputPath,
-            outputFile = outputPath,
-            threadCount = threadCountSeekBar.progress + 1,
-            enableMultithreading = true
-        )
-        
-        startCryptoOperation(config, false)
+        lifecycleScope.launch {
+            var currentFileIndex = 0
+            val totalFiles = selectedFileUris.size
+            
+            for (uri in selectedFileUris) {
+                currentFileIndex++
+                val inputPath = getFilePathFromUri(uri) ?: continue
+                
+                // Create temporary file for output
+                val tempFile = if (isEncryption) {
+                    File(inputPath + ".crypto_temp")
+                } else {
+                    // For decryption, preserve original filename
+                    val originalName = File(inputPath).nameWithoutExtension
+                    val originalDir = File(inputPath).parent
+                    File(originalDir, "$originalName.crypto_temp")
+                }
+                
+                val config = CryptoConfig(
+                    algorithm = algorithm,
+                    mode = mode,
+                    password = password,
+                    inputFile = inputPath,
+                    outputFile = tempFile.absolutePath,
+                    threadCount = threadCountSeekBar.progress + 1,
+                    enableMultithreading = true
+                )
+                
+                requireActivity().runOnUiThread {
+                    progressText.text = "Processing file $currentFileIndex of $totalFiles..."
+                }
+                
+                val result = if (isEncryption) {
+                    cryptoEngine.encrypt(config) { progress ->
+                        requireActivity().runOnUiThread {
+                            updateProgress(progress)
+                        }
+                    }
+                } else {
+                    cryptoEngine.decrypt(config) { progress ->
+                        requireActivity().runOnUiThread {
+                            updateProgress(progress)
+                        }
+                    }
+                }
+                
+                // Handle result and replace original file
+                when (result) {
+                    is CryptoResult.Success -> {
+                        // Replace original file with processed file
+                        val originalFile = File(inputPath)
+                        if (originalFile.delete() && tempFile.renameTo(originalFile)) {
+                            // Successfully replaced
+                        } else {
+                            // Fallback: rename temp file
+                            if (isEncryption) {
+                                tempFile.renameTo(File(inputPath + ".enc"))
+                            } else {
+                                val originalName = File(inputPath).nameWithoutExtension
+                                val originalDir = File(inputPath).parent
+                                tempFile.renameTo(File(originalDir, originalName))
+                            }
+                        }
+                    }
+                    is CryptoResult.Error -> {
+                        // Clean up temp file
+                        tempFile.delete()
+                        requireActivity().runOnUiThread {
+                            showError("Error processing file $currentFileIndex: ${result.message}")
+                        }
+                        break
+                    }
+                    else -> {
+                        tempFile.delete()
+                    }
+                }
+            }
+            
+            requireActivity().runOnUiThread {
+                setOperationInProgress(false)
+                if (isEncryption) {
+                    showSuccess("Encryption completed successfully for $totalFiles file(s)")
+                } else {
+                    showSuccess("Decryption completed successfully for $totalFiles file(s)")
+                }
+            }
+        }
     }
     
     private fun startCryptoOperation(config: CryptoConfig, isEncryption: Boolean) {
@@ -559,6 +666,14 @@ class EncryptionFragment : Fragment() {
     private fun showError(message: String) {
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Error")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
+    }
+    
+    private fun showSuccess(message: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Success")
             .setMessage(message)
             .setPositiveButton("OK", null)
             .show()

@@ -163,12 +163,17 @@
                     android:layout_marginBottom="12dp" />
 
                 <TextView
+                    android:id="@+id/license_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="MIT License\n\nCopyright © 2025 Binah-Arbitor\n\nThis software is open source and available on GitHub."
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="14sp"
-                    android:lineSpacingExtra="4dp" />
+                    android:lineSpacingExtra="4dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp" />
 
             </LinearLayout>
 
