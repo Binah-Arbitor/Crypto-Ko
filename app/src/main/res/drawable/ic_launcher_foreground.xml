@@ -4,107 +4,116 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
   
-  <!-- Perfectly centered Discord-styled crypto icon -->
+  <!-- Perfectly centered crypto icon - balanced design -->
   <group android:translateX="54" android:translateY="54">
     
-    <!-- Outer glow effect - Discord style -->
+    <!-- Outer glow effect - perfectly centered -->
     <path
         android:fillColor="@color/discord_blurple"
-        android:alpha="0.2"
-        android:pathData="M0,-32 A32,32 0 0,1 32,0 A32,32 0 0,1 0,32 A32,32 0 0,1 -32,0 A32,32 0 0,1 0,-32 Z"/>
+        android:alpha="0.15"
+        android:pathData="M0,-30 A30,30 0 0,1 30,0 A30,30 0 0,1 0,30 A30,30 0 0,1 -30,0 A30,30 0 0,1 0,-30 Z"/>
     
-    <!-- Main shield shape - rounded Discord style -->
+    <!-- Main background circle - perfectly centered -->
     <path
         android:fillColor="@color/discord_blurple"
-        android:pathData="M0,-28 A28,28 0 0,1 28,0 A28,28 0 0,1 0,28 A28,28 0 0,1 -28,0 A28,28 0 0,1 0,-28 Z"/>
+        android:pathData="M0,-26 A26,26 0 0,1 26,0 A26,26 0 0,1 0,26 A26,26 0 0,1 -26,0 A26,26 0 0,1 0,-26 Z"/>
     
-    <!-- Inner highlight circle -->
+    <!-- Inner highlight circle - perfectly centered -->
     <path
         android:fillColor="@color/discord_white"
-        android:alpha="0.9"
-        android:pathData="M0,-24 A24,24 0 0,1 24,0 A24,24 0 0,1 0,24 A24,24 0 0,1 -24,0 A24,24 0 0,1 0,-24 Z"/>
-    
-    <!-- Inner colored circle -->
-    <path
-        android:fillColor="@color/discord_blurple"
-        android:alpha="0.1"
+        android:alpha="0.95"
         android:pathData="M0,-22 A22,22 0 0,1 22,0 A22,22 0 0,1 0,22 A22,22 0 0,1 -22,0 A22,22 0 0,1 0,-22 Z"/>
     
-    <!-- Central lock symbol - Discord rounded style -->
-    <group android:translateX="0" android:translateY="2">
-      <!-- Lock body - rounded corners -->
+    <!-- Central lock symbol - perfectly centered (no Y offset) -->
+    <group android:translateX="0" android:translateY="0">
+      <!-- Lock body - rounded corners, perfectly centered -->
       <path
           android:fillColor="@color/discord_blurple"
-          android:pathData="M-10,0 L10,0 A4,4 0 0,1 14,4 L14,14 A4,4 0 0,1 10,18 L-10,18 A4,4 0 0,1 -14,14 L-14,4 A4,4 0 0,1 -10,0 Z"/>
+          android:pathData="M-9,2 L9,2 A3,3 0 0,1 12,5 L12,15 A3,3 0 0,1 9,18 L-9,18 A3,3 0 0,1 -12,15 L-12,5 A3,3 0 0,1 -9,2 Z"/>
       
-      <!-- Lock shackle - thicker and rounder -->
+      <!-- Lock shackle - perfectly centered -->
       <path
-          android:strokeWidth="4"
+          android:strokeWidth="3.5"
           android:strokeColor="@color/discord_blurple"
           android:fillColor="#00000000"
           android:strokeLineCap="round"
-          android:pathData="M-7,-10 A7,7 0 0,1 7,-10 L7,0"/>
+          android:pathData="M-6,-8 A6,6 0 0,1 6,-8 L6,2"/>
       
-      <!-- Keyhole - Discord style -->
+      <!-- Keyhole - perfectly centered -->
       <path
           android:fillColor="@color/discord_white"
-          android:pathData="M0,4 A4,4 0 0,1 4,8 A4,4 0 0,1 0,12 A4,4 0 0,1 -4,8 A4,4 0 0,1 0,4 Z"/>
+          android:pathData="M0,7 A3,3 0 0,1 3,10 A3,3 0 0,1 0,13 A3,3 0 0,1 -3,10 A3,3 0 0,1 0,7 Z"/>
       
       <path
           android:fillColor="@color/discord_white"
-          android:pathData="M-2,8 L2,8 L3,14 L-3,14 Z"/>
+          android:pathData="M-1.5,10 L1.5,10 L2,15 L-2,15 Z"/>
     </group>
     
-    <!-- Discord-style decorative elements - perfectly balanced -->
-    <!-- Top indicator -->
+    <!-- Symmetrical decorative elements - perfectly balanced -->
+    <!-- Four cardinal direction indicators - equal size and weight -->
     <path
         android:fillColor="@color/discord_green"
-        android:pathData="M0,-36 A4,4 0 0,1 4,-32 A4,4 0 0,1 0,-28 A4,4 0 0,1 -4,-32 A4,4 0 0,1 0,-36 Z"/>
+        android:pathData="M0,-32 A2.5,2.5 0 0,1 2.5,-29.5 A2.5,2.5 0 0,1 0,-27 A2.5,2.5 0 0,1 -2.5,-29.5 A2.5,2.5 0 0,1 0,-32 Z"/>
     
-    <!-- Side indicators - perfectly mirrored -->
+    <path
+        android:fillColor="@color/discord_green"
+        android:pathData="M32,0 A2.5,2.5 0 0,1 34.5,2.5 A2.5,2.5 0 0,1 32,5 A2.5,2.5 0 0,1 29.5,2.5 A2.5,2.5 0 0,1 32,0 Z"/>
+    
+    <path
+        android:fillColor="@color/discord_green"
+        android:pathData="M0,27 A2.5,2.5 0 0,1 2.5,29.5 A2.5,2.5 0 0,1 0,32 A2.5,2.5 0 0,1 -2.5,29.5 A2.5,2.5 0 0,1 0,27 Z"/>
+    
+    <path
+        android:fillColor="@color/discord_green"
+        android:pathData="M-32,0 A2.5,2.5 0 0,1 -29.5,2.5 A2.5,2.5 0 0,1 -32,5 A2.5,2.5 0 0,1 -34.5,2.5 A2.5,2.5 0 0,1 -32,0 Z"/>
+    
+    <!-- Four diagonal indicators - smaller, equal weight -->
     <path
         android:fillColor="@color/discord_yellow"
-        android:pathData="M-36,0 A3,3 0 0,1 -33,3 A3,3 0 0,1 -36,6 A3,3 0 0,1 -39,3 A3,3 0 0,1 -36,0 Z"/>
-    
-    <path
-        android:fillColor="@color/discord_yellow"
-        android:pathData="M36,0 A3,3 0 0,1 39,3 A3,3 0 0,1 36,6 A3,3 0 0,1 33,3 A3,3 0 0,1 36,0 Z"/>
-    
-    <!-- Bottom indicator -->
-    <path
-        android:fillColor="@color/discord_red"
         android:alpha="0.8"
-        android:pathData="M0,28 A3,3 0 0,1 3,31 A3,3 0 0,1 0,34 A3,3 0 0,1 -3,31 A3,3 0 0,1 0,28 Z"/>
+        android:pathData="M-18,-18 A2,2 0 0,1 -16,-16 A2,2 0 0,1 -18,-14 A2,2 0 0,1 -20,-16 A2,2 0 0,1 -18,-18 Z"/>
     
-    <!-- Crypto data patterns - symmetrically placed -->
-    <group android:alpha="0.3">
-      <!-- Left side binary pattern -->
-      <path android:fillColor="@color/discord_greyple" android:pathData="M-38,-12 A1.5,1.5 0 0,1 -36.5,-10.5 A1.5,1.5 0 0,1 -38,-9 A1.5,1.5 0 0,1 -39.5,-10.5 A1.5,1.5 0 0,1 -38,-12 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M-38,-6 A1.5,1.5 0 0,1 -36.5,-4.5 A1.5,1.5 0 0,1 -38,-3 A1.5,1.5 0 0,1 -39.5,-4.5 A1.5,1.5 0 0,1 -38,-6 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M-38,6 A1.5,1.5 0 0,1 -36.5,7.5 A1.5,1.5 0 0,1 -38,9 A1.5,1.5 0 0,1 -39.5,7.5 A1.5,1.5 0 0,1 -38,6 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M-38,12 A1.5,1.5 0 0,1 -36.5,13.5 A1.5,1.5 0 0,1 -38,15 A1.5,1.5 0 0,1 -39.5,13.5 A1.5,1.5 0 0,1 -38,12 Z"/>
-      
-      <!-- Right side binary pattern - perfectly mirrored -->
-      <path android:fillColor="@color/discord_greyple" android:pathData="M38,-12 A1.5,1.5 0 0,1 39.5,-10.5 A1.5,1.5 0 0,1 38,-9 A1.5,1.5 0 0,1 36.5,-10.5 A1.5,1.5 0 0,1 38,-12 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M38,-6 A1.5,1.5 0 0,1 39.5,-4.5 A1.5,1.5 0 0,1 38,-3 A1.5,1.5 0 0,1 36.5,-4.5 A1.5,1.5 0 0,1 38,-6 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M38,6 A1.5,1.5 0 0,1 39.5,7.5 A1.5,1.5 0 0,1 38,9 A1.5,1.5 0 0,1 36.5,7.5 A1.5,1.5 0 0,1 38,6 Z"/>
-      <path android:fillColor="@color/discord_greyple" android:pathData="M38,12 A1.5,1.5 0 0,1 39.5,13.5 A1.5,1.5 0 0,1 38,15 A1.5,1.5 0 0,1 36.5,13.5 A1.5,1.5 0 0,1 38,12 Z"/>
-    </group>
+    <path
+        android:fillColor="@color/discord_yellow"
+        android:alpha="0.8"
+        android:pathData="M18,-18 A2,2 0 0,1 20,-16 A2,2 0 0,1 18,-14 A2,2 0 0,1 16,-16 A2,2 0 0,1 18,-18 Z"/>
     
-    <!-- Subtle connection lines -->
-    <group android:alpha="0.2">
+    <path
+        android:fillColor="@color/discord_yellow"
+        android:alpha="0.8"
+        android:pathData="M18,14 A2,2 0 0,1 20,16 A2,2 0 0,1 18,18 A2,2 0 0,1 16,16 A2,2 0 0,1 18,14 Z"/>
+    
+    <path
+        android:fillColor="@color/discord_yellow"
+        android:alpha="0.8"
+        android:pathData="M-18,14 A2,2 0 0,1 -16,16 A2,2 0 0,1 -18,18 A2,2 0 0,1 -20,16 A2,2 0 0,1 -18,14 Z"/>
+    
+    <!-- Subtle connecting elements - perfectly symmetrical -->
+    <group android:alpha="0.25">
       <path
           android:strokeColor="@color/discord_blurple"
           android:fillColor="#00000000"
-          android:strokeWidth="1"
+          android:strokeWidth="0.8"
           android:strokeLineCap="round"
-          android:pathData="M-28,-20 Q-32,0 -28,20"/>
+          android:pathData="M-22,-22 Q-26,0 -22,22"/>
       <path
           android:strokeColor="@color/discord_blurple"
           android:fillColor="#00000000"
-          android:strokeWidth="1"
+          android:strokeWidth="0.8"
           android:strokeLineCap="round"
-          android:pathData="M28,-20 Q32,0 28,20"/>
+          android:pathData="M22,-22 Q26,0 22,22"/>
+      <path
+          android:strokeColor="@color/discord_blurple"
+          android:fillColor="#00000000"
+          android:strokeWidth="0.8"
+          android:strokeLineCap="round"
+          android:pathData="M-22,-22 Q0,-26 22,-22"/>
+      <path
+          android:strokeColor="@color/discord_blurple"
+          android:fillColor="#00000000"
+          android:strokeWidth="0.8"
+          android:strokeLineCap="round"
+          android:pathData="M-22,22 Q0,26 22,22"/>
     </group>
         
   </group>
